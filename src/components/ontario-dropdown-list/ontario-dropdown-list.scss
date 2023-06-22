@@ -1,0 +1,28 @@
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+	spacing;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+	colours;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
+@use '../../styles/form.scss';
+
+.ontario-dropdown {
+	background-color: colours.$ontario-colour-white;
+	background-position: right spacing.$spacing-2 center;
+	background-repeat: no-repeat;
+	background-size: spacing.$spacing-6;
+	padding-right: (spacing.$spacing-4 * 2.25);
+	cursor: pointer;
+
+	&.ontario-dropdown-hint-expander--true {
+		margin-bottom: spacing.$spacing-4;
+	}
+}
+
+/* These styles are to fix differences in default styling for dropdowns in IE */
+.ontario-dropdown::-ms-expand {
+	display: none;
+}
+
+.ontario-dropdown option {
+	font-weight: normal;
+}

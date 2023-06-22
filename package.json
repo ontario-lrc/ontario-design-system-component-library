@@ -1,0 +1,116 @@
+{
+	"name": "@ontario-lrc/ontario-design-system-component-library",
+	"version": "2.5.0",
+	"private": false,
+	"description": "Ontario Design System Component Library. This is a carbon-copy of @ontario-digital-service/ontario-design-system-component-library 2.5.0, with bug fixes discovered.",
+	"license": "Apache-2.0",
+	"main": "dist/index.cjs.js",
+	"unpkg": "dist/ontario-design-system-components/ontario-design-system-components.esm.js",
+	"module": "dist/index.js",
+	"types": "dist/types/index.d.ts",
+	"files":
+	[
+		"dist/",
+		"loader/",
+		"src/",
+		"www/",
+		"LICENSE",
+		"package.json",
+		"readme.md"
+	],
+	"scripts":
+	{
+		"build": "npm run build:stencil && npm run format",
+		"build:stencil": "stencil build --docs",
+		"clean": "rm -rf dist loader www",
+		"clean:full": "rm -rf node_modules && npm run clean",
+		"clean:icons": "rm -rf src/components/ontario-icon/ontario-icon-*.tsx",
+		"docs:assemble": "ts-node scripts/build-documentation-bundle.ts",
+		"format": "prettier --write .",
+		"generate": "stencil generate",
+		"generate:icons": "node src/components/ontario-icon/scripts/generate-icons.js",
+		"start": "stencil build --dev --watch --serve",
+		"test": "stencil test --spec --e2e",
+		"test.watch": "stencil test --spec --e2e --watchAll",
+		"test:e2e": "stencil test --e2e",
+		"test:unit": "stencil test --spec"
+	},
+	"dependencies":
+	{
+		"@ontario-lrc/ontario-design-system-global-styles": "2.5.0",
+		"@stencil/core": "2.20.0",
+		"validate-color": "^2.2.1"
+	},
+	"devDependencies":
+	{
+		"@stencil/angular-output-target": "^0.5.0",
+		"@stencil/react-output-target": "0.3.1",
+		"@stencil/sass": "^2.0.1",
+		"@types/jest": "^27.0.3",
+		"@types/node": "^18.14.2",
+		"@types/puppeteer": "^5.4.7",
+		"@types/uuid": "^9.0.0",
+		"babel-jest": "^29.3.1",
+		"fs-extra": "^11.1.0",
+		"glob": "^8.0.3",
+		"glob-promise": "^5.0.0",
+		"jest": "^27.0.3",
+		"jest-cli": "^27.4.5",
+		"jest-junit": "^15.0.0",
+		"jest-svg-transformer": "^1.0.0",
+		"json-loader": "^0.5.7",
+		"jszip": "^3.10.1",
+		"prettier": "^2.8.1",
+		"puppeteer": "^19.4.0",
+		"rollup-plugin-dotenv": "^0.4.1",
+		"stencil-inline-svg": "^1.1.0",
+		"svgson": "^5.2.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.9.4",
+		"validate-color": "^2.2.1"
+	},
+	"publishConfig":
+	{
+		"access": "public"
+	},
+	"authors": [
+		{
+			"name": "Scott Morris",
+			"email": "Scott.Morris@ontario.ca"
+		},
+		{
+			"name": "Elsa Ng",
+			"email": "Elsa.Ng@ontario.ca"
+		},
+		{
+			"name": "Erin Carrieres",
+			"email": "Erin.Carrieres@ontario.ca"
+		},
+		{
+			"name": "Meaghan Carrieres",
+			"email": "Meaghan.Carrieres@ontario.ca"
+		},
+		{
+			"name": "Nakib Momin",
+			"email": "nakib.momin@ontario.ca"
+		},
+		{
+			"name": "Dawid Kasperowicz",
+			"email": "dawid.kasperowicz@ontario.ca"
+		}
+	],
+	"collection": "dist/collection/collection-manifest.json",
+	"collection:main": "dist/collection/index.js",
+	"es2015": "dist/esm/index.mjs",
+	"es2017": "dist/esm/index.mjs",
+	"repository":
+	{
+		"type": "git",
+		"url": "https://github.com/ontario-lrc/ontario-design-system-component-library"
+	},
+	"bugs":
+	{
+		"url": "https://github.com/ontario-lrc/ontario-design-system-component-library/issues"
+	},
+	"homepage": "https://github.com/ontario-lrc/ontario-design-system-component-library/blob/main/README.md"
+}

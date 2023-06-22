@@ -1,0 +1,44 @@
+/*
+*  Global variables
+*
+*  Used across multiple components
+*/
+/* -------------------------------
+    Global spacing variables
+--------------------------------- */
+/*
+*  Global colour variables
+*
+*  1 - Greyscale colours
+*  2 - System colours
+*  3 - Accent colours
+*    3.1 - Main
+*    3.2 - Light
+*    3.3 - Dark
+*    3.4 - Callout backgrounds
+*/
+/*** 1 - Greyscale colours ***/
+/*** 2 - System colours ***/
+/*** 3 - Accent colours ***/
+/* Main */
+/* Light */
+/* Dark */
+/* callout backgrounds */
+/* icon colours */
+/* service ontario header colours */
+.ontario-hint {
+	color: #4d4d4d;
+	display: inline-block;
+	margin: 0 0 1rem 0;
+	width: 100%;
+	max-width: 48rem;
+}
+.ontario-hint p {
+	margin-bottom: 1rem;
+}
+.ontario-hint p:first-of-type {
+	margin-top: 0;
+}
+.ontario-hint p:last-of-type {
+	margin-bottom: 0;
+}

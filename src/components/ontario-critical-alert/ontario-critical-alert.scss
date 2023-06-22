@@ -1,0 +1,71 @@
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+	spacing;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+	colours;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
+	as fontWeights;
+@use '../../styles/grid.scss';
+
+$ontario-critical-alert-icon-size: 28px;
+$ontario-critical-alert-z-index: 10;
+$ontario-critical-alert-svg-margin--custom: 0.85rem;
+$ontario-critical-alert-line-height: 1.8;
+
+.ontario-critical-alert {
+	background-color: colours.$ontario-colour-warning;
+	font-weight: fontWeights.$ontario-font-weights-normal;
+	margin: spacing.$spacing-0;
+	padding: spacing.$spacing-4 spacing.$spacing-0;
+	position: relative;
+	z-index: $ontario-critical-alert-z-index;
+}
+
+.ontario-critical-alert__body {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.ontario-critical-alert__icon {
+	display: flex;
+
+	svg {
+		width: $ontario-critical-alert-icon-size;
+		height: $ontario-critical-alert-icon-size;
+		margin: spacing.$spacing-0 $ontario-critical-alert-svg-margin--custom spacing.$spacing-0 spacing.$spacing-0;
+	}
+}
+
+.ontario-critical-alert p {
+	margin: spacing.$spacing-0;
+	padding: spacing.$spacing-0;
+	line-height: $ontario-critical-alert-line-height;
+}
+
+.ontario-critical-alert a {
+	color: colours.$ontario-colour-black;
+	font-weight: fontWeights.$ontario-font-weights-bold;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+
+	&:visited {
+		color: colours.$ontario-colour-black;
+	}
+}
+
+// Slotted content styles
+.ontario-critical-alert ::slotted(a) {
+	color: colours.$ontario-colour-black !important;
+	font-weight: fontWeights.$ontario-font-weights-bold;
+}
+
+.ontario-critical-alert ::slotted(a:hover),
+.ontario-critical-alert ::slotted(a:focus) {
+	text-decoration: none !important;
+}
+
+.ontario-critical-alert ::slotted(a:visited) {
+	color: colours.$ontario-colour-black;
+}

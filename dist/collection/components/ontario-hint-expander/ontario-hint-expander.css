@@ -1,0 +1,136 @@
+/*
+*  Global variables
+*
+*  Used across multiple components
+*/
+/* -------------------------------
+    Global spacing variables
+--------------------------------- */
+/*
+*  Global colour variables
+*
+*  1 - Greyscale colours
+*  2 - System colours
+*  3 - Accent colours
+*    3.1 - Main
+*    3.2 - Light
+*    3.3 - Dark
+*    3.4 - Callout backgrounds
+*/
+/*** 1 - Greyscale colours ***/
+/*** 2 - System colours ***/
+/*** 3 - Accent colours ***/
+/* Main */
+/* Light */
+/* Dark */
+/* callout backgrounds */
+/* icon colours */
+/* service ontario header colours */
+/*** 1 - Breakpoint sizes for media queries ***/
+/* -------------------------------
+    Global font-weight variables
+--------------------------------- */
+/* -------------------------------
+    Global letter-spacing variables
+--------------------------------- */
+/* Rem calc function */
+/* -------------------------------
+    Global line-height variables
+--------------------------------- */
+/* -------------------------------
+    Global typography variables
+--------------------------------- */
+/* -------------------------------
+    Focus placeholder variables
+--------------------------------- */
+/* -------------------------------
+    Focus placeholder
+--------------------------------- */
+.ontario-hint-expander__button:focus,
+.ontario-hint-expander__button:active {
+	box-shadow: 0 0 0 4px #009adb;
+	outline: 4px solid transparent;
+	transition: box-shadow 0.1s ease-in-out;
+}
+
+/* -------------------------------
+    Global font-size variables
+--------------------------------- */
+.ontario-hint-expander__container {
+	max-width: 48rem;
+}
+
+.ontario-hint-expander__button {
+	color: #0066cc;
+	cursor: pointer;
+	background: none;
+	border: none;
+	display: flex;
+	align-items: center;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 1rem;
+	text-align: left;
+	margin: 0 0 1rem 0;
+	padding: 0 0.25rem 0 0;
+}
+.ontario-hint-expander__button-icon--close {
+	display: none;
+	margin-right: 0.25rem;
+}
+.ontario-hint-expander__button-icon--open {
+	display: inline-block;
+	margin-right: 0.25rem;
+}
+.ontario-hint-expander__button:hover {
+	color: #00478f;
+}
+.ontario-hint-expander__button:active {
+	color: #002142;
+}
+.ontario-hint-expander__button > * {
+	pointer-events: none;
+}
+
+.ontario-hint-expander__content {
+	border-left: 4px solid #cccccc;
+	color: #1a1a1a;
+	background-color: #f2f2f2;
+	display: none;
+	padding: 1rem 1rem 1rem calc(1rem + 0.25rem);
+	margin: 0 0 1rem 0.25rem;
+}
+.ontario-hint-expander__content *:first-child {
+	margin-top: 0;
+}
+.ontario-hint-expander__content *:last-child {
+	margin-bottom: 0;
+}
+.ontario-hint-expander__content img {
+	width: 100%;
+}
+@media screen and (min-width: 40em) {
+	.ontario-hint-expander__content img {
+		width: 50%;
+	}
+}
+
+.ontario-hint-expander__content.ontario-expander__content--opened {
+	display: block;
+}
+
+.ontario-hint-expander__container.ontario-expander--active .ontario-hint-expander__button-icon--close {
+	display: inline-block;
+}
+.ontario-hint-expander__container.ontario-expander--active .ontario-hint-expander__button-icon--open {
+	display: none;
+}
+
+.ontario-hint-expander__checkbox-exists-true {
+	margin: 0.75rem 0 0 0.5rem;
+}
+@media screen and (max-width: 40em) {
+	.ontario-hint-expander__checkbox-exists-true {
+		margin-top: 1rem;
+	}
+}

@@ -1,0 +1,86 @@
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
+	globalVariables;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+	spacing;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+	colours;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
+	as breakpoints;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
+	typography;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/line-heights.variables'
+	as lineHeights;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
+	as fontWeights;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
+	as globalFunctions;
+
+.ontario-blockquote {
+	border-left: 4px solid colours.$ontario-greyscale-70;
+	font-family: typography.$ontario-font-raleway-modified;
+	font-size: globalFunctions.rem-calc(19);
+	font-weight: fontWeights.$ontario-font-weights-normal;
+	letter-spacing: 0.025rem;
+	line-height: lineHeights.$ontario-line-height-8;
+	max-width: globalVariables.$standard-width;
+	margin: spacing.$spacing-6;
+	padding: spacing.$spacing-5 0 spacing.$spacing-5 spacing.$spacing-5;
+	quotes: '\201C''\201D';
+
+	@media screen and (max-width: breakpoints.$small-breakpoint) {
+		font-size: globalFunctions.rem-calc(18);
+		letter-spacing: 0.03rem;
+		line-height: lineHeights.$ontario-line-height-7;
+		margin: spacing.$spacing-5 spacing.$spacing-0 spacing.$spacing-6 spacing.$spacing-0;
+	}
+}
+
+.ontario-blockquote p {
+	margin: spacing.$spacing-0 spacing.$spacing-0 spacing.$spacing-5 spacing.$spacing-0;
+
+	&::before {
+		content: open-quote;
+	}
+
+	&::after {
+		content: close-quote;
+	}
+}
+
+.ontario-blockquote--short {
+	font-size: globalFunctions.rem-calc(28);
+	letter-spacing: 0.02rem;
+	line-height: lineHeights.$ontario-line-height-7;
+
+	@media screen and (max-width: breakpoints.$small-breakpoint) {
+		font-size: globalFunctions.rem-calc(23);
+		line-height: lineHeights.$ontario-line-height-6;
+	}
+}
+
+.ontario-blockquote__attribution,
+.ontario-blockquote__byline {
+	display: block;
+	font-size: globalFunctions.rem-calc(16);
+	letter-spacing: 0.025rem;
+	line-height: lineHeights.$ontario-line-height-8;
+	text-align: right;
+
+	@media screen and (max-width: breakpoints.$small-breakpoint) {
+		letter-spacing: 0.03rem;
+		line-height: lineHeights.$ontario-line-height-7;
+	}
+}
+
+.ontario-blockquote__attribution {
+	font-style: normal;
+	font-weight: fontWeights.$ontario-font-weights-bold;
+
+	&::before {
+		content: '\2014 \0020';
+	}
+}
+
+html[lang='fr'] blockquote {
+	quotes: '« ' ' »';
+}

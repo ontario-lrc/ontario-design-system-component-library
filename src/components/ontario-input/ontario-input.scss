@@ -1,0 +1,69 @@
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
+	globalVariables;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+	spacing;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+	colours;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
+	typography;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders'
+	as focusPlaceholders;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-sizes.variables' as
+	fontSizes;
+@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
+@use '../../styles/form.scss';
+
+$ontario-input-padding: 0.625rem;
+
+.ontario-input {
+	border: globalVariables.$border-size-standard solid colours.$ontario-colour-black;
+	border-radius: globalVariables.$global-radius;
+	box-sizing: border-box;
+	color: colours.$ontario-colour-black;
+	display: block;
+	font-size: fontSizes.$ontario-font-size-standard-body-text;
+	font-family: typography.$ontario-font-open-sans;
+	line-height: globalVariables.$line-height-default;
+	margin: spacing.$spacing-0 spacing.$spacing-0 spacing.$spacing-7;
+	max-width: globalVariables.$standard-width;
+	padding: $ontario-input-padding spacing.$spacing-4;
+	transition: focusPlaceholders.$ontario-focus-transition;
+	width: globalVariables.$full-width;
+
+	&:focus,
+	&:active {
+		@extend %ontario-focus !optional;
+	}
+}
+
+.ontario-input-hint-expander--true {
+	margin-bottom: spacing.$spacing-4;
+}
+
+.ontario-input--2-char-width {
+	max-width: 8ex;
+}
+
+.ontario-input--3-char-width {
+	max-width: 10ex;
+}
+
+.ontario-input--4-char-width {
+	max-width: 12ex;
+}
+
+.ontario-input--5-char-width {
+	max-width: 14ex;
+}
+
+.ontario-input--7-char-width {
+	max-width: 17ex;
+}
+
+.ontario-input--10-char-width {
+	max-width: 23ex;
+}
+
+.ontario-input--20-char-width {
+	max-width: 41ex;
+}
