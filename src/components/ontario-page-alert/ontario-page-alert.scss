@@ -1,14 +1,14 @@
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
 	globalVariables;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
 	spacing;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
 	colours;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
 	as breakpoints;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
 	as globalFunctions;
-@forward '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
+@forward '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
 
 $ontario-alert-link-focus: #6b0000;
 $ontario-alert-link-active: #280000;

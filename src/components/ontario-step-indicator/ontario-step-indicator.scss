@@ -1,11 +1,11 @@
 @use 'sass:math';
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
 	globalVariables;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
 	spacing;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
 	as breakpoints;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
 @use '../ontario-button/ontario-button.scss';
 
 $ontario-icon-size: 24px;

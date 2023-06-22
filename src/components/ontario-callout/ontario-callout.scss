@@ -1,10 +1,10 @@
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
 	spacing;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
 	colours;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
 	globalVariables;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/4-elements/global.elements';
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/4-elements/global.elements';
 
 .ontario-callout {
 	border-left: spacing.$spacing-1 solid colours.$ontario-colour-dark-teal;

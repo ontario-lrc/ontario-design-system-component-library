@@ -1,20 +1,20 @@
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
 	globalVariables;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
 	spacing;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
 	colours;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
 	as breakpoints;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
 	typography;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
 	as globalFunctions;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-sizes.variables' as
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-sizes.variables' as
 	fontSizes;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
 	as fontWeights;
-@use '@ontario-digital-service/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders'
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders'
 	as focusPlaceholders;
 
 $ontario-icon-margin-top: 0.125rem;
