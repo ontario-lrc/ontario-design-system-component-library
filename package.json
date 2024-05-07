@@ -1,6 +1,6 @@
 {
 	"name": "@ontario-lrc/ontario-design-system-component-library",
-	"version": "4.2.0",
+	"version": "4.2.1",
 	"private": false,
 	"description": "Ontario Design System Component Library. This is a carbon-copy of @ongov/ontario-design-system-component-library@4.2.0, with bug fixes discovered.",
 	"license": "Apache-2.0",
@@ -43,7 +43,7 @@
 	},
 	"dependencies":
 	{
-		"@ontario-lrc/ontario-design-system-global-styles": "4.2.0",
+		"@ontario-lrc/ontario-design-system-global-styles": "^4.2.0",
 		"@stencil/core": "^4.12.2",
 		"dotenv": "^16.3.1"
 	},
