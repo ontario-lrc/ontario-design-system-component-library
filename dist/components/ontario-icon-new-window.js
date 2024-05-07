@@ -1,13 +1,14 @@
 import { proxyCustomElement, HTMLElement, h } from '@stencil/core/internal/client';
-import { I as IconColours, v as validateColor } from './index2.js';
+import { I as IconColours, l as lib } from './index2.js';
 import { C as ConsoleMessageClass } from './console-message.js';
-import { v as validateValueAgainstArray } from './validation-functions.js';
+import { a as validateValueAgainstArray } from './validation-functions.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconNewWindowStyle0 = ontarioIconCss;
 
 const OntarioIconNewWindow$1 = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioIconNewWindow extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -53,7 +54,7 @@ const OntarioIconNewWindow$1 = /*@__PURE__*/ proxyCustomElement(
 			if (isValid) {
 				this.iconColourState = this.colour;
 			} else {
-				if (validateColor(this.colour)) {
+				if (lib(this.colour)) {
 					this.iconCustomColourState = this.colour;
 				} else {
 					this.iconColourState = this.warnDefaultColour();
@@ -93,12 +94,14 @@ const OntarioIconNewWindow$1 = /*@__PURE__*/ proxyCustomElement(
 			return h(
 				'div',
 				{
+					key: 'd11f1c600619d908c3e4d95992d8814420f4a4db',
 					class: `ontario-icon ontario-icon--${this.iconColourState} ontario-icon--width-${this.iconWidthState}`,
 					style: { width: `${this.iconWidthState}px` },
 				},
 				h(
 					'svg',
 					{
+						key: 'c7d8ad21d582504fcafd6f47294a0acb3e7e087d',
 						class: 'svg-icon',
 						style: { fill: `${this.iconCustomColourState}`, stroke: `${this.iconCustomColourState}` },
 						role: 'img',
@@ -108,6 +111,7 @@ const OntarioIconNewWindow$1 = /*@__PURE__*/ proxyCustomElement(
 						id: 'new-window',
 					},
 					h('path', {
+						key: '0e410f6301498958b2b9a9cdb8b29036411dbd0f',
 						d: 'M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.6l-9.83 9.83 1.4 1.4L19 6.4V10h2V3h-7z',
 					}),
 				),
@@ -120,7 +124,7 @@ const OntarioIconNewWindow$1 = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioIconCss;
+			return OntarioIconNewWindowStyle0;
 		}
 	},
 	[
@@ -132,6 +136,11 @@ const OntarioIconNewWindow$1 = /*@__PURE__*/ proxyCustomElement(
 			iconWidthState: [32],
 			iconColourState: [32],
 			iconCustomColourState: [32],
+		},
+		undefined,
+		{
+			iconWidth: ['validateWidth'],
+			colour: ['validateColour'],
 		},
 	],
 );
@@ -155,3 +164,5 @@ const OntarioIconNewWindow = OntarioIconNewWindow$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioIconNewWindow, defineCustomElement };
+
+//# sourceMappingURL=ontario-icon-new-window.js.map

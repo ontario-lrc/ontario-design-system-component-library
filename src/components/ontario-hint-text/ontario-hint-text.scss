@@ -1,9 +1,6 @@
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
-	globalVariables;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
-	colours;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as globalVariables;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as colours;
 
 .ontario-hint {
 	color: colours.$ontario-greyscale-70;
@@ -22,5 +19,13 @@
 		&:last-of-type {
 			margin-bottom: spacing.$spacing-0;
 		}
+	}
+
+	// Fractal component style coverage ↓
+	// This is a fix to prevent auto-detection of phone numbers in Firefox & Safari on iPhone devices
+	a[x-apple-data-detectors] {
+		color: inherit;
+		cursor: none;
+		text-decoration: none;
 	}
 }

@@ -148,6 +148,7 @@ export class OntarioAside {
 						HeadingLevelOptions: {
 							location: 'import',
 							path: '../../utils/components/callout-aside/callout-aside.interface',
+							id: 'src/utils/components/callout-aside/callout-aside.interface.ts::HeadingLevelOptions',
 						},
 					},
 				},
@@ -170,6 +171,7 @@ export class OntarioAside {
 						HeadingContentType: {
 							location: 'import',
 							path: '../../utils/components/callout-aside/callout-aside.interface',
+							id: 'src/utils/components/callout-aside/callout-aside.interface.ts::HeadingContentType',
 						},
 					},
 				},
@@ -231,6 +233,7 @@ export class OntarioAside {
 						HighlightColourOptions: {
 							location: 'import',
 							path: '../../utils/components/callout-aside/callout-aside.interface',
+							id: 'src/utils/components/callout-aside/callout-aside.interface.ts::HighlightColourOptions',
 						},
 					},
 				},
@@ -267,3 +270,4 @@ export class OntarioAside {
 		];
 	}
 }
+//# sourceMappingURL=ontario-aside.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"common.variables.js","sourceRoot":"","sources":["../../../src/utils/common/common.variables.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,kBAAkB,GAAG,CAAC,CAAC;AACpC,MAAM,CAAC,MAAM,kBAAkB,GAAG,EAAE,CAAC","sourcesContent":["export const minimumGridColumns = 1;\nexport const maximumGridColumns = 12;\n"]}

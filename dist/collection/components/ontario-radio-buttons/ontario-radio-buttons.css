@@ -27,14 +27,14 @@
 /* callout backgrounds */
 /* icon colours */
 /* service ontario header colours */
-/*** 1 - Breakpoint sizes for media queries ***/
-/* -------------------------------
+/*** 1 - Breakpoint sizes for media queries ***/ /* -------------------------------
     Global font-weight variables
 --------------------------------- */
 /* -------------------------------
     Global letter-spacing variables
 --------------------------------- */
 /* Rem calc function */
+/* Pixel to REM Conversion */
 /* -------------------------------
     Global line-height variables
 --------------------------------- */
@@ -51,6 +51,8 @@ h3,
 .ontario-h3,
 h2,
 .ontario-h2,
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1,
 h1,
 .ontario-h1 {
 	font-style: normal;
@@ -61,6 +63,8 @@ h1,
 	font-family: 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1,
 h1,
 .ontario-h1 {
 	font-size: 2rem;
@@ -70,6 +74,8 @@ h1,
 	max-width: 70rem;
 }
 @media screen and (min-width: 40em) {
+	.ontario-fieldset__legend--large h1,
+	.ontario-fieldset__legend--heading h1,
 	h1,
 	.ontario-h1 {
 		font-size: 2.5rem;
@@ -386,6 +392,11 @@ ol li:last-child {
 	padding-bottom: 0;
 }
 
+ul[class*='columns-'] li:last-child,
+ol[class*='columns-'] li:last-child {
+	padding-bottom: 0.75rem;
+}
+
 ul ul,
 ol ul {
 	margin: 0.5rem 0 0.5rem 2rem;
@@ -405,16 +416,13 @@ p + ol {
 	ul {
 		margin: 0.5rem 0 1.5rem 3rem;
 	}
-
 	ol {
 		margin: 0.5rem 0 1.5rem 2.75rem;
 	}
-
 	ul ul,
 	ol ul {
 		margin: 0.5rem 0 0.5rem 3rem;
 	}
-
 	ul ol,
 	ol ol {
 		margin: 0.5rem 0 0.5rem 2.75rem;
@@ -444,14 +452,12 @@ p + ol {
 
 .ontario-fieldset__legend--large,
 .ontario-fieldset__legend--heading {
-	font-size: 1.75rem;
 	letter-spacing: 0.02rem;
 	line-height: 1.2;
 }
 .ontario-fieldset__legend--large h1,
 .ontario-fieldset__legend--heading h1 {
 	display: inline-block;
-	font-size: inherit;
 	margin: 0;
 }
 @media screen and (max-width: 40em) {
@@ -460,6 +466,10 @@ p + ol {
 		font-size: 1.4375rem;
 		line-height: 1.39;
 	}
+}
+
+.ontario-fieldset__legend--large {
+	font-size: 1.75rem;
 }
 
 .ontario-fieldset__legend-required-flag,
@@ -602,6 +612,9 @@ p + ol {
 	display: block;
 	margin: 0 0 1rem;
 	padding: 0 2rem 0;
+}
+.ontario-radios__item:last-of-type {
+	margin-bottom: 0;
 }
 
 .ontario-radios__input {

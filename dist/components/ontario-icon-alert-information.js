@@ -4,3 +4,5 @@ const OntarioIconAlertInformation = OntarioIconAlertInformation$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioIconAlertInformation, defineCustomElement };
+
+//# sourceMappingURL=ontario-icon-alert-information.js.map

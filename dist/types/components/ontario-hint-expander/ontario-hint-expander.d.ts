@@ -33,7 +33,7 @@ export declare class OntarioHintExpander implements HintExpander {
 	/**
 	 * Emitted when a keyboard input or mouse event occurs.
 	 */
-	toggleExpanderEvent: EventEmitter<any>;
+	toggleExpanderEvent: EventEmitter<MouseEvent | KeyboardEvent>;
 	/**
 	 * Watch for changes to the `hintContentType` prop for validation purposes.
 	 * If none is provided, or the wrong type is provided, it will default to `string`.

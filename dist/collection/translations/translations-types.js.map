@@ -1,0 +1,1 @@
+{"version":3,"file":"translations-types.js","sourceRoot":"","sources":["../../src/translations/translations-types.ts"],"names":[],"mappings":"","sourcesContent":["import translations from './global.i18n.json';\n\nexport type Translations = typeof translations;\n"]}

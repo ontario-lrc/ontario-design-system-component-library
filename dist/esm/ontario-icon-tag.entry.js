@@ -1,9 +1,10 @@
-import { r as registerInstance, h } from './index-3675b4ba.js';
-import { v as validateValueAgainstArray, I as IconColours, d as validateColor } from './index-12fd087d.js';
-import { C as ConsoleMessageClass } from './console-message-b539abf6.js';
+import { r as registerInstance, h } from './index-603026f7.js';
+import { a as validateValueAgainstArray, I as IconColours, l as lib } from './index-500b6334.js';
+import { C as ConsoleMessageClass } from './console-message-0b8e564e.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconTagStyle0 = ontarioIconCss;
 
 const OntarioIconTag = class {
 	constructor(hostRef) {
@@ -49,7 +50,7 @@ const OntarioIconTag = class {
 		if (isValid) {
 			this.iconColourState = this.colour;
 		} else {
-			if (validateColor(this.colour)) {
+			if (lib(this.colour)) {
 				this.iconCustomColourState = this.colour;
 			} else {
 				this.iconColourState = this.warnDefaultColour();
@@ -89,12 +90,14 @@ const OntarioIconTag = class {
 		return h(
 			'div',
 			{
+				key: '16d8afb085bcfcfdbe2ac4d8b2a4bb70e9be6716',
 				class: `ontario-icon ontario-icon--${this.iconColourState} ontario-icon--width-${this.iconWidthState}`,
 				style: { width: `${this.iconWidthState}px` },
 			},
 			h(
 				'svg',
 				{
+					key: '53df1da267ada92aa77278be1f863ab9f79e9b90',
 					class: 'svg-icon',
 					style: { fill: `${this.iconCustomColourState}`, stroke: `${this.iconCustomColourState}` },
 					role: 'img',
@@ -103,6 +106,7 @@ const OntarioIconTag = class {
 					id: 'tag',
 				},
 				h('path', {
+					key: 'c4baa79d165ef9989f4c176c08e906f275fa7362',
 					d: 'M5.5 7A1.5 1.5 0 0 1 4 5.5 1.5 1.5 0 0 1 5.5 4 1.5 1.5 0 0 1 7 5.5 1.5 1.5 0 0 1 5.5 7zm15.9 4.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.6 1.4l9 9c.37.36.87.6 1.42.6s1.05-.23 1.4-.6l7-7c.37-.36.6-.86.6-1.4a2 2 0 0 0-.59-1.42z',
 				}),
 			),
@@ -115,6 +119,8 @@ const OntarioIconTag = class {
 		};
 	}
 };
-OntarioIconTag.style = ontarioIconCss;
+OntarioIconTag.style = OntarioIconTagStyle0;
 
 export { OntarioIconTag as ontario_icon_tag };
+
+//# sourceMappingURL=ontario-icon-tag.entry.js.map

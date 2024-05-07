@@ -1,13 +1,14 @@
 import { proxyCustomElement, HTMLElement, h } from '@stencil/core/internal/client';
-import { I as IconColours, v as validateColor } from './index2.js';
+import { I as IconColours, l as lib } from './index2.js';
 import { C as ConsoleMessageClass } from './console-message.js';
-import { v as validateValueAgainstArray } from './validation-functions.js';
+import { a as validateValueAgainstArray } from './validation-functions.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconCalendarStyle0 = ontarioIconCss;
 
 const OntarioIconCalendar$1 = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioIconCalendar extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -53,7 +54,7 @@ const OntarioIconCalendar$1 = /*@__PURE__*/ proxyCustomElement(
 			if (isValid) {
 				this.iconColourState = this.colour;
 			} else {
-				if (validateColor(this.colour)) {
+				if (lib(this.colour)) {
 					this.iconCustomColourState = this.colour;
 				} else {
 					this.iconColourState = this.warnDefaultColour();
@@ -93,12 +94,14 @@ const OntarioIconCalendar$1 = /*@__PURE__*/ proxyCustomElement(
 			return h(
 				'div',
 				{
+					key: 'fa2c7a9151a0a262ebf9a06deb34666d38637d90',
 					class: `ontario-icon ontario-icon--${this.iconColourState} ontario-icon--width-${this.iconWidthState}`,
 					style: { width: `${this.iconWidthState}px` },
 				},
 				h(
 					'svg',
 					{
+						key: 'cf50fda8e58671c2b753cb52c0e0bad0bf37ee97',
 						class: 'svg-icon',
 						style: { fill: `${this.iconCustomColourState}`, stroke: `${this.iconCustomColourState}` },
 						role: 'img',
@@ -107,6 +110,7 @@ const OntarioIconCalendar$1 = /*@__PURE__*/ proxyCustomElement(
 						id: 'calendar',
 					},
 					h('path', {
+						key: '5b1dc893b551201022c2f05c3eb2ef382d57622d',
 						d: 'M9 10v2H7v-2h2zm4 0v2h-2v-2h2zm4 0v2h-2v-2h2zm2-7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V1h2v2h8V1h2v2h1zm0 16V8H5v11h14zM9 14v2H7v-2h2zm4 0v2h-2v-2h2zm4 0v2h-2v-2h2z',
 					}),
 				),
@@ -119,7 +123,7 @@ const OntarioIconCalendar$1 = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioIconCss;
+			return OntarioIconCalendarStyle0;
 		}
 	},
 	[
@@ -131,6 +135,11 @@ const OntarioIconCalendar$1 = /*@__PURE__*/ proxyCustomElement(
 			iconWidthState: [32],
 			iconColourState: [32],
 			iconCustomColourState: [32],
+		},
+		undefined,
+		{
+			iconWidth: ['validateWidth'],
+			colour: ['validateColour'],
 		},
 	],
 );
@@ -154,3 +163,5 @@ const OntarioIconCalendar = OntarioIconCalendar$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioIconCalendar, defineCustomElement };
+
+//# sourceMappingURL=ontario-icon-calendar.js.map

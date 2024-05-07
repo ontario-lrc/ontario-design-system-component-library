@@ -10,4 +10,4 @@
 	}
 })();
 export * from '../dist/esm/polyfills/index.js';
-export * from '../dist/esm-es5/loader.js';
+export * from '../dist/esm/loader.js';

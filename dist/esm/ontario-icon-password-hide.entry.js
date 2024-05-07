@@ -1,9 +1,10 @@
-import { r as registerInstance, h } from './index-3675b4ba.js';
-import { v as validateValueAgainstArray, I as IconColours, d as validateColor } from './index-12fd087d.js';
-import { C as ConsoleMessageClass } from './console-message-b539abf6.js';
+import { r as registerInstance, h } from './index-603026f7.js';
+import { a as validateValueAgainstArray, I as IconColours, l as lib } from './index-500b6334.js';
+import { C as ConsoleMessageClass } from './console-message-0b8e564e.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconPasswordHideStyle0 = ontarioIconCss;
 
 const OntarioIconPasswordHide = class {
 	constructor(hostRef) {
@@ -49,7 +50,7 @@ const OntarioIconPasswordHide = class {
 		if (isValid) {
 			this.iconColourState = this.colour;
 		} else {
-			if (validateColor(this.colour)) {
+			if (lib(this.colour)) {
 				this.iconCustomColourState = this.colour;
 			} else {
 				this.iconColourState = this.warnDefaultColour();
@@ -89,12 +90,14 @@ const OntarioIconPasswordHide = class {
 		return h(
 			'div',
 			{
+				key: '404fbac60a95646e6e604d18604c796299dbce81',
 				class: `ontario-icon ontario-icon--${this.iconColourState} ontario-icon--width-${this.iconWidthState}`,
 				style: { width: `${this.iconWidthState}px` },
 			},
 			h(
 				'svg',
 				{
+					key: 'baffe83cace0bcfad684754a753d78d2ef5b98e6',
 					class: 'svg-icon',
 					style: { fill: `${this.iconCustomColourState}`, stroke: `${this.iconCustomColourState}` },
 					role: 'img',
@@ -103,6 +106,7 @@ const OntarioIconPasswordHide = class {
 					id: 'password-hide',
 				},
 				h('path', {
+					key: 'a9e771ba6d1ce5fb8bebc7056260afdd3232f952',
 					d: 'M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.5-1.26 2.7-2.9 3.43-4.75-1.73-4.4-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27L4.74 7c-1.66 1.3-2.96 3-3.74 5 1.73 4.4 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55A2.82 2.82 0 0 0 9 12c0 1.66 1.34 3 3 3a2.82 2.82 0 0 0 .65-.08l1.55 1.55c-.67.33-1.4.53-2.2.53-2.76 0-5-2.24-5-5 0-.8.2-1.53.53-2.2zm4.3-.78L15 12.17V12c0-1.66-1.34-3-3-3l-.17.01z',
 				}),
 			),
@@ -115,6 +119,8 @@ const OntarioIconPasswordHide = class {
 		};
 	}
 };
-OntarioIconPasswordHide.style = ontarioIconCss;
+OntarioIconPasswordHide.style = OntarioIconPasswordHideStyle0;
 
 export { OntarioIconPasswordHide as ontario_icon_password_hide };
+
+//# sourceMappingURL=ontario-icon-password-hide.entry.js.map

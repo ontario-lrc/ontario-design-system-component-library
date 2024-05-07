@@ -4,3 +4,4 @@ setMode((elm) => {
 	// function must return one of the style "modes" defined in step 1.
 	return elm.type;
 });
+//# sourceMappingURL=global.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"ontario-header.enum.js","sourceRoot":"","sources":["../../../src/components/ontario-header/ontario-header.enum.ts"],"names":[],"mappings":"AAAA,MAAM,CAAN,IAAY,qBAEX;AAFD,WAAY,qBAAqB;IAChC,sCAAa,CAAA;AACd,CAAC,EAFW,qBAAqB,KAArB,qBAAqB,QAEhC","sourcesContent":["export enum DrupalMenuMachineName {\n\tMain = 'main',\n}\n"]}

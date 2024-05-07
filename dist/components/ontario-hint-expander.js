@@ -4,3 +4,5 @@ const OntarioHintExpander = OntarioHintExpander$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioHintExpander, defineCustomElement };
+
+//# sourceMappingURL=ontario-hint-expander.js.map

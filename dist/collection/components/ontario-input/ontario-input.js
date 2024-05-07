@@ -3,31 +3,14 @@ import { v4 as uuid } from 'uuid';
 import { Input } from '../../utils/common/input/input';
 import { InputCaption } from '../../utils/common/input-caption/input-caption';
 import { validateLanguage, validatePropExists } from '../../utils/validation/validation-functions';
+import { translations as globalTranslations } from '../../translations';
 import { constructHintTextObject } from '../../utils/components/hints/hints';
 import { EventType } from '../../utils/events/event-handler.interface';
 import { handleInputEvent } from '../../utils/events/event-handler';
 import { ConsoleMessageClass } from '../../utils/console-message/console-message';
-import { default as translations } from '../../translations/global.i18n.json';
+import { ErrorMessage } from '../../utils/components/error-message/error-message';
 export class OntarioInput {
 	constructor() {
-		/**
-		 * Function to handle input events and the information pertaining to the input to emit.
-		 */
-		this.handleEvent = (ev, eventType) => {
-			const input = ev.target;
-			handleInputEvent(
-				ev,
-				eventType,
-				input,
-				this.inputOnChange,
-				this.inputOnFocus,
-				this.inputOnBlur,
-				'input',
-				this.customOnChange,
-				this.customOnFocus,
-				this.customOnBlur,
-			);
-		};
 		this.caption = undefined;
 		this.elementId = undefined;
 		this.inputWidth = 'default';
@@ -36,24 +19,43 @@ export class OntarioInput {
 		this.required = false;
 		this.type = 'text';
 		this.value = undefined;
+		this.errorMessage = undefined;
 		this.language = 'en';
 		this.hintExpander = undefined;
 		this.hintTextId = undefined;
+		this.enableLiveValidation = false;
+		this.inputValidator = undefined;
+		this.customOnInput = undefined;
 		this.customOnChange = undefined;
 		this.customOnBlur = undefined;
 		this.customOnFocus = undefined;
+		this.requiredValidationMessage = undefined;
 		this.internalHintText = undefined;
 		this.internalHintExpander = undefined;
 		this.captionState = undefined;
+		this.hasBeenInteractedWith = false;
+		this.translations = globalTranslations;
 	}
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
+	 * @param event The language that has been selected.
 	 */
 	handleSetAppLanguage(event) {
 		this.language = validateLanguage(event);
 	}
+	/**
+	 * Handles an update to the language should the user request a language update from the language toggle.
+	 * @param event The language that has been selected.
+	 */
 	handleHeaderLanguageToggled(event) {
-		this.language = validateLanguage(event);
+		this.language = validateLanguage(event.detail.newLanguage);
+	}
+	/**
+	 * Handle the change in the `value` property and validate if the input has been interacted with by
+	 * the user to aid in determining if the required state should produce an error.
+	 */
+	handleValueChange() {
+		this.hasBeenInteractedWith = this.hasBeenInteractedWith || !!this.value;
 	}
 	/*
 	 * Watch for changes in the `name` prop for validation purposes.
@@ -106,7 +108,7 @@ export class OntarioInput {
 		this.captionState = new InputCaption(
 			this.element.tagName,
 			newValue,
-			translations,
+			this.translations,
 			this.language,
 			false,
 			this.required,
@@ -118,8 +120,67 @@ export class OntarioInput {
 	updateLanguage() {
 		this.updateCaptionState(this.caption);
 	}
+	/**
+	 * Handle the component being blurred and perform validation logic on the input.  Custom validation
+	 * takes persistance, followed by validating the required state.
+	 *
+	 * Finally, an event is emitted to notify anything listening for the `inputErrorOccurred` that
+	 * an error occurred.
+	 */
+	async handleComponentBlur() {
+		if (this.enableLiveValidation) {
+			// Call inputValidator function to perform custom validation
+			const validationResult = this.inputValidator && this.inputValidator(this.value);
+			await (validationResult === null || validationResult === void 0
+				? void 0
+				: validationResult.then((x) => (this.errorMessage = x === null || x === void 0 ? void 0 : x.errorMessage)));
+			// Validate the `required` field
+			// Only report a required error if no other error message is reported via validation
+			if (this.required && this.hasBeenInteractedWith && !validationResult)
+				if (!this.value)
+					this.errorMessage =
+						this.requiredValidationMessage || this.translations.input.requiredFieldError[this.getComponentLanguage()];
+				else this.errorMessage = undefined;
+		}
+	}
+	broadcastInputErrorOccurredEvent() {
+		var _a;
+		// Emit event to notify anyone who wants to listen for errors occurring
+		this.inputErrorOccurred.emit({
+			inputId: this.getId(),
+			errorMessage: (_a = this.errorMessage) !== null && _a !== void 0 ? _a : '',
+		});
+	}
+	/**
+	 * Function to handle input events and the information pertaining to the input to emit.
+	 */
+	handleEvent(event, eventType) {
+		var _a, _b, _c;
+		const input = event.target;
+		// Update the component value to match the value of the input element.
+		this.value = input === null || input === void 0 ? void 0 : input.value;
+		(_b = (_a = this.internals) === null || _a === void 0 ? void 0 : _a.setFormValue) === null || _b === void 0
+			? void 0
+			: _b.call(_a, (_c = this.value) !== null && _c !== void 0 ? _c : '');
+		handleInputEvent(
+			event,
+			eventType,
+			input,
+			this.inputOnChange,
+			this.inputOnFocus,
+			this.inputOnBlur,
+			this.inputOnInput,
+			'input',
+			this.customOnChange,
+			this.customOnFocus,
+			this.customOnBlur,
+			this.customOnInput,
+			this.element,
+		);
+	}
 	getId() {
 		var _a;
+		// A UUID is assigned in `componentWillLoad` if there is no given `elementId`.
 		return (_a = this.elementId) !== null && _a !== void 0 ? _a : '';
 	}
 	getValue() {
@@ -134,6 +195,10 @@ export class OntarioInput {
 		} else {
 			return this.inputWidth === 'default' ? `ontario-input` : `ontario-input ontario-input--${this.inputWidth}`;
 		}
+	}
+	getComponentLanguage() {
+		var _a;
+		return (_a = this.language) !== null && _a !== void 0 ? _a : 'en';
 	}
 	/**
 	 * If a `hintText` prop is passed, the id generated from it will be set to the internal `hintTextId` state to match with the input `aria-describedBy` attribute.
@@ -152,9 +217,13 @@ export class OntarioInput {
 		this.language = validateLanguage(this.language);
 	}
 	render() {
+		const error = !!this.errorMessage;
 		return h(
 			'div',
-			{ class: 'ontario-form-group' },
+			{
+				key: '6824b3fc596dd144fac82b9483d4a30e6cd0c164',
+				class: `ontario-form-group ${error ? 'ontario-input--error' : ''}`,
+			},
 			this.captionState.getCaption(this.getId(), !!this.internalHintExpander),
 			this.internalHintText &&
 				h('ontario-hint-text', {
@@ -162,12 +231,15 @@ export class OntarioInput {
 					hintContentType: this.internalHintText.hintContentType,
 					ref: (el) => (this.hintTextRef = el),
 				}),
+			h(ErrorMessage, { key: 'd46e5883decc5d9bac5b322804d6d69dcf6952af', message: this.errorMessage, error: error }),
 			h(Input, {
+				'key': '64b93de051e0b52ce75d23b00166558b121558f3',
 				'aria-describedBy': this.hintTextId,
 				'className': this.getClass(),
 				'id': this.getId(),
 				'name': this.name,
-				'onInput': (e) => this.handleEvent(e, EventType.Change),
+				'onInput': (e) => this.handleEvent(e, EventType.Input),
+				'onChange': (e) => this.handleEvent(e, EventType.Change),
 				'onBlur': (e) => this.handleEvent(e, EventType.Blur),
 				'onFocus': (e) => this.handleEvent(e, EventType.Focus),
 				'type': this.type,
@@ -187,6 +259,9 @@ export class OntarioInput {
 	}
 	static get encapsulation() {
 		return 'shadow';
+	}
+	static get formAssociated() {
+		return true;
 	}
 	static get originalStyleUrls() {
 		return {
@@ -210,6 +285,7 @@ export class OntarioInput {
 						Caption: {
 							location: 'import',
 							path: '../../utils/common/input-caption/caption.interface',
+							id: 'src/utils/common/input-caption/caption.interface.ts::Caption',
 						},
 					},
 				},
@@ -291,6 +367,7 @@ export class OntarioInput {
 						Hint: {
 							location: 'import',
 							path: '../../utils/common/common.interface',
+							id: 'src/utils/common/common.interface.ts::Hint',
 						},
 					},
 				},
@@ -314,8 +391,13 @@ export class OntarioInput {
 				required: false,
 				optional: true,
 				docs: {
-					tags: [],
-					text: 'This is used to determine whether the input is required or not.\nThis prop also gets passed to the InputCaption utility to display either an optional or required flag in the label.\nIf no prop is set, it will default to false (optional).',
+					tags: [
+						{
+							name: 'example',
+							text: '<ontario-input\n\tid="address-line-1"\n\tcaption="Address line 1"\n\trequired\n\trequired-validation-message="Please enter an address, including street number and street name"\n\tname="address-line-1"\n\thint-text="Street and number or P.O. box."\n></ontario-input>',
+						},
+					],
+					text: 'This is used to determine whether the input is required or not.\nThis prop also gets passed to the InputCaption utility to display either an optional or required flag in the label.\nIf no prop is set, it will default to false (optional).\n\n_Please add a validation messaging using `requiredValidationMessage` if setting this property._',
 				},
 				attribute: 'required',
 				reflect: false,
@@ -356,6 +438,23 @@ export class OntarioInput {
 				attribute: 'value',
 				reflect: false,
 			},
+			errorMessage: {
+				type: 'string',
+				mutable: true,
+				complexType: {
+					original: 'string',
+					resolved: 'string | undefined',
+					references: {},
+				},
+				required: false,
+				optional: true,
+				docs: {
+					tags: [],
+					text: 'Set this to display an',
+				},
+				attribute: 'error-message',
+				reflect: false,
+			},
 			language: {
 				type: 'string',
 				mutable: true,
@@ -366,6 +465,7 @@ export class OntarioInput {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -389,6 +489,7 @@ export class OntarioInput {
 						HintExpander: {
 							location: 'import',
 							path: '../ontario-hint-expander/hint-expander.interface',
+							id: 'src/components/ontario-hint-expander/hint-expander.interface.ts::HintExpander',
 						},
 					},
 				},
@@ -406,15 +507,35 @@ export class OntarioInput {
 				attribute: 'hint-expander',
 				reflect: false,
 			},
-			customOnChange: {
+			enableLiveValidation: {
+				type: 'boolean',
+				mutable: false,
+				complexType: {
+					original: 'boolean',
+					resolved: 'boolean',
+					references: {},
+				},
+				required: false,
+				optional: false,
+				docs: {
+					tags: [],
+					text: 'Enable live validation on the input.  Custom live validation can be performed using an `inputValidator`\nvalidation function.  It will also validate the `required` state if no errors are returned from\nthe `inputValidator`.  Please set a `requiredValidationMessage` to report concisely to the end user what\nthey are required to set.',
+				},
+				attribute: 'enable-live-validation',
+				reflect: false,
+				defaultValue: 'false',
+			},
+			inputValidator: {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(value?: string) => Promise<{ errorMessage?: string } | null | undefined>',
+					resolved:
+						'((value?: string | undefined) => Promise<{ errorMessage?: string | undefined; } | null | undefined>) | undefined',
 					references: {
-						Function: {
+						Promise: {
 							location: 'global',
+							id: 'global::Promise',
 						},
 					},
 				},
@@ -422,18 +543,59 @@ export class OntarioInput {
 				optional: true,
 				docs: {
 					tags: [],
-					text: 'Used to add a custom function to the textarea onChange event.',
+					text: 'Validate the validity of the input value `onBlur`.  This `async` function should return a result\nto trigger an error message.  Returning `undefined` or `null` will clear it.',
+				},
+			},
+			customOnInput: {
+				type: 'unknown',
+				mutable: false,
+				complexType: {
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
+					references: {
+						globalThis: {
+							location: 'global',
+							id: 'global::globalThis',
+						},
+					},
+				},
+				required: false,
+				optional: true,
+				docs: {
+					tags: [],
+					text: 'Used to add a custom function to the input onInput event.',
+				},
+			},
+			customOnChange: {
+				type: 'unknown',
+				mutable: false,
+				complexType: {
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
+					references: {
+						globalThis: {
+							location: 'global',
+							id: 'global::globalThis',
+						},
+					},
+				},
+				required: false,
+				optional: true,
+				docs: {
+					tags: [],
+					text: 'Used to add a custom function to the input onChange event.',
 				},
 			},
 			customOnBlur: {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -441,18 +603,19 @@ export class OntarioInput {
 				optional: true,
 				docs: {
 					tags: [],
-					text: 'Used to add a custom function to the textarea onBlur event.',
+					text: 'Used to add a custom function to the input onBlur event.',
 				},
 			},
 			customOnFocus: {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -460,8 +623,25 @@ export class OntarioInput {
 				optional: true,
 				docs: {
 					tags: [],
-					text: 'Used to add a custom function to the textarea onFocus event.',
+					text: 'Used to add a custom function to the input onFocus event.',
 				},
+			},
+			requiredValidationMessage: {
+				type: 'string',
+				mutable: false,
+				complexType: {
+					original: 'string',
+					resolved: 'string',
+					references: {},
+				},
+				required: false,
+				optional: false,
+				docs: {
+					tags: [],
+					text: 'Custom error message to display if a required field is not filled out.  _Please add a\ncustom message when setting an input as required_.',
+				},
+				attribute: 'required-validation-message',
+				reflect: false,
 			},
 		};
 	}
@@ -471,10 +651,34 @@ export class OntarioInput {
 			internalHintText: {},
 			internalHintExpander: {},
 			captionState: {},
+			hasBeenInteractedWith: {},
+			translations: {},
 		};
 	}
 	static get events() {
 		return [
+			{
+				method: 'inputOnInput',
+				name: 'inputOnInput',
+				bubbles: true,
+				cancelable: true,
+				composed: true,
+				docs: {
+					tags: [],
+					text: 'Emitted when a input  occurs when an input has been changed.',
+				},
+				complexType: {
+					original: 'InputInputEvent',
+					resolved: 'InputInteractionEvent & { inputType?: string | undefined; }',
+					references: {
+						InputInputEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputInputEvent',
+						},
+					},
+				},
+			},
 			{
 				method: 'inputOnChange',
 				name: 'inputOnChange',
@@ -486,9 +690,15 @@ export class OntarioInput {
 					text: 'Emitted when a keyboard input or mouse event occurs when an input has been changed.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputInteractionEvent',
+					resolved: '{ id?: string | undefined; value?: string | undefined; }',
+					references: {
+						InputInteractionEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputInteractionEvent',
+						},
+					},
 				},
 			},
 			{
@@ -502,9 +712,15 @@ export class OntarioInput {
 					text: 'Emitted when a keyboard input event occurs when an input has lost focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 			{
@@ -518,8 +734,30 @@ export class OntarioInput {
 					text: 'Emitted when a keyboard input event occurs when an input has gained focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
+				},
+			},
+			{
+				method: 'inputErrorOccurred',
+				name: 'inputErrorOccurred',
+				bubbles: true,
+				cancelable: true,
+				composed: true,
+				docs: {
+					tags: [],
+					text: 'Emitted when an error message is reported to the component.',
+				},
+				complexType: {
+					original: '{ inputId: string; errorMessage: string }',
+					resolved: '{ inputId: string; errorMessage: string; }',
 					references: {},
 				},
 			},
@@ -530,6 +768,10 @@ export class OntarioInput {
 	}
 	static get watchers() {
 		return [
+			{
+				propName: 'value',
+				methodName: 'handleValueChange',
+			},
 			{
 				propName: 'name',
 				methodName: 'validateName',
@@ -550,6 +792,10 @@ export class OntarioInput {
 				propName: 'language',
 				methodName: 'updateLanguage',
 			},
+			{
+				propName: 'errorMessage',
+				methodName: 'broadcastInputErrorOccurredEvent',
+			},
 		];
 	}
 	static get listeners() {
@@ -568,6 +814,17 @@ export class OntarioInput {
 				capture: false,
 				passive: false,
 			},
+			{
+				name: 'blur',
+				method: 'handleComponentBlur',
+				target: undefined,
+				capture: true,
+				passive: false,
+			},
 		];
 	}
+	static get attachInternalsMemberName() {
+		return 'internals';
+	}
 }
+//# sourceMappingURL=ontario-input.js.map

@@ -9,7 +9,7 @@ export class OntarioLoadingIndicator {
 		this.isLoading = false;
 		this.message = undefined;
 		this.fullScreenOverlay = true;
-		this.language = 'en';
+		this.language = undefined;
 		this.translations = translations;
 		this.isLoadingState = undefined;
 		this.typeState = undefined;
@@ -18,10 +18,18 @@ export class OntarioLoadingIndicator {
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
+	}
+	/**
+	 * Watch for changes in the `isLoading` prop.
+	 */
+	isLoadingChanged(newIsLoading) {
+		this.isLoadingState = newIsLoading;
 	}
 	/**
 	 * Watch for changes in the `type` variable for validation purposes.
@@ -194,6 +202,7 @@ export class OntarioLoadingIndicator {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -205,7 +214,6 @@ export class OntarioLoadingIndicator {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
 			},
 		};
 	}
@@ -218,6 +226,10 @@ export class OntarioLoadingIndicator {
 	}
 	static get watchers() {
 		return [
+			{
+				propName: 'isLoading',
+				methodName: 'isLoadingChanged',
+			},
 			{
 				propName: 'type',
 				methodName: 'validateType',
@@ -243,3 +255,4 @@ export class OntarioLoadingIndicator {
 		];
 	}
 }
+//# sourceMappingURL=ontario-loading-indicator.js.map

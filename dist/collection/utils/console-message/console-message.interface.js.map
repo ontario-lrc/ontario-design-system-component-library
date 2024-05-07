@@ -1,0 +1,1 @@
+{"version":3,"file":"console-message.interface.js","sourceRoot":"","sources":["../../../src/utils/console-message/console-message.interface.ts"],"names":[],"mappings":"","sourcesContent":["import { MessageStyle } from './console-message.enum';\n\nexport interface ConsoleMessage {\n\tmessage: string;\n\tstyle: MessageStyle;\n}\n"]}

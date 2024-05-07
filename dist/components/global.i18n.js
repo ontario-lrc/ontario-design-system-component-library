@@ -76,8 +76,8 @@ const printerLink = {
 };
 const languageToggle = {
 	ariaLabel: {
-		en: 'Switch language to French',
-		fr: 'Changer la langue en anglais',
+		en: 'Click to switch language to French',
+		fr: 'Cliquez pour changer de langue en anglais',
 	},
 };
 const stepIndicator = {
@@ -98,6 +98,134 @@ const stepIndicator = {
 		fr: 'complet',
 	},
 };
+const header = {
+	ontarioSearchURL: {
+		en: 'https://www.ontario.ca/search/search-results?query=',
+		fr: 'https://www.ontario.ca/fr/recherche/resultats-de-recherche/?query=',
+	},
+	logoLink: {
+		en: 'https://www.ontario.ca/page/government-ontario',
+		fr: 'https://www.ontario.ca/fr/page/gouvernement-de-lontario',
+	},
+	logoAltText: {
+		en: 'Ontario.ca homepage',
+		fr: 'Page d’accueil Ontario.ca',
+	},
+	clearSearchField: {
+		en: 'Clear field',
+		fr: 'Vider le champ',
+	},
+	submit: {
+		en: 'Submit',
+		fr: 'Soumission',
+	},
+	search: {
+		en: 'Search',
+		fr: 'Rechercher',
+	},
+	serviceOntario: {
+		en: 'ServiceOntario',
+		fr: 'ServiceOntario',
+	},
+	openMenu: {
+		en: 'Show navigation menu',
+		fr: 'Ouvrir le menu de navigation',
+	},
+	closeMenu: {
+		en: 'Hide navigation menu',
+		fr: 'Fermer le menu de navigation',
+	},
+	close: {
+		en: 'close',
+		fr: 'fermer',
+	},
+	closeSearch: {
+		en: 'Close search bar',
+		fr: 'Fermer la barre de recherche',
+	},
+};
+const input = {
+	requiredFieldError: {
+		en: 'This is a required field.',
+		fr: 'Ce champ est obligatoire.',
+	},
+};
+const dateInput = {
+	caption: {
+		en: 'Exact date',
+		fr: 'Dates exactes',
+	},
+	day: {
+		label: {
+			en: 'Day',
+			fr: 'Jour',
+		},
+		accessibility: {
+			en: '4 digits',
+			fr: '4 chiffres',
+		},
+	},
+	month: {
+		label: {
+			en: 'Month',
+			fr: 'Mois',
+		},
+		accessibility: {
+			en: '1 or 2 digits',
+			fr: '1 ou 2 chiffres',
+		},
+	},
+	year: {
+		label: {
+			en: 'Year',
+			fr: 'Année',
+		},
+		accessibility: {
+			en: '1 or 2 digits',
+			fr: '1 ou 2 chiffres',
+		},
+	},
+	error: {
+		en: {
+			emptyDay: 'Enter the day.',
+			emptyMonth: 'Enter the month.',
+			emptyYear: 'Enter the year.',
+			emptyDayAndMonth: 'Enter the month and day.',
+			emptyDayAndYear: 'Enter the year and day.',
+			emptyMonthAndYear: 'Enter the year and month.',
+			invalidDate: 'Enter a valid date.',
+			invalidDay: 'Enter a valid day.',
+			invalidMonth: 'Enter a valid month.',
+			invalidYear: 'Enter a valid year.',
+		},
+		fr: {
+			emptyDay: 'Saisissez le jour.',
+			emptyMonth: 'Saisissez le mois.',
+			emptyYear: 'Saisissez l’année.',
+			emptyDayAndMonth: 'Saisissez le mois et le jour.',
+			emptyDayAndYear: 'Saisissez l’année et le jour.',
+			emptyMonthAndYear: 'Saisissez l’année et le mois.',
+			invalidDate: 'Saisissez une date valide.',
+			invalidDay: 'Saisissez un jour valide.',
+			invalidMonth: 'Saisissez un mois valide.',
+			invalidYear: 'Saisissez une année valide.',
+		},
+	},
+};
+const accordion = {
+	expand: {
+		en: 'Expand all',
+		fr: 'Agrandir tout',
+	},
+	collapse: {
+		en: 'Collapse all',
+		fr: 'Réduire tout',
+	},
+	expandCollapseAriaLabel: {
+		en: 'Expand or collapse the accordion',
+		fr: "Agrandissez ou réduisez l'accordéon",
+	},
+};
 const translations = {
 	required: required,
 	optional: optional,
@@ -111,6 +239,12 @@ const translations = {
 	printerLink: printerLink,
 	languageToggle: languageToggle,
 	stepIndicator: stepIndicator,
+	header: header,
+	input: input,
+	dateInput: dateInput,
+	accordion: accordion,
 };
 
 export { translations as t };
+
+//# sourceMappingURL=global.i18n.js.map

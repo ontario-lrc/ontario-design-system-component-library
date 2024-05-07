@@ -1,18 +1,12 @@
 @use 'sass:math';
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
-	globalVariables;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
-	colours;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
-	typography;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
-	as fontWeights;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
-	as globalFunctions;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders'
-	as focusPlaceholders;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as globalVariables;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as colours;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as typography;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables' as fontWeights;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions' as globalFunctions;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders' as
+	focusPlaceholders;
 
 @forward '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/7-overrides/_visibility.overrides.scss';
 
@@ -63,8 +57,8 @@
 }
 
 .ontario-language-toggler--small {
-	font-size: globalFunctions.rem-calc(16);
-	line-height: globalFunctions.rem-calc(22);
+	font-size: globalFunctions.px-to-rem(16);
+	line-height: globalFunctions.px-to-rem(22);
 	height: auto;
 	outline: none;
 	padding: spacing.$spacing-2 spacing.$spacing-3;

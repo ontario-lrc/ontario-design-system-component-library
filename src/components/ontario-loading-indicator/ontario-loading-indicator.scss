@@ -1,15 +1,9 @@
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
-	colours;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
-	typography;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
-	as fontWeights;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/line-heights.variables'
-	as lineHeights;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
-	as globalFunctions;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as colours;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as typography;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables' as fontWeights;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/line-heights.variables' as lineHeights;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions' as globalFunctions;
 
 $offset: 1, 200;
 $duration: 1.5s;
@@ -55,7 +49,7 @@ $loading-indicator-z-index: 9999;
 	p {
 		color: colours.$ontario-greyscale-70;
 		font-family: typography.$ontario-font-raleway-modified;
-		font-size: globalFunctions.rem-calc(16);
+		font-size: globalFunctions.px-to-rem(16);
 		line-height: lineHeights.$ontario-line-height-7;
 		font-weight: fontWeights.$ontario-font-weights-bold;
 		word-spacing: 0.025rem;
@@ -89,10 +83,12 @@ $loading-indicator-z-index: 9999;
 		stroke-dasharray: $offset;
 		stroke-dashoffset: 0;
 	}
+
 	50% {
 		stroke-dasharray: $dasharray;
 		stroke-dashoffset: -35px;
 	}
+
 	100% {
 		stroke-dasharray: $dasharray;
 		stroke-dashoffset: -124px;

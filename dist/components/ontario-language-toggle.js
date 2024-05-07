@@ -4,3 +4,5 @@ const OntarioLanguageToggle = OntarioLanguageToggle$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioLanguageToggle, defineCustomElement };
+
+//# sourceMappingURL=ontario-language-toggle.js.map

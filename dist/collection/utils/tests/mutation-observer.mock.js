@@ -5,3 +5,4 @@ export const mutationObserverMock = jest.fn().mockImplementation(() => {
 		takeRecords: jest.fn(),
 	};
 });
+//# sourceMappingURL=mutation-observer.mock.js.map

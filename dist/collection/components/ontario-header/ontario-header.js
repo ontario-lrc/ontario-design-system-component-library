@@ -6,6 +6,8 @@ import OntarioIconSearch from '../ontario-icon/assets/ontario-icon-search.svg';
 import OntarioIconSearchWhite from '../ontario-icon/assets/ontario-icon-search-white.svg';
 import OntarioHeaderDefaultData from './ontario-header-default-data.json';
 import { validateLanguage } from '../../utils/validation/validation-functions';
+import translations from '../../translations/global.i18n.json';
+import config from '../../config.json';
 export class OntarioHeader {
 	constructor() {
 		/**
@@ -27,7 +29,7 @@ export class OntarioHeader {
 		 */
 		this.handleSubmit = (event) => {
 			event.preventDefault();
-			location.href = `https://www.ontario.ca/search/search-results?query=${event.target[0].value}`;
+			location.href = `${this.translations.header.ontarioSearchURL[`${this.language}`]}${event.target[0].value}`;
 		};
 		/**
 		 * Logic to make the focus go back to the menu button when the list ends
@@ -52,12 +54,14 @@ export class OntarioHeader {
 		this.languageToggleOptions = undefined;
 		this.customLanguageToggle = undefined;
 		this.language = 'en';
+		this.assetBasePath = undefined;
 		this.applicationHeaderInfoState = undefined;
 		this.menuItemState = undefined;
 		this.isDynamicMenu = false;
 		this.languageState = undefined;
 		this.menuToggle = false;
 		this.searchToggle = false;
+		this.translations = translations;
 	}
 	parseApplicationHeaderInfo() {
 		const applicationHeaderInfo = this.applicationHeaderInfo;
@@ -68,6 +72,7 @@ export class OntarioHeader {
 		}
 	}
 	parseMenuItems() {
+		const isEnglish = this.language === 'en';
 		if (!Array.isArray(this.menuItems) && typeof this.menuItems === 'string') {
 			this.menuItemState = JSON.parse(this.menuItems);
 			this.isDynamicMenu = false;
@@ -75,7 +80,7 @@ export class OntarioHeader {
 			this.menuItemState = this.menuItems;
 			this.isDynamicMenu = false;
 		} else {
-			this.menuItemState = OntarioHeaderDefaultData;
+			this.menuItemState = isEnglish ? OntarioHeaderDefaultData.en : OntarioHeaderDefaultData.fr;
 			this.isDynamicMenu = false;
 		}
 	}
@@ -115,9 +120,10 @@ export class OntarioHeader {
 	 * Call to Ontario Menu API to fetch linksets to populate header component
 	 */
 	async fetchOntarioMenu() {
+		const isEnglish = this.language === 'en';
 		// If menu has already been fetched and contains dynamic menu items, do not run fetch again
 		if (!this.isDynamicMenu) {
-			const apiUrl = process.env.ONTARIO_HEADER_API_URL;
+			const apiUrl = isEnglish ? config.ONTARIO_HEADER_API_URL_EN : config.ONTARIO_HEADER_API_URL_FR;
 			const response = await fetch(apiUrl)
 				.then((response) => response.json())
 				.then((json) => json.linkset[0].item)
@@ -136,6 +142,14 @@ export class OntarioHeader {
 		return;
 	}
 	/**
+	 * Generate a link to the given image based on the base asset path.
+	 * @param imageName Name of the image to build the path to
+	 * @returns Path to image with asset path
+	 */
+	getImageAssetSrcPath(imageName) {
+		return `${this.assetBasePath ? this.assetBasePath : getAssetPath('./assets')}/${imageName}`;
+	}
+	/**
 	 * This function generates the menu items in a <li>, accordingly, to the given parameters.
 	 *
 	 * href and title are necessary, but rest are not.
@@ -144,7 +158,7 @@ export class OntarioHeader {
 	 * @param title - the title of the menu item
 	 * @param linkIsActive - when set to true, this will add the classes necessary to style the link in a way that indicates to the user what the active page/link is
 	 * @param liClass - if there is a class that is related to the <a> portion of the menu item, put it here
-	 * @param onClick - for any custon onClick event a user might want to add to their menu links
+	 * @param onClick - for any custom onClick event a user might want to add to their menu links
 	 * @param onBlur - when set to true, it will call the function trapMenuFocus(), otherwise nothing is done (used in lastLink)
 	 */
 	generateMenuItem(href, title, linkIsActive, type, liClass, onClick, onBlur) {
@@ -170,6 +184,9 @@ export class OntarioHeader {
 	 * @param viewportSize - the size of the screen where the function is being called. It can either be set to `desktop`, `tablet` or `mobile`. This dictates the classes used on the menu button, as well as the ref to keep the focus trapped when the menu is open.
 	 */
 	renderMenuButton(viewportSize) {
+		if (!this.isMenuVisible(viewportSize)) {
+			return;
+		}
 		return h(
 			'button',
 			{
@@ -183,7 +200,9 @@ export class OntarioHeader {
 						: 'ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline',
 				'id': this.type === 'ontario' ? 'ontario-header-menu-toggler' : 'ontario-application-header-menu-toggler',
 				'aria-controls': 'ontario-navigation',
-				'aria-label': this.menuToggle ? 'close menu' : 'open menu',
+				'aria-label': this.menuToggle
+					? this.translations.header.closeMenu[`${this.language}`]
+					: this.translations.header.openMenu[`${this.language}`],
 				'onClick': this.handleMenuToggle,
 				'type': 'button',
 				'ref':
@@ -232,6 +251,30 @@ export class OntarioHeader {
 			event.path[0].value = '';
 		}
 	}
+	isMenuVisible(viewportSize) {
+		var _a;
+		const { menuItemState, applicationHeaderInfoState } = this;
+		const { maxSubheaderMobileLinks, maxSubheaderTabletLinks, maxSubheaderDesktopLinks } =
+			applicationHeaderInfoState !== null && applicationHeaderInfoState !== void 0 ? applicationHeaderInfoState : {};
+		const numOfMenuItems =
+			(_a = menuItemState === null || menuItemState === void 0 ? void 0 : menuItemState.length) !== null &&
+			_a !== void 0
+				? _a
+				: 0;
+		if (numOfMenuItems <= 0) {
+			return false;
+		}
+		if (viewportSize === 'mobile') {
+			return maxSubheaderMobileLinks && numOfMenuItems - maxSubheaderMobileLinks > 0;
+		}
+		if (viewportSize === 'tablet') {
+			return maxSubheaderTabletLinks && numOfMenuItems - maxSubheaderTabletLinks > 0;
+		}
+		if (viewportSize === 'desktop') {
+			return maxSubheaderDesktopLinks && numOfMenuItems - maxSubheaderDesktopLinks > 0;
+		}
+		return true;
+	}
 	componentWillLoad() {
 		this.parseApplicationHeaderInfo();
 		this.parseMenuItems();
@@ -256,7 +299,8 @@ export class OntarioHeader {
 		}
 	}
 	render() {
-		var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+		var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1;
+		const isServiceOntarioType = this.type === 'serviceOntario';
 		if (this.type == 'ontario') {
 			return h(
 				'div',
@@ -281,16 +325,16 @@ export class OntarioHeader {
 								},
 								h(
 									'a',
-									{ href: 'https://www.ontario.ca/page/government-ontario' },
+									{ href: this.translations.header.logoLink[`${this.language}`] },
 									h('img', {
 										class: 'ontario-show-for-medium',
-										src: getAssetPath('./assets/ontario-logo--desktop.svg'),
-										alt: 'Government of Ontario',
+										src: this.getImageAssetSrcPath('ontario-logo--desktop.svg'),
+										alt: this.translations.header.logoAltText[`${this.language}`],
 									}),
 									h('img', {
 										class: 'ontario-show-for-small-only',
-										src: getAssetPath('./assets/ontario-logo--mobile.svg'),
-										alt: 'Government of Ontario',
+										src: this.getImageAssetSrcPath('ontario-logo--mobile.svg'),
+										alt: this.translations.header.logoAltText[`${this.language}`],
 									}),
 								),
 							),
@@ -304,7 +348,11 @@ export class OntarioHeader {
 										'ontario-header__search-container ontario-columns ontario-small-10 ontario-medium-offset-3 ontario-medium-6 ontario-large-offset-0 ontario-large-6',
 									novalidate: true,
 								},
-								h('label', { htmlFor: 'ontario-search-input-field', class: 'ontario-show-for-sr' }, 'Search'),
+								h(
+									'label',
+									{ htmlFor: 'ontario-search-input-field', class: 'ontario-show-for-sr' },
+									this.translations.header.search[`${this.language}`],
+								),
 								h(Input, {
 									'type': 'text',
 									'name': 'search',
@@ -321,12 +369,12 @@ export class OntarioHeader {
 									'id': 'ontario-search-reset',
 									'type': 'reset',
 									'value': '',
-									'aria-label': 'Clear field',
+									'aria-label': this.translations.header.clearSearchField[`${this.language}`],
 								}),
 								h(
 									'button',
 									{ class: 'ontario-header__search-submit', id: 'ontario-search-submit', type: 'submit' },
-									h('span', { class: 'ontario-show-for-sr' }, 'Submit'),
+									h('span', { class: 'ontario-show-for-sr' }, this.translations.header.submit[`${this.language}`]),
 									h('span', { class: 'ontario-header__icon-container', innerHTML: OntarioIconSearch }),
 								),
 							),
@@ -347,6 +395,7 @@ export class OntarioHeader {
 											: _b.englishLink,
 									size: 'default',
 									customLanguageToggle: this.customLanguageToggle,
+									language: this.language,
 								}),
 								h(
 									'button',
@@ -359,7 +408,11 @@ export class OntarioHeader {
 										'ref': (el) => (this.searchButton = el),
 									},
 									h('span', { class: 'ontario-header__icon-container', innerHTML: OntarioIconSearchWhite }),
-									h('span', { class: 'ontario-show-for-medium ontario-show' }, 'Search'),
+									h(
+										'span',
+										{ class: 'ontario-show-for-medium ontario-show' },
+										this.translations.header.search[`${this.language}`],
+									),
 								),
 								this.renderMenuButton('ontario-header'),
 							),
@@ -372,11 +425,15 @@ export class OntarioHeader {
 										'class':
 											'ontario-header__search-close ontario-header-button ontario-header-button--without-outline',
 										'id': 'ontario-header-search-close',
-										'aria-label': 'close search bar',
+										'aria-label': this.translations.header.closeSearch[`${this.language}`],
 										'type': 'button',
 										'onClick': this.handleSearchToggle,
 									},
-									h('span', { 'aria-hidden': `${!this.searchToggle}` }, 'close'),
+									h(
+										'span',
+										{ 'aria-hidden': `${!this.searchToggle}` },
+										this.translations.header.close[`${this.language}`],
+									),
 									h('span', { class: 'ontario-header__icon-container', innerHTML: OntarioIconClose }),
 								),
 							),
@@ -449,10 +506,10 @@ export class OntarioHeader {
 								{ class: 'ontario-columns ontario-small-6 ontario-application-header__logo' },
 								h(
 									'a',
-									{ href: 'https://www.ontario.ca/page/government-ontario' },
+									{ href: this.translations.header.logoLink[`${this.language}`] },
 									h('img', {
-										src: getAssetPath('./assets/ontario-logo-application-header.svg'),
-										alt: 'Government of Ontario',
+										src: this.getImageAssetSrcPath('ontario-logo--desktop.svg'),
+										alt: this.translations.header.logoAltText[`${this.language}`],
 									}),
 								),
 							),
@@ -470,6 +527,7 @@ export class OntarioHeader {
 											? void 0
 											: _e.englishLink,
 									customLanguageToggle: this.customLanguageToggle,
+									language: this.language,
 								}),
 							),
 						),
@@ -479,33 +537,68 @@ export class OntarioHeader {
 						{ class: 'ontario-application-subheader-menu__container' },
 						h(
 							'section',
-							{ class: 'ontario-application-subheader' },
+							{ class: `ontario-application-subheader ${isServiceOntarioType ? 'ontario-service-subheader' : ''}` },
 							h(
 								'div',
 								{ class: 'ontario-row' },
 								h(
 									'div',
 									{ class: 'ontario-columns ontario-small-12 ontario-application-subheader__container' },
-									h(
-										'p',
-										{ class: 'ontario-application-subheader__heading' },
-										h(
-											'a',
-											{ href: (_f = this.applicationHeaderInfoState) === null || _f === void 0 ? void 0 : _f.href },
-											(_g = this.applicationHeaderInfoState) === null || _g === void 0 ? void 0 : _g.title,
-										),
-									),
+									!isServiceOntarioType
+										? h(
+												'p',
+												{ class: 'ontario-application-subheader__heading' },
+												h(
+													'a',
+													{ href: (_f = this.applicationHeaderInfoState) === null || _f === void 0 ? void 0 : _f.href },
+													(_g = this.applicationHeaderInfoState) === null || _g === void 0 ? void 0 : _g.title,
+												),
+										  )
+										: h(
+												'a',
+												{
+													href: (_h = this.applicationHeaderInfoState) === null || _h === void 0 ? void 0 : _h.href,
+													class: 'ontario-service-subheader__link',
+												},
+												h(
+													'div',
+													{ class: 'ontario-service-subheader__heading-container' },
+													h(
+														'p',
+														{ class: 'ontario-service-subheader__heading' },
+														this.translations.header.serviceOntario[`${this.language}`],
+													),
+													h(
+														'p',
+														{ class: 'ontario-service-subheader__description' },
+														(_j = this.applicationHeaderInfoState) === null || _j === void 0 ? void 0 : _j.title,
+													),
+												),
+										  ),
 									h(
 										'div',
 										{ class: 'ontario-application-subheader__menu-container' },
-										this.applicationHeaderInfoState.maxSubheaderDesktopLinks &&
+										((_k = this.applicationHeaderInfoState) === null || _k === void 0
+											? void 0
+											: _k.maxSubheaderDesktopLinks) &&
 											h(
 												'ul',
-												{ class: 'ontario-application-subheader__menu ontario-show-for-large' },
-												(_h = this.menuItemState) === null || _h === void 0
+												{
+													class: `${
+														isServiceOntarioType
+															? 'ontario-service-subheader__menu'
+															: 'ontario-application-subheader__menu'
+													} ontario-show-for-large`,
+												},
+												(_l = this.menuItemState) === null || _l === void 0
 													? void 0
-													: _h
-															.slice(0, this.applicationHeaderInfoState.maxSubheaderDesktopLinks)
+													: _l
+															.slice(
+																0,
+																(_m = this.applicationHeaderInfoState) === null || _m === void 0
+																	? void 0
+																	: _m.maxSubheaderDesktopLinks,
+															)
 															.map((item) =>
 																this.generateMenuItem(
 																	item.href,
@@ -517,17 +610,24 @@ export class OntarioHeader {
 																),
 															),
 											),
-										this.applicationHeaderInfoState.maxSubheaderTabletLinks &&
+										((_o = this.applicationHeaderInfoState) === null || _o === void 0
+											? void 0
+											: _o.maxSubheaderTabletLinks) &&
 											h(
 												'ul',
 												{
 													class:
 														'ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large',
 												},
-												(_j = this.menuItemState) === null || _j === void 0
+												(_p = this.menuItemState) === null || _p === void 0
 													? void 0
-													: _j
-															.slice(0, this.applicationHeaderInfoState.maxSubheaderTabletLinks)
+													: _p
+															.slice(
+																0,
+																(_q = this.applicationHeaderInfoState) === null || _q === void 0
+																	? void 0
+																	: _q.maxSubheaderTabletLinks,
+															)
 															.map((item) =>
 																this.generateMenuItem(
 																	item.href,
@@ -539,13 +639,15 @@ export class OntarioHeader {
 																),
 															),
 											),
-										this.applicationHeaderInfoState.maxSubheaderMobileLinks &&
+										((_r = this.applicationHeaderInfoState) === null || _r === void 0
+											? void 0
+											: _r.maxSubheaderMobileLinks) &&
 											h(
 												'ul',
 												{ class: 'ontario-application-subheader__menu ontario-show-for-small-only' },
-												(_k = this.menuItemState) === null || _k === void 0
+												(_s = this.menuItemState) === null || _s === void 0
 													? void 0
-													: _k
+													: _s
 															.slice(0, this.applicationHeaderInfoState.maxSubheaderMobileLinks)
 															.map((item) =>
 																this.generateMenuItem(
@@ -559,13 +661,19 @@ export class OntarioHeader {
 															),
 											),
 										this.menuItemState !== undefined &&
-											this.applicationHeaderInfoState.maxSubheaderDesktopLinks !== this.menuItemState.length &&
+											((_t = this.applicationHeaderInfoState) === null || _t === void 0
+												? void 0
+												: _t.maxSubheaderDesktopLinks) !== this.menuItemState.length &&
 											this.renderMenuButton('desktop'),
 										this.menuItemState !== undefined &&
-											this.applicationHeaderInfoState.maxSubheaderTabletLinks !== this.menuItemState.length &&
+											((_u = this.applicationHeaderInfoState) === null || _u === void 0
+												? void 0
+												: _u.maxSubheaderTabletLinks) !== this.menuItemState.length &&
 											this.renderMenuButton('tablet'),
 										this.menuItemState !== undefined &&
-											this.applicationHeaderInfoState.maxSubheaderMobileLinks !== this.menuItemState.length &&
+											((_v = this.applicationHeaderInfoState) === null || _v === void 0
+												? void 0
+												: _v.maxSubheaderMobileLinks) !== this.menuItemState.length &&
 											this.renderMenuButton('mobile'),
 									),
 								),
@@ -587,15 +695,23 @@ export class OntarioHeader {
 								h(
 									'ul',
 									{ class: 'ontario-show-for-large' },
-									(_l = this.menuItemState) === null || _l === void 0
+									(_w = this.menuItemState) === null || _w === void 0
 										? void 0
-										: _l
-												.slice(this.applicationHeaderInfoState.maxSubheaderDesktopLinks, this.menuItemState.length)
+										: _w
+												.slice(
+													(_x = this.applicationHeaderInfoState) === null || _x === void 0
+														? void 0
+														: _x.maxSubheaderDesktopLinks,
+													this.menuItemState.length,
+												)
 												.map((item, index) => {
+													var _a;
 													return this.generateNavigationLinks(
 														item,
 														index,
-														this.applicationHeaderInfoState.maxSubheaderDesktopLinks,
+														(_a = this.applicationHeaderInfoState) === null || _a === void 0
+															? void 0
+															: _a.maxSubheaderDesktopLinks,
 														'app-desktop',
 													);
 												}),
@@ -603,15 +719,23 @@ export class OntarioHeader {
 								h(
 									'ul',
 									{ class: 'ontario-show-for-medium ontario-hide-for-small ontario-hide-for-large' },
-									(_m = this.menuItemState) === null || _m === void 0
+									(_y = this.menuItemState) === null || _y === void 0
 										? void 0
-										: _m
-												.slice(this.applicationHeaderInfoState.maxSubheaderTabletLinks, this.menuItemState.length)
+										: _y
+												.slice(
+													(_z = this.applicationHeaderInfoState) === null || _z === void 0
+														? void 0
+														: _z.maxSubheaderTabletLinks,
+													this.menuItemState.length,
+												)
 												.map((item, index) => {
+													var _a;
 													return this.generateNavigationLinks(
 														item,
 														index,
-														this.applicationHeaderInfoState.maxSubheaderTabletLinks,
+														(_a = this.applicationHeaderInfoState) === null || _a === void 0
+															? void 0
+															: _a.maxSubheaderTabletLinks,
 														'app-tablet',
 													);
 												}),
@@ -619,15 +743,23 @@ export class OntarioHeader {
 								h(
 									'ul',
 									{ class: 'ontario-show-for-small-only' },
-									(_o = this.menuItemState) === null || _o === void 0
+									(_0 = this.menuItemState) === null || _0 === void 0
 										? void 0
-										: _o
-												.slice(this.applicationHeaderInfoState.maxSubheaderMobileLinks, this.menuItemState.length)
+										: _0
+												.slice(
+													(_1 = this.applicationHeaderInfoState) === null || _1 === void 0
+														? void 0
+														: _1.maxSubheaderMobileLinks,
+													this.menuItemState.length,
+												)
 												.map((item, index) => {
+													var _a;
 													return this.generateNavigationLinks(
 														item,
 														index,
-														this.applicationHeaderInfoState.maxSubheaderMobileLinks,
+														(_a = this.applicationHeaderInfoState) === null || _a === void 0
+															? void 0
+															: _a.maxSubheaderMobileLinks,
 														'app-mobile',
 													);
 												}),
@@ -650,12 +782,14 @@ export class OntarioHeader {
 		return {
 			ontario: ['ontario-header.scss'],
 			application: ['ontario-application-header.scss'],
+			serviceOntario: ['service-ontario-header.scss'],
 		};
 	}
 	static get styleUrls() {
 		return {
 			ontario: ['ontario-header.css'],
 			application: ['ontario-application-header.css'],
+			serviceOntario: ['service-ontario-header.css'],
 		};
 	}
 	static get assetsDirs() {
@@ -667,9 +801,15 @@ export class OntarioHeader {
 				type: 'string',
 				mutable: false,
 				complexType: {
-					original: "'application' | 'ontario'",
-					resolved: '"application" | "ontario" | undefined',
-					references: {},
+					original: 'OntarioHeaderType',
+					resolved: '"application" | "ontario" | "serviceOntario" | undefined',
+					references: {
+						OntarioHeaderType: {
+							location: 'import',
+							path: './ontario-header.interface',
+							id: 'src/components/ontario-header/ontario-header.interface.ts::OntarioHeaderType',
+						},
+					},
 				},
 				required: false,
 				optional: true,
@@ -685,12 +825,13 @@ export class OntarioHeader {
 				type: 'string',
 				mutable: false,
 				complexType: {
-					original: 'applicationHeaderInfo | string',
-					resolved: 'applicationHeaderInfo | string',
+					original: 'ApplicationHeaderInfo | string',
+					resolved: 'ApplicationHeaderInfo | string',
 					references: {
-						applicationHeaderInfo: {
+						ApplicationHeaderInfo: {
 							location: 'import',
 							path: './ontario-header.interface',
+							id: 'src/components/ontario-header/ontario-header.interface.ts::ApplicationHeaderInfo',
 						},
 					},
 				},
@@ -700,7 +841,7 @@ export class OntarioHeader {
 					tags: [
 						{
 							name: 'example',
-							text: '\t<ontario-header\n\ttype="application"\n     application-header-info=\'{\n\t\t\t"name": "Application name",\n\t\t\t"href": "/application-homepage"\n\t\t\t"maxSubheaderDesktopLinks": "3",\n\t\t\t"maxSubheaderTabletLinks": "2",\n\t\t\t"maxSubheaderMobileLinks": "1"\n   }\'\n</ontario-header>',
+							text: ' <ontario-header\n   type="application"\n   application-header-info=\'{\n     "title": "Application name",\n     "href": "/application-homepage",\n     "maxSubheaderDesktopLinks": "3",\n     "maxSubheaderTabletLinks": "2",\n     "maxSubheaderMobileLinks": "1"\n   }\'>\n </ontario-header>',
 						},
 					],
 					text: "Information pertaining to the application header. This is only necessary for the 'application' header type.\n\nThis includes the application name, URL and optional props for the number of links in the subheader for desktop, tablet, and mobile views.",
@@ -712,12 +853,13 @@ export class OntarioHeader {
 				type: 'string',
 				mutable: false,
 				complexType: {
-					original: 'menuItems[] | string',
-					resolved: 'menuItems[] | string',
+					original: 'MenuItem[] | string',
+					resolved: 'MenuItem[] | string',
 					references: {
-						menuItems: {
+						MenuItem: {
 							location: 'import',
 							path: './ontario-header.interface',
+							id: 'src/components/ontario-header/ontario-header.interface.ts::MenuItem',
 						},
 					},
 				},
@@ -757,12 +899,13 @@ export class OntarioHeader {
 				type: 'string',
 				mutable: false,
 				complexType: {
-					original: 'languageToggleOptions | string',
-					resolved: 'languageToggleOptions | string | undefined',
+					original: 'LanguageToggleOptions | string',
+					resolved: 'LanguageToggleOptions | string | undefined',
 					references: {
-						languageToggleOptions: {
+						LanguageToggleOptions: {
 							location: 'import',
 							path: './ontario-header.interface',
+							id: 'src/components/ontario-header/ontario-header.interface.ts::LanguageToggleOptions',
 						},
 					},
 				},
@@ -784,11 +927,12 @@ export class OntarioHeader {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -809,6 +953,7 @@ export class OntarioHeader {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -822,6 +967,23 @@ export class OntarioHeader {
 				reflect: false,
 				defaultValue: "'en'",
 			},
+			assetBasePath: {
+				type: 'string',
+				mutable: false,
+				complexType: {
+					original: 'string',
+					resolved: 'string',
+					references: {},
+				},
+				required: false,
+				optional: false,
+				docs: {
+					tags: [],
+					text: 'The base path to an assets folder containing the Design System assets',
+				},
+				attribute: 'asset-base-path',
+				reflect: false,
+			},
 		};
 	}
 	static get states() {
@@ -832,6 +994,7 @@ export class OntarioHeader {
 			languageState: {},
 			menuToggle: {},
 			searchToggle: {},
+			translations: {},
 		};
 	}
 	static get elementRef() {
@@ -872,3 +1035,4 @@ export class OntarioHeader {
 		];
 	}
 }
+//# sourceMappingURL=ontario-header.js.map

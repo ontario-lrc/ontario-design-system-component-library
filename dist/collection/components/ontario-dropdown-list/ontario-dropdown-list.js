@@ -14,26 +14,8 @@ import { handleInputEvent } from '../../utils/events/event-handler';
 import { default as translations } from '../../translations/global.i18n.json';
 export class OntarioDropdownList {
 	constructor() {
-		/**
-		 * Function to handle dropdown list events and the information pertaining to the dropdown list to emit.
-		 */
-		this.handleEvent = (ev, eventType) => {
-			const input = ev.target;
-			handleInputEvent(
-				ev,
-				eventType,
-				input,
-				this.dropdownOnChange,
-				this.dropdownOnFocus,
-				this.dropdownOnBlur,
-				'dropdown',
-				this.customOnChange,
-				this.customOnFocus,
-				this.customOnBlur,
-			);
-		};
 		this.caption = undefined;
-		this.language = 'en';
+		this.language = undefined;
 		this.name = undefined;
 		this.elementId = undefined;
 		this.options = undefined;
@@ -55,7 +37,9 @@ export class OntarioDropdownList {
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
@@ -109,7 +93,7 @@ export class OntarioDropdownList {
 				this.internalOptions = this.options;
 			}
 		}
-		// Check selected status of options
+		// Check selected status of options and set the selectedValue
 		this.validateSelectedOption(this.internalOptions);
 	}
 	/**
@@ -156,6 +140,34 @@ export class OntarioDropdownList {
 			if (typeof hintExpander === 'string') this.internalHintExpander = JSON.parse(hintExpander);
 			else this.internalHintExpander = hintExpander;
 		}
+	}
+	/**
+	 * Function to handle dropdown list events and the information pertaining to the dropdown list to emit.
+	 */
+	handleEvent(event, eventType) {
+		var _a, _b, _c;
+		const input = event.target;
+		(_b = (_a = this.internals) === null || _a === void 0 ? void 0 : _a.setFormValue) === null || _b === void 0
+			? void 0
+			: _b.call(
+					_a,
+					(_c = input === null || input === void 0 ? void 0 : input.value) !== null && _c !== void 0 ? _c : '',
+			  );
+		handleInputEvent(
+			event,
+			eventType,
+			input,
+			this.dropdownOnChange,
+			this.dropdownOnFocus,
+			this.dropdownOnBlur,
+			undefined,
+			'dropdown',
+			this.customOnChange,
+			this.customOnFocus,
+			this.customOnBlur,
+			undefined,
+			this.element,
+		);
 	}
 	getId() {
 		var _a;
@@ -221,7 +233,7 @@ export class OntarioDropdownList {
 		var _a, _b;
 		return h(
 			'div',
-			{ class: 'ontario-form-group' },
+			{ key: '47fd0fdb85aaf653302295aa5df2011e4b232be9', class: 'ontario-form-group' },
 			this.captionState.getCaption(this.getId(), !!this.internalHintExpander),
 			this.internalHintText &&
 				h('ontario-hint-text', {
@@ -232,6 +244,7 @@ export class OntarioDropdownList {
 			h(
 				'select',
 				{
+					'key': 'e9fbdecebe37aaecff87ca27a75743b56fd38522',
 					'class': this.getClass(),
 					'aria-describedby': this.hintTextId,
 					'id': this.getId(),
@@ -269,6 +282,9 @@ export class OntarioDropdownList {
 	static get encapsulation() {
 		return 'shadow';
 	}
+	static get formAssociated() {
+		return true;
+	}
 	static get originalStyleUrls() {
 		return {
 			$: ['ontario-dropdown-list.scss'],
@@ -294,6 +310,7 @@ export class OntarioDropdownList {
 						Caption: {
 							location: 'import',
 							path: '../../utils/common/input-caption/caption.interface',
+							id: 'src/utils/common/input-caption/caption.interface.ts::Caption',
 						},
 					},
 				},
@@ -321,6 +338,7 @@ export class OntarioDropdownList {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -332,7 +350,6 @@ export class OntarioDropdownList {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
 			},
 			name: {
 				type: 'string',
@@ -378,6 +395,7 @@ export class OntarioDropdownList {
 						DropdownOption: {
 							location: 'import',
 							path: './dropdown-option.interface',
+							id: 'src/components/ontario-dropdown-list/dropdown-option.interface.ts::DropdownOption',
 						},
 					},
 				},
@@ -446,6 +464,7 @@ export class OntarioDropdownList {
 						Hint: {
 							location: 'import',
 							path: '../../utils/common/common.interface',
+							id: 'src/utils/common/common.interface.ts::Hint',
 						},
 					},
 				},
@@ -468,6 +487,7 @@ export class OntarioDropdownList {
 						HintExpander: {
 							location: 'import',
 							path: '../ontario-hint-expander/hint-expander.interface',
+							id: 'src/components/ontario-hint-expander/hint-expander.interface.ts::HintExpander',
 						},
 					},
 				},
@@ -489,11 +509,12 @@ export class OntarioDropdownList {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -508,11 +529,12 @@ export class OntarioDropdownList {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -527,11 +549,12 @@ export class OntarioDropdownList {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -567,9 +590,15 @@ export class OntarioDropdownList {
 					text: 'Emitted when a keyboard input or mouse event occurs when a dropdown list has been changed.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputInteractionEvent',
+					resolved: '{ id?: string | undefined; value?: string | undefined; }',
+					references: {
+						InputInteractionEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputInteractionEvent',
+						},
+					},
 				},
 			},
 			{
@@ -583,9 +612,15 @@ export class OntarioDropdownList {
 					text: 'Emitted when a keyboard input event occurs when a dropdown list has lost focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 			{
@@ -599,9 +634,15 @@ export class OntarioDropdownList {
 					text: 'Emitted when a keyboard input event occurs when a dropdown list has gained focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 		];
@@ -659,4 +700,8 @@ export class OntarioDropdownList {
 			},
 		];
 	}
+	static get attachInternalsMemberName() {
+		return 'internals';
+	}
 }
+//# sourceMappingURL=ontario-dropdown-list.js.map

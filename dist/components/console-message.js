@@ -90,3 +90,5 @@ class ConsoleMessageClass {
 }
 
 export { ConsoleMessageClass as C, ConsoleType as a };
+
+//# sourceMappingURL=console-message.js.map

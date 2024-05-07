@@ -58,3 +58,5 @@ const generateCalloutAside = (type, headingType, headingContentType, headingCont
 };
 
 export { HeadingContentTypes as H, isValidHighlightColour as a, generateCalloutAside as g, isValidHeadingLevel as i };
+
+//# sourceMappingURL=callout-aside-helpers.js.map

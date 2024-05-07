@@ -1,11 +1,16 @@
-import { Event } from '../../stencil-public-runtime';
+import { EventEmitter } from '../../stencil-public-runtime';
 import { HintExpander } from '../ontario-hint-expander/hint-expander.interface';
 import { Hint, Input } from '../../utils/common/common.interface';
 import { Caption } from '../../utils/common/input-caption/caption.interface';
 import { Language } from '../../utils/common/language-types';
-import { InputFocusBlurEvent, EventType, InputChangeEvent } from '../../utils/events/event-handler.interface';
+import {
+	InputFocusBlurEvent,
+	InputInteractionEvent,
+	InputInputEvent,
+} from '../../utils/events/event-handler.interface';
 export declare class OntarioTextarea implements Input {
 	element: HTMLElement;
+	internals: ElementInternals;
 	hintTextRef: HTMLOntarioHintTextElement | undefined;
 	/**
 	 * The text to display as the textarea label.
@@ -40,10 +45,10 @@ export declare class OntarioTextarea implements Input {
 	 */
 	value?: string;
 	/**
-   * Used to include the ontario-hint-text component for the textarea.
-   * This is optional.
+     * Used to include the ontario-hint-text component for the textarea.
+     * This is optional.
 
-   */
+     */
 	hintText?: string | Hint;
 	/**
 	 * Used to include the ontario-hint-expander component for the textarea component.
@@ -73,17 +78,21 @@ export declare class OntarioTextarea implements Input {
 	 */
 	language?: Language;
 	/**
+	 * Used to add a custom function to the textarea onInput event.
+	 */
+	customOnInput?: (event: globalThis.Event) => void;
+	/**
 	 * Used to add a custom function to the textarea onChange event.
 	 */
-	customOnChange?: Function;
+	customOnChange?: (event: globalThis.Event) => void;
 	/**
 	 * Used to add a custom function to the textarea onBlur event.
 	 */
-	customOnBlur?: Function;
+	customOnBlur?: (event: globalThis.Event) => void;
 	/**
 	 * Used to add a custom function to the textarea onFocus event.
 	 */
-	customOnFocus?: Function;
+	customOnFocus?: (event: globalThis.Event) => void;
 	/**
 	 * Used for the `aria-describedby` value of the textarea. This will match with the id of the hint text.
 	 */
@@ -101,17 +110,21 @@ export declare class OntarioTextarea implements Input {
 	 */
 	private captionState;
 	/**
+	 * Emitted when a input event occurs when an input has been changed.
+	 */
+	inputOnInput: EventEmitter<InputInputEvent>;
+	/**
 	 * Emitted when a keyboard input or mouse event occurs when an input has been changed.
 	 */
-	inputOnChange: InputChangeEvent;
+	inputOnChange: EventEmitter<InputInteractionEvent>;
 	/**
 	 * Emitted when a keyboard input event occurs when an input has lost focus.
 	 */
-	inputOnBlur: InputFocusBlurEvent;
+	inputOnBlur: EventEmitter<InputFocusBlurEvent>;
 	/**
 	 * Emitted when a keyboard input event occurs when an input has gained focus.
 	 */
-	inputOnFocus: InputFocusBlurEvent;
+	inputOnFocus: EventEmitter<InputFocusBlurEvent>;
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the textarea component loads.
 	 */
@@ -144,7 +157,7 @@ export declare class OntarioTextarea implements Input {
 	/**
 	 * Function to handle textarea events and the information pertaining to the textarea to emit.
 	 */
-	handleEvent: (ev: Event, eventType: EventType) => void;
+	private handleEvent;
 	getId(): string;
 	private getValue;
 	private getClass;

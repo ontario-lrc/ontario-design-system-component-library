@@ -13,7 +13,17 @@
 		<ontario-critical-alert>
 			<a href="https://designsystem.ontario.ca/">Ontario Design System</a> web components now available!!!
 		</ontario-critical-alert>
-		<ontario-header type="ontario"></ontario-header>
+		<ontario-header
+			type="serviceOntario"
+			application-header-info='{
+				"title": "Application name",
+				"href": "/application-homepage",
+				"maxSubheaderDesktopLinks": "3",
+				"maxSubheaderTabletLinks": "2",
+				"maxSubheaderMobileLinks": "1"
+			}'
+		>
+		</ontario-header>
 
 		<main>
 			<div class="ontario-row">
@@ -28,21 +38,45 @@
 
 					<h2>On this page</h2>
 					<ol>
+						<li><a href="#accordion">Accordion</a></li>
 						<li><a href="#blockquotes">Blockquotes</a></li>
 						<li><a href="#buttons">Buttons</a></li>
 						<li><a href="#callout-aside">Callouts and Asides</a></li>
+						<li><a href="#card">Card Collection and Card</a></li>
 						<li><a href="#checkboxes">Checkboxes</a></li>
 						<li><a href="#dropdown-lists">Dropdown lists</a></li>
 						<li><a href="#fieldsets">Fieldsets</a></li>
+						<li><a href="#header">Header</a></li>
 						<li><a href="#icons">Icons</a></li>
 						<li><a href="#loading-indicator">Loading indicator</a></li>
 						<li><a href="#page-alerts">Page alerts</a></li>
 						<li><a href="#radio-buttons">Radio buttons</a></li>
+						<li><a href="#tables">Tables</a></li>
 						<li><a href="#textareas">Textareas</a></li>
 						<li><a href="#text-inputs">Text inputs</a></li>
+						<li><a href="#date-input">Date input</a></li>
 						<li><a href="#step-indicator">Step indicator</a></li>
+						<li><a href="#form">Form example</a></li>
 					</ol>
 					<hr />
+
+					<!-- Accordion -->
+					<div>
+						<h2 id="accordion">Accordion</h2>
+						<ontario-accordion
+							name="My Accordion"
+							expand-collapse-button='{
+								"expandAllSectionsLabel": "Expand All",
+								"collapseAllSectionsLabel": "Collapse All"
+							}'
+							accordion-data='[
+								{"label": "Accordion 1", "content": "This is a string"},
+								{"label": "Accordion 2", "accordionContentType": "html", "content": "<ul><li>List A</li><li>List B</li><li>List C</li></ul>"},
+								{"label": "Accordion 3", "accordionContentType": "html", "content": "<p>Some <em>sample</em> <strong>text</strong> <s>with</s> <u>lots </u><span style=\"font-size:24px\">of</span> <strong><em><u><s>formating</s></u></em></strong>!</p>"}
+							]'
+						></ontario-accordion>
+						<hr />
+					</div>
 
 					<!-- Blockquotes -->
 					<div>
@@ -118,6 +152,81 @@
 						<hr />
 					</div>
 
+					<!-- Card -->
+					<div>
+						<h2 id="card">Card Collection & Card</h2>
+						<div>
+							<ontario-card-collection cards-per-row="4">
+								<ontario-card-collection cards-per-row="2">
+									<ontario-card
+										card-type="horizonal"
+										label="Card Title 1"
+										image="https://picsum.photos/200/300"
+										card-link="https://google.ca"
+										horizontal-image-position-type="left"
+										horizontal-image-size-type="one-fourth"
+										description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+									>
+									</ontario-card>
+									<ontario-card
+										card-type="horizonal"
+										label="Card Title 2"
+										image="https://picsum.photos/200/300"
+										horizontal-image-position-type="left"
+										horizontal-image-size-type="one-fourth"
+										description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+									>
+									</ontario-card>
+								</ontario-card-collection>
+								<ontario-card
+									card-type="basic"
+									label="Card Title 3"
+									image="https://picsum.photos/200/300"
+									horizontal-image-position-type="left"
+									horizontal-image-size-type="one-fourth"
+									description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+								>
+								</ontario-card>
+								<ontario-card
+									card-type="basic"
+									label="Card Title 4"
+									image="https://picsum.photos/200/300"
+									horizontal-image-position-type="left"
+									horizontal-image-size-type="one-fourth"
+									description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+								>
+								</ontario-card>
+								<ontario-card
+									card-type="basic"
+									label="Card Title 5"
+									image="https://picsum.photos/200/300"
+									horizontal-image-position-type="left"
+									horizontal-image-size-type="one-fourth"
+									description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+								>
+								</ontario-card>
+								<ontario-card
+									card-type="basic"
+									label="Card Title 6"
+									image="https://picsum.photos/200/300"
+									horizontal-image-position-type="left"
+									horizontal-image-size-type="one-fourth"
+									description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+								>
+								</ontario-card>
+								<ontario-card
+									card-type="basic"
+									label="Card Title 7"
+									image="https://picsum.photos/200/300"
+									horizontal-image-position-type="left"
+									horizontal-image-size-type="one-fourth"
+									description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+								>
+								</ontario-card>
+							</ontario-card-collection>
+						</div>
+					</div>
+
 					<!-- Checkboxes -->
 					<div>
 						<h2 id="checkboxes">Checkboxes</h2>
@@ -125,7 +234,7 @@
 							name="ontario-checkbox-group"
 							caption='{
 								"captionText": "Checkbox legend",
-								"captionType": "heading"
+								"captionType": "large"
 							}'
 							hint-text="Hint text for the checkbox group."
 							required
@@ -176,7 +285,7 @@
 							name="dropdown"
 							caption='{
 								"captionText": "Label",
-								"captionType": "heading"
+								"captionType": "large"
 							}'
 							required
 							options='[
@@ -200,14 +309,28 @@
 					</div>
 
 					<!-- Fieldsets -->
+					<script>
+						window.addEventListener('load', () => {
+							console.log('Loaded Address Event Listener');
+							const addressLine1 = document.getElementById('address-line-1');
+							addressLine1.inputValidator = async (value) => {
+								if (value === 'error') return { errorMessage: "You entered 'error'" };
+							};
+							addressLine1.addEventListener('inputErrorOccurred', (event) => {
+								console.log('errorOccurred:', event);
+							});
+						});
+					</script>
 					<div>
 						<h2 id="fieldsets">Fieldsets</h2>
 						<ontario-fieldset legend-size="large" legend="What is your delivery address?">
 							<ontario-input
+								id="address-line-1"
 								caption="Address line 1"
 								required
 								name="address-line-1"
 								hint-text="Street and number or P.O. box."
+								enable-live-validation
 							></ontario-input>
 							<ontario-input
 								caption="Address line 2"
@@ -272,12 +395,30 @@
 								]'
 							></ontario-dropdown-list>
 							<ontario-input
+								id="post-code"
 								caption="Postal code"
 								required
 								name="postal-code"
 								input-width="7-char-width"
+								enable-live-validation
 							></ontario-input>
 						</ontario-fieldset>
+						<hr />
+					</div>
+
+					<!-- Buttons -->
+					<div>
+						<h2 id="header">Header</h2>
+						<div>
+							<h3 class="ontario-h4">Change the page header</h3>
+							<ontario-button onclick="activateHeaderType('ontario')">Activate the Ontario.ca Header</ontario-button>
+							<ontario-button onclick="activateHeaderType('application')">
+								Activate the Application Header
+							</ontario-button>
+							<ontario-button onclick="activateHeaderType('serviceOntario')">
+								Activate the ServiceOntario Header
+							</ontario-button>
+						</div>
 						<hr />
 					</div>
 
@@ -362,7 +503,7 @@
 							hint-text="Hint text for the radio button group."
 							caption='{
 								"captionText": "Radio legend",
-								"captionType": "heading"
+								"captionType": "large"
 							}'
 							required="false"
 							options='[
@@ -400,13 +541,278 @@
 						<hr />
 					</div>
 
+					<!-- Tables -->
+					<div>
+						<h2 id="tables">Tables</h2>
+
+						<h3>3 columns (non-numeric)</h3>
+						<ontario-table
+							caption="Marriage certificate: cost and delivery"
+							table-columns='[
+								{ "title": "Type of service", "key": "service" },
+								{ "title": "Processing and delivery", "key": "processing" },
+								{ "title": "Cost", "key": "cost", "type": "numeric" }
+							]'
+							table-data='[
+								{
+									"data" : {
+										"service": "Regular service (online)",
+										"processing": "15 business days plus delivery by Canada Post",
+										"cost": "$15"
+									}
+								},
+								{
+									"data" : {
+										"service": "Premium service (online)",
+										"cost": "$45",
+										"processing": "5 business days including delivery by courier"
+									}
+								},
+								{
+									"data" : {
+										"processing": "5 business days including delivery by courier (proof of urgency is required)",
+										"service": "Emergency service (in-person)",
+										"cost": "$45"
+									}
+								}
+							]'
+						>
+						</ontario-table>
+
+						<h3>5 columns (numeric)</h3>
+						<ontario-table
+							caption="Number of engagement sessions by business area from 2016–2020"
+							zebra-stripes="enabled"
+							table-columns='[
+								{ "title": "Business area", "key": "business" },
+								{ "title": "April 2016 – March 2017", "key": "date1", "type": "numeric" },
+								{ "title": "April 2017 - March 2018", "key": "date2", "type": "numeric" },
+								{ "title": "April 2018 - March 2019", "key": "date3", "type": "numeric" },
+								{ "title": "April 2019 - March 2020", "key": "date4", "type": "numeric" }
+							]'
+							table-data='[
+								{
+									"data" : {
+										"business": "Aggregates and petroleum",
+										"date1": "35",
+										"date2": "32",
+										"date3": "45",
+										"date4": "71"
+									}
+								},
+								{
+									"data" : {
+										"business": "Fish and wildlife",
+										"date1": "162",
+										"date2": "240",
+										"date3": "178",
+										"date4": "162"
+									}
+								},
+								{
+									"data": {
+										"business": "Forestry",
+										"date1": "182",
+										"date2": "170",
+										"date3": "235",
+										"date4": "242"
+									},
+									"highlight": "true"
+								},
+								{
+									"data": {
+										"business": "Lands and water",
+										"date1": "79",
+										"date2": "101",
+										"date3": "42",
+										"date4": "70"
+									}
+								},
+								{
+									"data": {
+										"business": "General",
+										"date1": "56",
+										"date2": "37",
+										"date3": "64",
+										"date4": "46"
+									}
+								},
+								{
+									"data": {
+										"business": "Total row",
+										"date1": "514",
+										"date2": "580",
+										"date3": "564",
+										"date4": "591"
+									},
+									"footer": true
+								}
+							]'
+						>
+						</ontario-table>
+
+						<h3>7 columns (numeric and condensed)</h3>
+						<ontario-table
+							caption="Operating expense"
+							condensed="true"
+							table-columns='[
+								{ "title": "Votes/Programs", "key": "program", "colSpan": 2 },
+								{ "title": "Estimates 2020-21 $", "key": "column1", "type": "numeric" },
+								{ "title": "Change from estimates 2019-20 $", "key": "column2", "type": "numeric" },
+								{ "title": "Change from estimates 2019-20 %", "key": "column3", "type": "numeric" },
+								{ "title": "Estimates 2019-20 $", "key": "column4", "type": "numeric" },
+								{ "title": "Interim actuals 2019-20 $", "key": "column5", "type": "numeric" },
+								{ "title": "Actuals 2018-19 $", "key": "column6", "type": "numeric"}
+							]'
+							table-data='[
+								{
+									"data" : {
+										"program": "Ministry administration",
+										"column1": "16,147,000",
+										"column6": "20,683,313",
+										"column2": "1,388,600",
+										"column3": "9.4",
+										"column4": "14,758,400",
+										"column5": "17,470,200"
+									}
+								},
+								{
+									"data" : {
+										"program": "Postsecondary education",
+										"column1": "6,455,038,100",
+										"column4": "6,586,779,600",
+										"column2": "(131,741,500)",
+										"column3": "(2.0)",
+										"column5": "6,491,779,600",
+										"column6": "7,398,858,795"
+									}
+								},
+								{
+									"data" : {
+										"program": "Research program",
+										"column1": "187,399,200",
+										"column2": "(1,290,400)",
+										"column3": "(0.7)",
+										"column4": "188,689,600",
+										"column5": "188,689,600",
+										"column6": "174,629,399"
+									}
+								},
+								{
+									"data" : {
+										"program": "Total operating expense to be voted",
+										"column1": "6,658,584,300",
+										"column2": "(131,643,300)",
+										"column3": "(1.9)",
+										"column4": "6,790,227,600",
+										"column5": "6,697,939,400",
+										"column6": "7,594,171,507"
+									}
+								},
+								{
+									"data" : {
+										"program": "Statutory appropriations",
+										"column1": "55,106,014",
+										"column2": "0",
+										"column3": "0",
+										"column4": "55,106,014",
+										"column5": "55,106,014",
+										"column6": "36,264,081"
+									}
+								},
+								{
+									"data" : {
+										"program": "Ministry total operating expense",
+										"column1": "6,713,690,314",
+										"column2": "(131,643,300)",
+										"column3": "(1.9)",
+										"column4": "6,845,333,614",
+										"column5": "6,753,045,414",
+										"column6": "7,630,435,588"
+									},
+									"subtotal": "true"
+								},
+								{
+									"data" : {
+										"program": "Consolidation & other Adjustments - Colleges",
+										"column1": "3,504,321,700",
+										"column2": "210,997,500",
+										"column3": "6.4",
+										"column4": "3,293,324,200",
+										"column5": "3,269,671,700",
+										"column6": "2,961,027,351"
+									}
+								},
+								{
+									"data" : {
+										"program": "Operating expense adjustment - Student assistance interest expense reclassification",
+										"column1": "(48,979,900)",
+										"column2": "0",
+										"column3": "0",
+										"column4": "(48,979,900)",
+										"column5": "(48,979,900)",
+										"column6": "(33,055,246)"
+									}
+								},
+								{
+									"data" : {
+										"program": "Consolidation & other adjustments - Hospitals",
+										"column1": "(9,886,600)",
+										"column2": "5,107,400",
+										"column3": "123",
+										"column4": "(14,994,000)",
+										"column5": "(15,005,000)",
+										"column6": "(15,193,844)"
+									}
+								},
+								{
+									"data" : {
+										"program": "Consolidation & other adjustments - Hospitals",
+										"column1": "(9,886,600)",
+										"column2": "5,107,400",
+										"column3": "<abbr title=\"not available\">N/A</abbr>",
+										"column4": "(14,994,000)",
+										"column5": "(15,005,000)",
+										"column6": "(15,193,844)"
+									}
+								},
+								{
+									"data" : {
+										"program": "Consolidation & other adjustments - General real estate portfolio",
+										"column1": "(5,904,600)",
+										"column2": "(5,686,900)",
+										"column3": "<abbr title=\"not available\">N/A</abbr>",
+										"column4": "(217,700)",
+										"column5": "<abbr title=\"not available\">N/A</abbr>",
+										"column6": "(189,337)"
+									}
+								},
+								{
+									"data" : {
+										"program": "Total including consolidation & other adjustments",
+										"column1": "10,153,240,914",
+										"column2": "78,774,700",
+										"column3": "0.80",
+										"column4": "10,074,466,214",
+										"column5": "9,958,732,214",
+										"column6": "10,543,024,512"
+									},
+									"footer": true
+								}
+							]'
+						>
+						</ontario-table>
+						<hr />
+					</div>
+
+					<!-- Textareas -->
 					<div>
 						<h2 id="textareas">Textareas</h2>
 						<ontario-textarea
 							name="comments"
 							caption='{
 								"captionText": "Comments",
-								"captionType": "HEADING"
+								"captionType": "large"
 							}'
 							required="true"
 							hint-expander='{
@@ -446,7 +852,7 @@
 							input-width="20-char-width"
 							caption='{
 								"captionText": "Email",
-								"captionType": "HEADING"
+								"captionType": "large"
 							}'
 							required="true"
 						></ontario-input>
@@ -470,14 +876,222 @@
 					</div>
 					<hr />
 
+					<!-- Date Input -->
+					<div>
+						<h2 id="date-input">Date Input</h2>
+						<ontario-date-input
+							element-id="date-input-example-id"
+							placeholder='{
+								"day": "DD",
+								"month": "MM",
+								"year": "YYYY"
+							}'
+							min-year="999"
+							max-year="9999"
+							required="true"
+							date-options='["day", "month", "year"]'
+							hint-text="For example 2000 03 01"
+							caption='{
+								"captionText": "Exact Date",
+								"captionType": "default"
+							}'
+						></ontario-date-input>
+					</div>
+					<hr />
+
 					<!-- Step Indicator -->
 					<div>
 						<h2 id="step-indicator">Step Indicator</h2>
+						<h3>Percentage</h3>
 						<ontario-step-indicator
 							show-back-button="true"
-							back-button-URL="https://designsystem.ontario.ca/"
+							back-button-url="https://designsystem.ontario.ca/"
 							percentage-complete="70"
 						></ontario-step-indicator>
+						<h3>Steps</h3>
+						<ontario-step-indicator
+							show-back-button="true"
+							back-button-url="https://designsystem.ontario.ca/"
+							current-step="4"
+							number-of-steps="5"
+						></ontario-step-indicator>
+						<h3>No back button</h3>
+						<ontario-step-indicator
+							show-back-button="false"
+							current-step="4"
+							number-of-steps="5"
+						></ontario-step-indicator>
+					</div>
+					<div>
+						<!-- Form -->
+						<form id="sample-form">
+							<h2 id="form">Form example</h2>
+							<ontario-fieldset legend-size="large" legend="What is your delivery address?">
+								<ontario-input
+									id="delivery-address-form-line-1"
+									caption="Address line 1"
+									required
+									name="delivery-address-form-line-1"
+									hint-text="Street and number or P.O. box."
+									enable-live-validation
+									required-validation-message="Please enter your address"
+								></ontario-input>
+								<ontario-input
+									caption="Address line 2"
+									name="delivery-address-form-line-2"
+									hint-text="Apartment, suite, unit, building, etc."
+								></ontario-input>
+								<ontario-dropdown-list
+									caption="Province/territory"
+									name="delivery-address-form-province-selection-form"
+									element-id="delivery-address-form-province-territory"
+									required
+									is-empty-start-option="true"
+									options='[
+									{
+										"value": "ON",
+										"label": "Ontario"
+									},
+									{
+										"value": "QC",
+										"label": "Quebec"
+									},
+									{
+										"value": "SK",
+										"label": "Saskatchewan"
+									}
+								]'
+								></ontario-dropdown-list>
+								<ontario-checkboxes
+									name="delivery-address-form-options"
+									caption="Options"
+									hint-text="Select all delivery options that apply"
+									options='[
+										{
+											"value": "signature",
+											"label": "Signature",
+											"elementId": "checkbox-1"
+										},
+										{
+											"value": "gift-wrap",
+											"label": "Gift Wrap",
+											"elementId": "checkbox-2",
+											"hintExpander": {
+												"hint": "What is gift wrapping?",
+												"content": "Have your package wrapped in pretty paper."
+											}
+										},
+										{
+											"value": "high-5",
+											"label": "High Five",
+											"elementId": "checkbox-3",
+											"hintExpander": {
+												"hint": "What is a high five",
+												"content": "Life is short, show both your and the driver some appreciation with a high five."
+											}
+										}
+									]'
+								>
+								</ontario-checkboxes>
+								<ontario-radio-buttons
+									name="delivery-address-form-notification"
+									hint-text="Let the driver know how to notify you."
+									caption="Notification"
+									required="false"
+									options='[
+											{
+												"value": "knock",
+												"elementId": "radio-1",
+												"label": "Knock on door",
+												"hintExpander": {
+													"hint": "What is this option?",
+													"content": "The driver will knock on your door to let you know the delivery has arrived."
+												}
+											},
+											{
+												"value": "text",
+												"elementId": "radio-2",
+												"label": "Text message"
+											},
+
+											{
+												"value": "phone",
+												"elementId": "radio-3",
+												"label": "Phone call"
+											}
+										]'
+									hint-expander='{
+										"hint": "What is a notification?",
+										"content": "Let our driver know how best to notify you of your package being delivered."
+									}'
+								>
+								</ontario-radio-buttons>
+								<ontario-date-input
+									element-id="delivery-address-form-delivery-date"
+									name="delivery-address-form-delivery-date"
+									placeholder='{
+										"day": "DD",
+										"month": "MM",
+										"year": "YYYY"
+									}'
+									min-year="999"
+									max-year="9999"
+									required="true"
+									date-options='["day", "month", "year"]'
+									hint-text="For example 2000 03 01"
+									caption="Delivery date"
+								></ontario-date-input>
+								<ontario-textarea
+									name="delivery-address-form-delivery-notes"
+									caption="Delivery notes"
+									hint-expander='{
+										"hint": "What are delivery notes?",
+										"content": "Delivery notes can include things like door codes, etc."
+									}'
+								></ontario-textarea>
+							</ontario-fieldset>
+							<ontario-button type="primary" html-type="submit">Submit</ontario-button>
+						</form>
+						<h2 style="display: none" id="form-results">Form Results</h2>
+						<div id="form-results-data"></div>
+						<script>
+							window.addEventListener('load', () => {
+								console.log('Loaded Form Event Listener');
+								const form = document.getElementById('sample-form');
+								const formResults = document.getElementById('form-results');
+								const formResultsDataDisplay = document.getElementById('form-results-data');
+								form.addEventListener('submit', (event) => {
+									// Avoid an actual submission
+									event.preventDefault();
+
+									// Get the data from the form to be submitted
+									const formData = new FormData(event.target);
+									const formResultsArray = [...formData.entries()];
+
+									if (validateForm()) return;
+
+									// Display the form data
+									formResults.style.display = 'block';
+									console.log('Form Content:', formResultsArray);
+									const formResultsHtml = formResultsArray.map((x) => `<li><strong>${x[0]}</strong>: ${x[1]}</li>`);
+									formResultsDataDisplay.innerHTML = `<p class="ontario-columns ontario-small-12"><ul>\n${formResultsHtml.join(
+										'\n',
+									)}\n</ul></p>`;
+								});
+
+								const validateForm = () => {
+									let error = false;
+									const address1 = document.getElementById('delivery-address-form-line-1');
+									if (address1.value == undefined || address1.value == '') {
+										address1.errorMessage = 'Please enter your address';
+										address1.scrollIntoView();
+										error = true;
+									}
+
+									return error;
+								};
+							});
+						</script>
 					</div>
 				</div>
 			</div>
@@ -576,6 +1190,11 @@
 		<script>
 			function testFunction() {
 				alert('HELLO WORLD!');
+			}
+
+			function activateHeaderType(headerType) {
+				const ontarioHeaderElement = document.querySelector('ontario-header');
+				ontarioHeaderElement.type = headerType;
 			}
 		</script>
 	</body>

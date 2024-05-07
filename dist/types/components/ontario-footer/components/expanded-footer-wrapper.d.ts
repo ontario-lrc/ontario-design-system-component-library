@@ -1,7 +1,8 @@
 import { FunctionalComponent } from '../../../stencil-public-runtime';
 import { SimpleFooterLinks } from '../ontario-footer-interface';
-export declare type ExpandedFooterWrapperProps = {
+export type ExpandedFooterWrapperProps = {
 	footerLinks: SimpleFooterLinks;
 	topMargin: boolean;
+	backgroundImagePath: string;
 };
 export declare const ExpandedFooterWrapper: FunctionalComponent<ExpandedFooterWrapperProps>;

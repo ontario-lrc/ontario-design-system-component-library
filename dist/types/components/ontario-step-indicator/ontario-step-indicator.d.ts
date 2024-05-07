@@ -32,7 +32,7 @@ export declare class OntarioStepIndicator {
 	 * If this function is passed in, the back element will display as a button.
 	 * The back element will require either the backButtonURL prop or the customOnClick prop to be passed in order for the back element to display.
 	 */
-	customOnClick?: Function;
+	customOnClick?: (event: globalThis.Event) => void;
 	/**
 	 * The language of the component.
 	 * This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
@@ -44,6 +44,7 @@ export declare class OntarioStepIndicator {
 	handleSetAppLanguage(event: CustomEvent<Language>): void;
 	handleHeaderLanguageToggled(event: CustomEvent<Language>): void;
 	translations: any;
+	private handleCustomOnClick;
 	componentWillLoad(): void;
 	render(): any;
 }

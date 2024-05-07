@@ -10,3 +10,4 @@ export var MessageStyle;
 	MessageStyle['Regular'] = 'regular';
 	MessageStyle['Code'] = 'code';
 })(MessageStyle || (MessageStyle = {}));
+//# sourceMappingURL=console-message.enum.js.map

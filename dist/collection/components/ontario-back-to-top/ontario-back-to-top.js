@@ -4,7 +4,7 @@ import { validateLanguage } from '../../utils/validation/validation-functions';
 import translations from '../../translations/global.i18n.json';
 export class OntarioBackToTop {
 	constructor() {
-		this.language = 'en';
+		this.language = undefined;
 		this.translations = translations;
 		this.displayBackToTop = false;
 		this.scrollYValue = 200;
@@ -19,7 +19,9 @@ export class OntarioBackToTop {
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
@@ -37,11 +39,16 @@ export class OntarioBackToTop {
 		return h(
 			'button',
 			{
+				'key': '28f085a23b68bb74b8874d03c900775fe5868ae7',
 				'class': this.displayBackToTop ? `ontario-back-to-top active` : `ontario-back-to-top`,
 				'onClick': this.scrollToTop,
 				'aria-label': this.translations.backToTop.ariaLabel[`${this.language}`],
 			},
-			h('span', { 'aria-hidden': 'true', 'innerHTML': OntarioIconArrowUp }),
+			h('span', {
+				'key': '8f88357f7064378065119f52bfc7a081318094da',
+				'aria-hidden': 'true',
+				'innerHTML': OntarioIconArrowUp,
+			}),
 			this.translations.backToTop.top[`${this.language}`],
 		);
 	}
@@ -73,6 +80,7 @@ export class OntarioBackToTop {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -84,7 +92,6 @@ export class OntarioBackToTop {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
 			},
 		};
 	}
@@ -124,3 +131,4 @@ export class OntarioBackToTop {
 		];
 	}
 }
+//# sourceMappingURL=ontario-back-to-top.js.map

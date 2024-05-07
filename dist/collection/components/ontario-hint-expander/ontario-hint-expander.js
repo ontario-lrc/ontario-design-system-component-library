@@ -140,10 +140,11 @@ export class OntarioHintExpander {
 	render() {
 		return h(
 			'div',
-			{ class: 'ontario-hint-expander__container' },
+			{ key: 'de5d2b0a0639a3e14fdf9cd34b6781123ebf13a9', class: 'ontario-hint-expander__container' },
 			h(
 				'button',
 				{
+					'key': 'c586376903b31fb1b538404ae5b4259102df500a',
 					'class': 'ontario-hint-expander__button',
 					'onClick': this.onClick,
 					'id': `hint-expander-button-${this.getId()}`,
@@ -153,15 +154,23 @@ export class OntarioHintExpander {
 				},
 				h(
 					'span',
-					{ class: 'ontario-hint-expander__button-icon--close ontario-icon' },
-					h('ontario-icon-chevron-up', null),
+					{
+						key: 'b689528264cebabec3c09e2df78d4d9a9e75146c',
+						class: 'ontario-hint-expander__button-icon--close ontario-icon',
+					},
+					h('ontario-icon-chevron-up', { key: 'bf7c9b5056e86ca9c1c9dc212b4f9442db826981', colour: 'inherit' }),
 				),
-				h('span', { class: 'ontario-hint-expander__button-icon--open' }, h('ontario-icon-chevron-down', null)),
+				h(
+					'span',
+					{ key: 'f67fca9ae4a6de2df5410d1294cf2735dcb8f594', class: 'ontario-hint-expander__button-icon--open' },
+					h('ontario-icon-chevron-down', { key: '8b9e57741ce0a0e93128a0f2d850b3f3eca0cb49', colour: 'inherit' }),
+				),
 				this.hint,
 			),
 			h(
 				'div',
 				{
+					'key': 'bd9dda3470cf492efdf50601262da71b28d35201',
 					'class': 'ontario-hint-expander__content',
 					'id': `hint-expander-content-${this.getId()}`,
 					'aria-labelledby': `hint-expander-button-${this.getId()}`,
@@ -200,6 +209,7 @@ export class OntarioHintExpander {
 						HintContentType: {
 							location: 'import',
 							path: '../../utils/common/common.interface',
+							id: 'src/utils/common/common.interface.ts::HintContentType',
 						},
 					},
 				},
@@ -289,9 +299,18 @@ export class OntarioHintExpander {
 					text: 'Emitted when a keyboard input or mouse event occurs.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'MouseEvent | KeyboardEvent',
+					resolved: 'KeyboardEvent | MouseEvent',
+					references: {
+						MouseEvent: {
+							location: 'global',
+							id: 'global::MouseEvent',
+						},
+						KeyboardEvent: {
+							location: 'global',
+							id: 'global::KeyboardEvent',
+						},
+					},
 				},
 			},
 		];
@@ -316,3 +335,4 @@ export class OntarioHintExpander {
 		];
 	}
 }
+//# sourceMappingURL=ontario-hint-expander.js.map

@@ -1,6 +1,6 @@
 import { Base } from '../../common/common.interface';
 export declare const HeadingLevel: readonly ['h2', 'h3', 'h4', 'h5', 'h6'];
-export declare type HeadingLevelOptions = (typeof HeadingLevel)[number];
+export type HeadingLevelOptions = (typeof HeadingLevel)[number];
 export declare const HighlightColours: readonly [
 	'teal',
 	'gold',
@@ -12,9 +12,9 @@ export declare const HighlightColours: readonly [
 	'blue',
 	'purple',
 ];
-export declare type HighlightColourOptions = (typeof HighlightColours)[number];
-export declare type CalloutAsideType = 'callout' | 'aside';
-export declare type HeadingContentType = 'string' | 'html';
+export type HighlightColourOptions = (typeof HighlightColours)[number];
+export type CalloutAsideType = 'callout' | 'aside';
+export type HeadingContentType = 'string' | 'html';
 export declare const HeadingContentTypes: readonly ['string', 'html'];
 export interface CalloutAside extends Base {
 	/**

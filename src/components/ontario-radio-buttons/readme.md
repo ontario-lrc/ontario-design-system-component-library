@@ -1,4 +1,6 @@
-# ontario-radio-button
+import { OntarioRadioButtons } from '@ontario-lrc/ontario-design-system-component-library-react';
+
+# ontario-radio-buttons
 
 Use radio buttons when you want the user to select only one option from a list.
 
@@ -34,13 +36,32 @@ Example of a bare-bones radio button component, the legend for the radio button 
 </ontario-radio-buttons>
 ```
 
+<div>
+	<OntarioRadioButtons
+		caption="Radio legend"
+		name="radios"
+		options='[
+			{
+				"value": "radio-option-1",
+				"elementId": "radio-1",
+				"label": "Radio option 1 label"
+			},
+			{
+				"value": "radio-option-2",
+				"elementId": "radio-2",
+				"label": "Radio option 2 label"
+			}
+	]'>
+	</OntarioRadioButtons>
+</div>
+
 Example of a radio button component with multiple options, a hint text and hint expander for the entire radio group, and a hint expander on individual options. It also has the `required` property set to `true`.
 
 ```html
 <ontario-radio-buttons
 	caption='{
 		"captionText": "Radio legend",
-		"captionType": "large" 
+		"captionType": "large"
 	}'
 	name="radios"
 	hint-text="Hint text for the radio button group."
@@ -83,20 +104,104 @@ Example of a radio button component with multiple options, a hint text and hint 
 </ontario-radio-buttons>
 ```
 
+<div>
+	<OntarioRadioButtons
+		caption='{
+			"captionText": "Radio legend",
+			"captionType": "large"
+		}'
+		name="radios"
+		hint-text="Hint text for the radio button group."
+		required="true"
+		options='[
+			{
+				"value": "radio-option-1",
+				"elementId": "radio-1",
+				"label": "Radio option 1 label"
+			},
+			{
+				"value": "radio-option-2",
+				"elementId": "radio-2",
+				"label": "Radio option 2 label",
+				"hintExpander": {
+					"hint": "Hint expander for radio option 2",
+					"content": "Example hint expander content for radio option 2."
+				}
+			},
+			{
+				"value": "radio-option-3",
+				"elementId": "radio-3",
+				"label": "Radio option 3 label",
+				"hintExpander": {
+					"hint": "Hint expander for radio option 3",
+					"content": "Example hint expander content for radio option 3."
+				}
+			},
+			{
+				"value": "radio-option-4",
+				"elementId": "radio-4",
+				"label": "Radio option 4 label"
+			}
+		]'
+		hint-expander='{
+			"hint": "Hint expander for the radio button group",
+			"content": "Example hint expander content for the radio button group."
+		}'>
+	</OntarioRadioButtons>
+</div>
+
+### Forms
+
+The `ontario-radio-buttons` supports integration with native HTML `<form>` elements. This element integrates with the underlying browser form API and should work the same as a a group of `<input type="radio">` elements.
+
+```html
+<form>
+	<!-- Add ontario-radio-buttons -->
+	<ontario-radio-buttons
+		name="radio-buttons-1"
+		caption="Radio buttons"
+		options='[
+			{
+				"value": "radio-option-1",
+				"elementId": "radio-1",
+				"label": "Radio option 1 label",
+			},
+			{
+				"value": "radio-option-2",
+				"elementId": "radio-2",
+				"label": "Radio option 2 label"
+			},
+
+			{
+				"value": "radio-option-3",
+				"elementId": "radio-3",
+				"label": "Radio option 3 label"
+			}
+		]'
+	>
+	</ontario-radio-buttons>
+
+	<!-- Submit the form with a submit button -->
+	<ontario-button type="primary" html-type="submit">Submit</ontario-button>
+</form>
+```
+
+Remember to set the `name` attribute as this is used to identify the field when submitting the form.
+
 ## Custom property types
 
 ### caption
 
-The `caption` property is used to render the legend for the ontario-radio-buttons. It can be passed either a string or an object. If no `captionType` needs to be specified, it can be passed as a string.
+The `caption` property is used to render the legend for the `ontario-radio-buttons`. It can be passed either a string or an object. If no `captionType` needs to be specified, it can be passed as a string.
 
 ```html
 caption='{ "captionText": "Radio button legend", "captionType": "default" }'
 ```
 
-| **Property name** | **Type**                           | **Description**                                                                                                                                          |
-| ----------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `captionText`     | `string`                           | Text to display as the radio button question                                                                                                             |
-| `captionType`     | `"default" \| "large"\| "heading"` | The type of legend to display for the radio button question. This is optional, and if no information is provided, it will default to the `default` type. |
+| Property name | Type                               | Description                                                                                                                                              |
+| ------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `captionText` | `string`                           | Text to display as the radio button question                                                                                                             |
+| `captionType` | `"default" \| "large"\| "heading"` | The type of legend to display for the radio button question. This is optional, and if no information is provided, it will default to the `default` type. |
 
 ### hintExpander
 
@@ -107,19 +212,19 @@ hintExpander='{ "hint": "This is the hint expander title", "content": "This is t
 visible when the hint expander title (hint) is toggled" }'
 ```
 
-| **Property name** | **Type** | **Description**                                                                                                 |
-| ----------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| `hint`            | `string` | Text to display as the hint expander label/title. When toggled, it will display/hide the `hintExpander` content |
-| `content`         | `string` | Text to display as the content of the hint expander                                                             |
+| Property name | Type     | Description                                                                                                     |
+| ------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| `hint`        | `string` | Text to display as the hint expander label/title. When toggled, it will display/hide the `hintExpander` content |
+| `content`     | `string` | Text to display as the content of the hint expander                                                             |
 
 ### options
 
-| **Property name** | **Type**       | **Description**                                                                                                                                                                   |
-| ----------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`           | `string`       | Text to defines the value associated with the radio button (this is also the value that is sent on submit)                                                                        |
-| `label`           | `string`       | Text to display as the label of the individual radio option                                                                                                                       |
-| `elementId`       | `string`       | Text used as the ID for the radio button option. This is used to establish a relationship between radio button labels and the radio input. It must be unique to the radio option. |
-| `hintExpander`    | `hintExpander` | An optional hint expander to display for the individual radio button option. Information on `hintExpander` properties can be found in the custom property above                   |
+| Property name  | Type           | Description                                                                                                                                                                       |
+| -------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`        | `string`       | Text to defines the value associated with the radio button (this is also the value that is sent on submit)                                                                        |
+| `label`        | `string`       | Text to display as the label of the individual radio option                                                                                                                       |
+| `elementId`    | `string`       | Text used as the ID for the radio button option. This is used to establish a relationship between radio button labels and the radio input. It must be unique to the radio option. |
+| `hintExpander` | `hintExpander` | An optional hint expander to display for the individual radio button option. Information on `hintExpander` properties can be found in the custom property above                   |
 
 ## Accessibility
 
@@ -129,26 +234,26 @@ visible when the hint expander title (hint) is toggled" }'
 
 ## Properties
 
-| Property         | Attribute       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    | Type                                  | Default     |
-| ---------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `caption`        | `caption`       | The text to display for the radio button legend.                                                                                                                                                                                                                                                                                                                                                                                               | `Caption \| string`                   | `undefined` |
-| `customOnBlur`   | --              | Used to add a custom function to the radio input onBlur event.                                                                                                                                                                                                                                                                                                                                                                                 | `Function \| undefined`               | `undefined` |
-| `customOnChange` | --              | Used to add a custom function to the radio input onChange event.                                                                                                                                                                                                                                                                                                                                                                               | `Function \| undefined`               | `undefined` |
-| `customOnFocus`  | --              | Used to add a custom function to the radio input onFocus event.                                                                                                                                                                                                                                                                                                                                                                                | `Function \| undefined`               | `undefined` |
-| `hintExpander`   | `hint-expander` | Used to include the ontario-hint-expander component for the radio button group. This is passed in as an object with key-value pairs. This is optional.                                                                                                                                                                                                                                                                                         | `HintExpander \| string \| undefined` | `undefined` |
-| `hintText`       | `hint-text`     | Used to include the ontario-hint-text component for radio button group. This is optional.                                                                                                                                                                                                                                                                                                                                                      | `Hint \| string \| undefined`         | `undefined` |
-| `language`       | `language`      | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.                                                                                                                                                                                                                            | `"en" \| "fr" \| undefined`           | `'en'`      |
-| `name`           | `name`          | The name assigned to the radio button. The name value is used to reference form data after a form is submitted.                                                                                                                                                                                                                                                                                                                                | `string`                              | `undefined` |
-| `options`        | `options`       | The options for the radio button group. Each property will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. If there are multiple radio buttons in a group, each radio button will be displayed as an option. In the example below, the options are being passed in as a string and there are two radio buttons to be displayed in the group. | `RadioOption[] \| string`             | `undefined` |
-| `required`       | `required`      | This is used to determine whether the radio button is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).                                                                                                                                                                                             | `boolean \| undefined`                | `false`     |
+| Property         | Attribute       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    | Type                                    | Default     |
+| ---------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
+| `caption`        | `caption`       | The text to display for the radio button legend.                                                                                                                                                                                                                                                                                                                                                                                               | `Caption \| string`                     | `undefined` |
+| `customOnBlur`   | --              | Used to add a custom function to the radio input onBlur event.                                                                                                                                                                                                                                                                                                                                                                                 | `((event: Event) => void) \| undefined` | `undefined` |
+| `customOnChange` | --              | Used to add a custom function to the radio input onChange event.                                                                                                                                                                                                                                                                                                                                                                               | `((event: Event) => void) \| undefined` | `undefined` |
+| `customOnFocus`  | --              | Used to add a custom function to the radio input onFocus event.                                                                                                                                                                                                                                                                                                                                                                                | `((event: Event) => void) \| undefined` | `undefined` |
+| `hintExpander`   | `hint-expander` | Used to include the ontario-hint-expander component for the radio button group. This is passed in as an object with key-value pairs. This is optional.                                                                                                                                                                                                                                                                                         | `HintExpander \| string \| undefined`   | `undefined` |
+| `hintText`       | `hint-text`     | Used to include the ontario-hint-text component for radio button group. This is optional.                                                                                                                                                                                                                                                                                                                                                      | `Hint \| string \| undefined`           | `undefined` |
+| `language`       | `language`      | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.                                                                                                                                                                                                                            | `"en" \| "fr" \| undefined`             | `undefined` |
+| `name`           | `name`          | The name assigned to the radio button. The name value is used to reference form data after a form is submitted.                                                                                                                                                                                                                                                                                                                                | `string`                                | `undefined` |
+| `options`        | `options`       | The options for the radio button group. Each property will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. If there are multiple radio buttons in a group, each radio button will be displayed as an option. In the example below, the options are being passed in as a string and there are two radio buttons to be displayed in the group. | `RadioOption[] \| string`               | `undefined` |
+| `required`       | `required`      | This is used to determine whether the radio button is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).                                                                                                                                                                                             | `boolean \| undefined`                  | `false`     |
 
 ## Events
 
-| Event           | Description                                                                               | Type               |
-| --------------- | ----------------------------------------------------------------------------------------- | ------------------ |
-| `radioOnBlur`   | Emitted when a keyboard input event occurs when a radio option has lost focus.            | `CustomEvent<any>` |
-| `radioOnChange` | Emitted when a keyboard input or mouse event occurs when a radio option has been changed. | `CustomEvent<any>` |
-| `radioOnFocus`  | Emitted when a keyboard input event occurs when a radio option has gained focus.          | `CustomEvent<any>` |
+| Event           | Description                                                                               | Type                                                         |
+| --------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `radioOnBlur`   | Emitted when a keyboard input event occurs when a radio option has lost focus.            | `CustomEvent<InputInteractionEvent & { focused: boolean; }>` |
+| `radioOnChange` | Emitted when a keyboard input or mouse event occurs when a radio option has been changed. | `CustomEvent<InputInteractionEvent & { checked: boolean; }>` |
+| `radioOnFocus`  | Emitted when a keyboard input event occurs when a radio option has gained focus.          | `CustomEvent<InputInteractionEvent & { focused: boolean; }>` |
 
 ## Dependencies
 

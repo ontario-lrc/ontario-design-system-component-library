@@ -1,12 +1,17 @@
 import { FunctionalComponent } from '../../../stencil-public-runtime';
-export declare type InputProps = {
+export type InputProps = {
 	autoComplete?: string;
 	className?: string;
 	id: string;
 	name?: string;
 	type: string;
 	value?: string | number;
+	checked?: boolean;
 	required?: boolean;
+	inputMode?: string;
+	placeholder?: string;
+	ariaInvalid?: boolean;
+	ariaDescribedBy?: string;
 	onKeyDown?: ((event: Event) => void) | undefined;
 	onInput?: ((event: Event) => void) | undefined;
 	onChange?: ((event: Event) => void) | undefined;

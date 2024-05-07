@@ -1,4 +1,16 @@
-import { Component, State, Element, h, Prop, Event, Listen, Watch, getAssetPath } from '@stencil/core';
+import {
+	Component,
+	State,
+	Element,
+	h,
+	Prop,
+	Event,
+	Listen,
+	Watch,
+	getAssetPath,
+	EventEmitter,
+	AttachInternals,
+} from '@stencil/core';
 import { v4 as uuid } from 'uuid';
 
 import { DropdownOption } from './dropdown-option.interface';
@@ -17,7 +29,7 @@ import { ConsoleMessageClass } from '../../utils/console-message/console-message
 import { hasMultipleTrueValues } from '../../utils/helper/utils';
 import { Language } from '../../utils/common/language-types';
 import { constructHintTextObject } from '../../utils/components/hints/hints';
-import { InputFocusBlurEvent, EventType, InputChangeEvent } from '../../utils/events/event-handler.interface';
+import { InputFocusBlurEvent, EventType, InputInteractionEvent } from '../../utils/events/event-handler.interface';
 import { handleInputEvent } from '../../utils/events/event-handler';
 
 import { default as translations } from '../../translations/global.i18n.json';
@@ -26,10 +38,12 @@ import { default as translations } from '../../translations/global.i18n.json';
 	tag: 'ontario-dropdown-list',
 	styleUrl: 'ontario-dropdown-list.scss',
 	shadow: true,
+	formAssociated: true,
 	assetsDirs: ['./assets'],
 })
 export class OntarioDropdownList implements Dropdown {
 	@Element() element: HTMLElement;
+	@AttachInternals() internals: ElementInternals;
 
 	hintTextRef: HTMLOntarioHintTextElement | undefined;
 
@@ -52,7 +66,7 @@ export class OntarioDropdownList implements Dropdown {
 	 * The language of the component.
 	 * This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.
 	 */
-	@Prop({ mutable: true }) language?: Language = 'en';
+	@Prop({ mutable: true }) language?: Language;
 
 	/**
 	 * The name for the dropdown list. The name value is used to reference form data after a form is submitted.
@@ -167,17 +181,17 @@ export class OntarioDropdownList implements Dropdown {
 	/**
 	 * Used to add a custom function to the dropdown onChange event.
 	 */
-	@Prop() customOnChange?: Function;
+	@Prop() customOnChange?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the dropdown onBlur event.
 	 */
-	@Prop() customOnBlur?: Function;
+	@Prop() customOnBlur?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the dropdown onFocus event.
 	 */
-	@Prop() customOnFocus?: Function;
+	@Prop() customOnFocus?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used for the `aria-describedby` value of the dropdown list. This will match with the id of the hint text.
@@ -209,24 +223,26 @@ export class OntarioDropdownList implements Dropdown {
 	/**
 	 * Emitted when a keyboard input or mouse event occurs when a dropdown list has been changed.
 	 */
-	@Event({ eventName: 'dropdownOnChange' }) dropdownOnChange: InputChangeEvent;
+	@Event() dropdownOnChange: EventEmitter<InputInteractionEvent>;
 
 	/**
 	 * Emitted when a keyboard input event occurs when a dropdown list has lost focus.
 	 */
-	@Event({ eventName: 'dropdownOnBlur' }) dropdownOnBlur: InputFocusBlurEvent;
+	@Event() dropdownOnBlur: EventEmitter<InputFocusBlurEvent>;
 
 	/**
 	 * Emitted when a keyboard input event occurs when a dropdown list has gained focus.
 	 */
-	@Event({ eventName: 'dropdownOnFocus' }) dropdownOnFocus: InputFocusBlurEvent;
+	@Event() dropdownOnFocus: EventEmitter<InputFocusBlurEvent>;
 
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	@Listen('setAppLanguage', { target: 'window' })
 	handleSetAppLanguage(event: CustomEvent<Language>) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 
 	@Listen('headerLanguageToggled', { target: 'window' })
@@ -289,7 +305,7 @@ export class OntarioDropdownList implements Dropdown {
 			}
 		}
 
-		// Check selected status of options
+		// Check selected status of options and set the selectedValue
 		this.validateSelectedOption(this.internalOptions);
 	}
 
@@ -349,22 +365,27 @@ export class OntarioDropdownList implements Dropdown {
 	/**
 	 * Function to handle dropdown list events and the information pertaining to the dropdown list to emit.
 	 */
-	handleEvent = (ev: Event, eventType: EventType) => {
-		const input = ev.target as HTMLSelectElement | null;
+	private handleEvent(event: Event, eventType: EventType) {
+		const input = event.target as HTMLSelectElement | null;
+
+		this.internals?.setFormValue?.(input?.value ?? '');
 
 		handleInputEvent(
-			ev,
+			event,
 			eventType,
 			input,
 			this.dropdownOnChange,
 			this.dropdownOnFocus,
 			this.dropdownOnBlur,
+			undefined,
 			'dropdown',
 			this.customOnChange,
 			this.customOnFocus,
 			this.customOnBlur,
+			undefined,
+			this.element,
 		);
-	};
+	}
 
 	public getId(): string {
 		return this.elementId ?? '';

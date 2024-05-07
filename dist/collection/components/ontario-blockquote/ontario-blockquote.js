@@ -64,8 +64,11 @@ export class OntarioBlockquote {
 	render() {
 		return h(
 			'blockquote',
-			{ class: this.shortQuote ? `ontario-blockquote ontario-blockquote--short` : `ontario-blockquote` },
-			h('p', null, this.quoteState),
+			{
+				key: '10d7b83d6b3984b8b321c9757fb6fb5ffca89ee3',
+				class: this.shortQuote ? `ontario-blockquote ontario-blockquote--short` : `ontario-blockquote`,
+			},
+			h('p', { key: '6b557c47534fb2c50f0f7eb31967bc21f4969043' }, this.quoteState),
 			this.attribution && h('cite', { class: 'ontario-blockquote__attribution' }, this.attribution),
 			this.byline && h('cite', { class: 'ontario-blockquote__byline' }, this.byline),
 		);
@@ -160,3 +163,4 @@ export class OntarioBlockquote {
 		];
 	}
 }
+//# sourceMappingURL=ontario-blockquote.js.map

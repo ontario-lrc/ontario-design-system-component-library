@@ -46,3 +46,4 @@ export const FooterSocialLinks = ({ facebook, twitter, instagram, youtube }) => 
 			),
 	);
 };
+//# sourceMappingURL=footer-social-links.js.map

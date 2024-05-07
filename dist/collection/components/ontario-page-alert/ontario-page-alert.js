@@ -34,14 +34,22 @@ export class OntarioPageAlert {
 	render() {
 		return h(
 			'div',
-			{ class: this.getClass() },
+			{ key: '8d9ce139b254b12b7b718695fa033ca38370a49c', class: this.getClass() },
 			h(
 				'div',
-				{ class: 'ontario-alert__header' },
-				h('div', { class: 'ontario-alert__header-icon' }, this.renderIcon()),
-				h('h2', { class: 'ontario-alert__header-title ontario-h4' }, this.heading),
+				{ key: '1a64f71f87f6f21da11d9354f800a2bcb4ddbeda', class: 'ontario-alert__header' },
+				h(
+					'div',
+					{ key: '1a5566b6f44fa1fbf8a6358d9670bd9d85ebf569', class: 'ontario-alert__header-icon' },
+					this.renderIcon(),
+				),
+				h(
+					'h2',
+					{ key: '19f4f2ae3faa8b8c9ab1281b46b653d2b2a43d46', class: 'ontario-alert__header-title ontario-h4' },
+					this.heading,
+				),
 			),
-			h('div', { class: 'ontario-alert__body' }, this.renderContent()),
+			h('div', { key: 'cebd1ecddd5419b454dcd36512dbc4e1a3dcb684', class: 'ontario-alert__body' }, this.renderContent()),
 		);
 	}
 	static get is() {
@@ -72,6 +80,7 @@ export class OntarioPageAlert {
 						PageAlertType: {
 							location: 'import',
 							path: './ontario-page-alert.interface',
+							id: 'src/components/ontario-page-alert/ontario-page-alert.interface.ts::PageAlertType',
 						},
 					},
 				},
@@ -137,3 +146,4 @@ export class OntarioPageAlert {
 		};
 	}
 }
+//# sourceMappingURL=ontario-page-alert.js.map

@@ -1,22 +1,14 @@
 @use 'sass:math';
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
-	globalVariables;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
-	colours;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
-	as breakpoints;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
-	typography;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions'
-	as globalFunctions;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
-	as fontWeights;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders'
-	as focusPlaceholders;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/z-index.variables' as
-	zIndex;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as globalVariables;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as colours;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables' as breakpoints;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as typography;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/functions/global.functions' as globalFunctions;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables' as fontWeights;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders' as
+	focusPlaceholders;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/z-index.variables' as zIndex;
 @use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/5-layout/_grid.layout.scss';
 @use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/6-components/_text-inputs.component.scss';
 @use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/7-overrides/_visibility.overrides.scss';
@@ -31,7 +23,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	align-items: center;
 	background-color: colours.$ontario-colour-black;
 	color: colours.$ontario-colour-white;
-	height: 3.125rem;
+	height: 3.125rem !important;
 	position: relative;
 	z-index: calc(zIndex.$ontario-z-index-above-high + 1);
 
@@ -95,7 +87,8 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	}
 }
 
-.ontario-application-header__logo svg {
+.ontario-application-header__logo svg,
+.ontario-application-header__logo img {
 	width: 100px;
 	height: 25px;
 }
@@ -104,8 +97,8 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	justify-content: flex-end;
 
 	a {
-		font-size: globalFunctions.rem-calc(16);
-		line-height: globalFunctions.rem-calc(22);
+		font-size: globalFunctions.px-to-rem(16);
+		line-height: globalFunctions.px-to-rem(22);
 		height: auto;
 		outline: none;
 		padding: spacing.$spacing-2 spacing.$spacing-3;
@@ -146,6 +139,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 .ontario-application-subheader .ontario-header-button,
 .ontario-application-navigation .ontario-header-button {
 	background-color: colours.$ontario-greyscale-70;
+
 	&:hover {
 		background-color: colours.$ontario-greyscale-60;
 	}
@@ -159,6 +153,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	&:hover {
 		background-color: colours.$ontario-greyscale-70;
 	}
+
 	&:focus {
 		box-shadow: focusPlaceholders.$ontario-focus-box-shadow;
 		outline: 4px solid transparent;
@@ -181,6 +176,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 			box-shadow: focusPlaceholders.$ontario-focus-box-shadow;
 			transition: all 0.1s ease-in-out;
 		}
+
 		&:hover,
 		&:active,
 		&:visited {
@@ -249,10 +245,10 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	color: colours.$ontario-colour-white;
 	display: inline-block;
 	font-family: typography.$ontario-font-open-sans;
-	font-size: globalFunctions.rem-calc(18);
+	font-size: globalFunctions.px-to-rem(18);
 	font-weight: fontWeights.$ontario-font-weights-semi-bold;
 	height: globalVariables.$standard-input-height;
-	line-height: globalFunctions.rem-calc(23);
+	line-height: globalFunctions.px-to-rem(23);
 	outline: none;
 	padding: spacing.$spacing-3;
 	text-align: left;
@@ -381,6 +377,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	visibility: visible;
 	transform: translateY(0);
 	transition: transform 0.4s ease-in-out;
+
 	@media screen and (min-width: breakpoints.$medium-breakpoint) {
 		z-index: calc(zIndex.$ontario-z-index-above-high + 1);
 	}
@@ -400,6 +397,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	visibility: visible;
 	transform: translateY(0);
 	transition: transform 0.4s ease-in-out;
+
 	@media screen and (min-width: breakpoints.$medium-breakpoint) {
 		transition: none;
 		display: block;
@@ -420,6 +418,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	&:hover {
 		background-color: colours.$ontario-greyscale-60;
 	}
+
 	&:active {
 		background-color: colours.$ontario-colour-black;
 	}
@@ -455,6 +454,7 @@ $ontario-application-header-menu-button-icon--margin-right: 6px;
 	&:focus {
 		@extend %ontario-focus;
 	}
+
 	&:hover,
 	&:focus,
 	&:visited {

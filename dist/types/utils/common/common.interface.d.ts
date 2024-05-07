@@ -1,5 +1,6 @@
 import { Language } from './language-types';
-import { InputChangeEvent, InputFocusBlurEvent } from '../events/event-handler.interface';
+import { InputInteractionEvent, InputFocusBlurEvent } from '../events/event-handler.interface';
+import { EventEmitter } from '../../stencil-public-runtime';
 export interface Base {
 	/**
 	 * The unique identifier of the element. This is optional - if no ID is passed, one will be generated.
@@ -39,27 +40,27 @@ export interface Input extends Base {
 	/**
 	 * Used to add a custom function to the input onChange event.
 	 */
-	customOnChange?: Function;
+	customOnChange?: (event: globalThis.Event) => void;
 	/**
 	 * Used to add a custom function to the input onBlur event.
 	 */
-	customOnBlur?: Function;
+	customOnBlur?: (event: globalThis.Event) => void;
 	/**
 	 * Used to add a custom function to the input onFocus event.
 	 */
-	customOnFocus?: Function;
+	customOnFocus?: (event: globalThis.Event) => void;
 	/**
 	 * Emitted when a keyboard input or mouse event occurs when an input has been changed.
 	 */
-	inputOnChange: InputChangeEvent;
+	inputOnChange: EventEmitter<InputInteractionEvent>;
 	/**
 	 * Emitted when a keyboard input event occurs when an input has lost focus.
 	 */
-	inputOnBlur: InputFocusBlurEvent;
+	inputOnBlur: EventEmitter<InputFocusBlurEvent>;
 	/**
 	 * Emitted when a keyboard input event occurs when an input has gained focus.
 	 */
-	inputOnFocus: InputFocusBlurEvent;
+	inputOnFocus: EventEmitter<InputFocusBlurEvent>;
 }
 export interface Hint extends Base {
 	/**
@@ -76,4 +77,4 @@ export interface Hint extends Base {
 	 */
 	hint: string;
 }
-export declare type HintContentType = 'string' | 'html';
+export type HintContentType = 'string' | 'html';

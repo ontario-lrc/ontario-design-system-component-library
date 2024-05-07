@@ -1,0 +1,1 @@
+{"version":3,"file":"language-types.js","sourceRoot":"","sources":["../../../src/utils/common/language-types.ts"],"names":[],"mappings":"","sourcesContent":["export type Language = 'en' | 'fr';\n"]}

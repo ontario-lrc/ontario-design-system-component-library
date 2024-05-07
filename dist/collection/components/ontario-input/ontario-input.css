@@ -30,11 +30,11 @@
 /* -------------------------------
     Global font-weight variables
 --------------------------------- */
-/*** 1 - Breakpoint sizes for media queries ***/
-/* -------------------------------
+/*** 1 - Breakpoint sizes for media queries ***/ /* -------------------------------
     Global letter-spacing variables
 --------------------------------- */
 /* Rem calc function */
+/* Pixel to REM Conversion */
 /* -------------------------------
     Global line-height variables
 --------------------------------- */
@@ -52,6 +52,8 @@ h3,
 h2,
 .ontario-h2,
 h1 > .ontario-label--heading,
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1,
 h1,
 .ontario-h1 {
 	font-style: normal;
@@ -63,6 +65,8 @@ h1,
 }
 
 h1 > .ontario-label--heading,
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1,
 h1,
 .ontario-h1 {
 	font-size: 2rem;
@@ -73,6 +77,8 @@ h1,
 }
 @media screen and (min-width: 40em) {
 	h1 > .ontario-label--heading,
+	.ontario-fieldset__legend--large h1,
+	.ontario-fieldset__legend--heading h1,
 	h1,
 	.ontario-h1 {
 		font-size: 2.5rem;
@@ -390,6 +396,11 @@ ol li:last-child {
 	padding-bottom: 0;
 }
 
+ul[class*='columns-'] li:last-child,
+ol[class*='columns-'] li:last-child {
+	padding-bottom: 0.75rem;
+}
+
 ul ul,
 ol ul {
 	margin: 0.5rem 0 0.5rem 2rem;
@@ -409,16 +420,13 @@ p + ol {
 	ul {
 		margin: 0.5rem 0 1.5rem 3rem;
 	}
-
 	ol {
 		margin: 0.5rem 0 1.5rem 2.75rem;
 	}
-
 	ul ul,
 	ol ul {
 		margin: 0.5rem 0 0.5rem 3rem;
 	}
-
 	ul ol,
 	ol ol {
 		margin: 0.5rem 0 0.5rem 2.75rem;
@@ -448,14 +456,12 @@ p + ol {
 
 .ontario-fieldset__legend--large,
 .ontario-fieldset__legend--heading {
-	font-size: 1.75rem;
 	letter-spacing: 0.02rem;
 	line-height: 1.2;
 }
 .ontario-fieldset__legend--large h1,
 .ontario-fieldset__legend--heading h1 {
 	display: inline-block;
-	font-size: inherit;
 	margin: 0;
 }
 @media screen and (max-width: 40em) {
@@ -464,6 +470,10 @@ p + ol {
 		font-size: 1.4375rem;
 		line-height: 1.39;
 	}
+}
+
+.ontario-fieldset__legend--large {
+	font-size: 1.75rem;
 }
 
 .ontario-fieldset__legend-required-flag,
@@ -582,7 +592,7 @@ h1 > .ontario-label--heading {
 }
 
 .ontario-form-group:last-of-type {
-	margin-bottom: 3rem;
+	margin-bottom: 2.5rem;
 }
 
 /*
@@ -700,6 +710,26 @@ h1 > .ontario-label--heading {
 		display: block !important;
 	}
 }
+.ontario-error-messaging {
+	display: flex;
+	align-items: flex-start;
+	margin: -0.25rem 0 0.5rem 0;
+	color: #d81a21;
+	max-width: 48rem;
+}
+
+.ontario-error-messaging__content {
+	margin-left: 0.5rem;
+}
+
+.ontario-input__error {
+	border-color: #d81a21 !important;
+}
+
+.ontario-error__hidden {
+	display: none;
+}
+
 .ontario-input {
 	border: 2px solid #1a1a1a;
 	border-radius: 4px;
@@ -745,4 +775,8 @@ h1 > .ontario-label--heading {
 
 .ontario-input--20-char-width {
 	max-width: 41ex;
+}
+
+.ontario-input--error input {
+	border: 0.125rem solid #cd0000;
 }

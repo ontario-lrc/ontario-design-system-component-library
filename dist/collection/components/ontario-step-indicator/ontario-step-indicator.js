@@ -3,20 +3,25 @@ import { validateLanguage } from '../../utils/validation/validation-functions';
 import translations from '../../translations/global.i18n.json';
 export class OntarioStepIndicator {
 	constructor() {
+		this.handleCustomOnClick = (e) => {
+			this.customOnClick && this.customOnClick(e);
+		};
 		this.showBackButton = false;
 		this.backButtonUrl = undefined;
 		this.currentStep = undefined;
 		this.numberOfSteps = undefined;
 		this.percentageComplete = undefined;
 		this.customOnClick = undefined;
-		this.language = 'en';
+		this.language = undefined;
 		this.translations = translations;
 	}
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
@@ -27,30 +32,28 @@ export class OntarioStepIndicator {
 	render() {
 		return h(
 			'div',
-			{ class: 'ontario-step-indicator' },
+			{ key: 'd0409bc6e29e154adc63b98808d0763946cbffaf', class: 'ontario-step-indicator' },
 			h(
 				'div',
-				{ class: 'ontario-row' },
+				{ key: '04dbd24ee41638675a0b3ece3a2ef8c479235b78', class: 'ontario-row' },
 				h(
 					'div',
-					{ class: 'ontario-columns ontario-small-12' },
+					{ key: 'faa631380f1f0cb18ca72bf2fbb31221292d04f2', class: 'ontario-columns ontario-small-12' },
 					h(
 						'div',
-						{ class: `ontario-step-indicator--with-back-button--${this.showBackButton}` },
+						{
+							key: 'a5f0eae9768f9bce57db3d31cc016e79e83ce73d',
+							class: `ontario-step-indicator--with-back-button--${this.showBackButton}`,
+						},
 						this.showBackButton === true &&
-							this.customOnClick &&
 							!this.backButtonUrl &&
 							h(
 								'button',
-								{
-									class: 'ontario-button ontario-button--tertiary',
-									onClick: (e) => this.customOnClick && this.customOnClick(e),
-								},
+								{ class: 'ontario-button ontario-button--tertiary', onClick: (e) => this.handleCustomOnClick(e) },
 								h('ontario-icon-chevron-left', { colour: 'blue' }),
 								this.translations.stepIndicator.back[`${this.language}`],
 							),
 						this.showBackButton === true &&
-							!this.customOnClick &&
 							this.backButtonUrl &&
 							h(
 								'a',
@@ -63,22 +66,23 @@ export class OntarioStepIndicator {
 									'span',
 									{ class: 'ontario-h4' },
 									this.percentageComplete,
-									'\u00A0% ',
+									this.language === 'en' ? '%' : h('span', null, '\u00A0%'),
+									' ',
 									this.translations.stepIndicator.complete[`${this.language}`],
 							  )
 							: h(
 									'span',
 									{ class: 'ontario-h4' },
 									this.translations.stepIndicator.step[`${this.language}`],
-									'\u00A0 ',
+									'\u00A0',
 									this.currentStep,
 									' ',
 									this.translations.stepIndicator.of[`${this.language}`],
-									'\u00A0 ',
+									'\u00A0',
 									this.numberOfSteps,
 							  ),
 					),
-					h('hr', null),
+					h('hr', { key: '10575f02752bf93aefff4ce1bc8eaf02d5a78c08' }),
 				),
 			),
 		);
@@ -191,11 +195,12 @@ export class OntarioStepIndicator {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -216,6 +221,7 @@ export class OntarioStepIndicator {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -227,7 +233,6 @@ export class OntarioStepIndicator {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
 			},
 		};
 	}
@@ -258,3 +263,4 @@ export class OntarioStepIndicator {
 		];
 	}
 }
+//# sourceMappingURL=ontario-step-indicator.js.map

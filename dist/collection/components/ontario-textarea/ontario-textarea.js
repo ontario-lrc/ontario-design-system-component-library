@@ -9,24 +9,6 @@ import { handleInputEvent } from '../../utils/events/event-handler';
 import { default as translations } from '../../translations/global.i18n.json';
 export class OntarioTextarea {
 	constructor() {
-		/**
-		 * Function to handle textarea events and the information pertaining to the textarea to emit.
-		 */
-		this.handleEvent = (ev, eventType) => {
-			const input = ev.target;
-			handleInputEvent(
-				ev,
-				eventType,
-				input,
-				this.inputOnChange,
-				this.inputOnFocus,
-				this.inputOnBlur,
-				'input',
-				this.customOnChange,
-				this.customOnFocus,
-				this.customOnBlur,
-			);
-		};
 		this.caption = undefined;
 		this.name = undefined;
 		this.elementId = undefined;
@@ -34,7 +16,8 @@ export class OntarioTextarea {
 		this.value = undefined;
 		this.hintText = undefined;
 		this.hintExpander = undefined;
-		this.language = 'en';
+		this.language = undefined;
+		this.customOnInput = undefined;
 		this.customOnChange = undefined;
 		this.customOnBlur = undefined;
 		this.customOnFocus = undefined;
@@ -47,7 +30,9 @@ export class OntarioTextarea {
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the textarea component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
@@ -115,6 +100,34 @@ export class OntarioTextarea {
 	updateLanguage() {
 		this.updateCaptionState(this.caption);
 	}
+	/**
+	 * Function to handle textarea events and the information pertaining to the textarea to emit.
+	 */
+	handleEvent(event, eventType) {
+		var _a, _b, _c;
+		const input = event.target;
+		(_b = (_a = this.internals) === null || _a === void 0 ? void 0 : _a.setFormValue) === null || _b === void 0
+			? void 0
+			: _b.call(
+					_a,
+					(_c = input === null || input === void 0 ? void 0 : input.value) !== null && _c !== void 0 ? _c : '',
+			  );
+		handleInputEvent(
+			event,
+			eventType,
+			input,
+			this.inputOnChange,
+			this.inputOnFocus,
+			this.inputOnBlur,
+			this.inputOnInput,
+			'input',
+			this.customOnChange,
+			this.customOnFocus,
+			this.customOnBlur,
+			this.customOnInput,
+			this.element,
+		);
+	}
 	getId() {
 		var _a;
 		return (_a = this.elementId) !== null && _a !== void 0 ? _a : '';
@@ -145,7 +158,7 @@ export class OntarioTextarea {
 	render() {
 		return h(
 			'div',
-			{ class: 'ontario-form-group' },
+			{ key: 'ca65ae6963ca2bf19e4285413494b31cac66fbc5', class: 'ontario-form-group' },
 			this.captionState.getCaption(this.getId(), !!this.internalHintExpander),
 			this.internalHintText &&
 				h('ontario-hint-text', {
@@ -154,12 +167,14 @@ export class OntarioTextarea {
 					ref: (el) => (this.hintTextRef = el),
 				}),
 			h('textarea', {
+				'key': '9b20c5156e0977b440786d3a3cf8bbabf9f69649',
 				'aria-describedby': this.hintTextId,
 				'class': this.getClass(),
 				'id': this.getId(),
 				'name': this.name,
 				'value': this.getValue(),
-				'onInput': (e) => this.handleEvent(e, EventType.Change),
+				'onInput': (e) => this.handleEvent(e, EventType.Input),
+				'onChange': (e) => this.handleEvent(e, EventType.Change),
 				'onBlur': (e) => this.handleEvent(e, EventType.Blur),
 				'onFocus': (e) => this.handleEvent(e, EventType.Focus),
 				'required': !!this.required,
@@ -178,6 +193,9 @@ export class OntarioTextarea {
 	}
 	static get encapsulation() {
 		return 'shadow';
+	}
+	static get formAssociated() {
+		return true;
 	}
 	static get originalStyleUrls() {
 		return {
@@ -201,6 +219,7 @@ export class OntarioTextarea {
 						Caption: {
 							location: 'import',
 							path: '../../utils/common/input-caption/caption.interface',
+							id: 'src/utils/common/input-caption/caption.interface.ts::Caption',
 						},
 					},
 				},
@@ -297,6 +316,7 @@ export class OntarioTextarea {
 						Hint: {
 							location: 'import',
 							path: '../../utils/common/common.interface',
+							id: 'src/utils/common/common.interface.ts::Hint',
 						},
 					},
 				},
@@ -319,6 +339,7 @@ export class OntarioTextarea {
 						HintExpander: {
 							location: 'import',
 							path: '../ontario-hint-expander/hint-expander.interface',
+							id: 'src/components/ontario-hint-expander/hint-expander.interface.ts::HintExpander',
 						},
 					},
 				},
@@ -346,6 +367,7 @@ export class OntarioTextarea {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -357,17 +379,37 @@ export class OntarioTextarea {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
+			},
+			customOnInput: {
+				type: 'unknown',
+				mutable: false,
+				complexType: {
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
+					references: {
+						globalThis: {
+							location: 'global',
+							id: 'global::globalThis',
+						},
+					},
+				},
+				required: false,
+				optional: true,
+				docs: {
+					tags: [],
+					text: 'Used to add a custom function to the textarea onInput event.',
+				},
 			},
 			customOnChange: {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -382,11 +424,12 @@ export class OntarioTextarea {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -401,11 +444,12 @@ export class OntarioTextarea {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -429,6 +473,28 @@ export class OntarioTextarea {
 	static get events() {
 		return [
 			{
+				method: 'inputOnInput',
+				name: 'inputOnInput',
+				bubbles: true,
+				cancelable: true,
+				composed: true,
+				docs: {
+					tags: [],
+					text: 'Emitted when a input event occurs when an input has been changed.',
+				},
+				complexType: {
+					original: 'InputInputEvent',
+					resolved: 'InputInteractionEvent & { inputType?: string | undefined; }',
+					references: {
+						InputInputEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputInputEvent',
+						},
+					},
+				},
+			},
+			{
 				method: 'inputOnChange',
 				name: 'inputOnChange',
 				bubbles: true,
@@ -439,9 +505,15 @@ export class OntarioTextarea {
 					text: 'Emitted when a keyboard input or mouse event occurs when an input has been changed.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputInteractionEvent',
+					resolved: '{ id?: string | undefined; value?: string | undefined; }',
+					references: {
+						InputInteractionEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputInteractionEvent',
+						},
+					},
 				},
 			},
 			{
@@ -455,9 +527,15 @@ export class OntarioTextarea {
 					text: 'Emitted when a keyboard input event occurs when an input has lost focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 			{
@@ -471,9 +549,15 @@ export class OntarioTextarea {
 					text: 'Emitted when a keyboard input event occurs when an input has gained focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 		];
@@ -523,4 +607,8 @@ export class OntarioTextarea {
 			},
 		];
 	}
+	static get attachInternalsMemberName() {
+		return 'internals';
+	}
 }
+//# sourceMappingURL=ontario-textarea.js.map

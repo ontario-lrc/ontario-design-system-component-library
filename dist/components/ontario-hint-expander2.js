@@ -6,10 +6,11 @@ import { d as defineCustomElement$1 } from './ontario-icon-chevron-up2.js';
 import { v as v4 } from './v4.js';
 
 const ontarioHintExpanderCss =
-	'.ontario-hint-expander__button:focus,.ontario-hint-expander__button:active{-webkit-box-shadow:0 0 0 4px #009ADB;box-shadow:0 0 0 4px #009ADB;outline:4px solid transparent;-webkit-transition:-webkit-box-shadow 0.1s ease-in-out;transition:-webkit-box-shadow 0.1s ease-in-out;transition:box-shadow 0.1s ease-in-out;transition:box-shadow 0.1s ease-in-out, -webkit-box-shadow 0.1s ease-in-out}.ontario-hint-expander__container{max-width:48rem}.ontario-hint-expander__button{color:#0066CC;cursor:pointer;background:none;border:none;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:400;font-size:1rem;text-align:left;margin:0 0 1rem 0;padding:0 0.25rem 0 0}.ontario-hint-expander__button-icon--close{display:none;margin-right:0.25rem}.ontario-hint-expander__button-icon--open{display:inline-block;margin-right:0.25rem}.ontario-hint-expander__button:hover{color:#00478F}.ontario-hint-expander__button:active{color:#002142}.ontario-hint-expander__button>*{pointer-events:none}.ontario-hint-expander__content{border-left:4px solid #cccccc;color:#1a1a1a;background-color:#f2f2f2;display:none;padding:1rem 1rem 1rem calc(1rem + 0.25rem);margin:0 0 1rem 0.25rem}.ontario-hint-expander__content *:first-child{margin-top:0}.ontario-hint-expander__content *:last-child{margin-bottom:0}.ontario-hint-expander__content img{width:100%}@media screen and (min-width: 40em){.ontario-hint-expander__content img{width:50%}}.ontario-hint-expander__content.ontario-expander__content--opened{display:block}.ontario-hint-expander__container.ontario-expander--active .ontario-hint-expander__button-icon--close{display:inline-block}.ontario-hint-expander__container.ontario-expander--active .ontario-hint-expander__button-icon--open{display:none}.ontario-hint-expander__checkbox-exists-true{margin:0.75rem 0 0 0.5rem}@media screen and (max-width: 40em){.ontario-hint-expander__checkbox-exists-true{margin-top:1rem}}';
+	'.ontario-hint-expander__button:focus,.ontario-hint-expander__button:active{box-shadow:0 0 0 4px #009ADB;outline:4px solid transparent;transition:box-shadow 0.1s ease-in-out}.ontario-hint-expander__container{max-width:48rem}.ontario-hint-expander__button{color:#0066CC;cursor:pointer;background:none;border:none;display:flex;align-items:center;font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:400;font-size:1rem;text-align:left;margin:0 0 1rem 0;padding:0 0.25rem 0 0}.ontario-hint-expander__button-icon--close{display:none;margin-right:0.25rem}.ontario-hint-expander__button-icon--open{display:inline-block;margin-right:0.25rem}.ontario-hint-expander__button:hover{color:#00478F}.ontario-hint-expander__button:active{color:#002142}.ontario-hint-expander__button>*{pointer-events:none}.ontario-hint-expander__content{border-left:4px solid #cccccc;color:#1a1a1a;background-color:#f2f2f2;display:none;padding:1rem 1rem 1rem calc(1rem + 0.25rem);margin:0 0 1rem 0.25rem}.ontario-hint-expander__content *:first-child{margin-top:0}.ontario-hint-expander__content *:last-child{margin-bottom:0}.ontario-hint-expander__content img{width:100%}@media screen and (min-width: 40em){.ontario-hint-expander__content img{width:50%}}.ontario-hint-expander__content.ontario-expander__content--opened{display:block}.ontario-hint-expander__container.ontario-expander--active .ontario-hint-expander__button-icon--close{display:inline-block}.ontario-hint-expander__container.ontario-expander--active .ontario-hint-expander__button-icon--open{display:none}.ontario-hint-expander__checkbox-exists-true{margin:0.75rem 0 0 0.5rem}@media screen and (max-width: 40em){.ontario-hint-expander__checkbox-exists-true{margin-top:1rem}}.ontario-input+.ontario-hint-expander__container{margin-top:-1.5rem !important}.ontario-checkboxes__item .ontario-hint-expander__container,.ontario-radios__item .ontario-hint-expander__container{margin-left:0.5rem}.ontario-checkboxes__label+.ontario-hint-expander__container,.ontario-radios__label+.ontario-hint-expander__container{margin-top:0.75rem}@media screen and (max-width: 40em){.ontario-checkboxes__label+.ontario-hint-expander__container,.ontario-radios__label+.ontario-hint-expander__container{margin-top:1rem}}';
+const OntarioHintExpanderStyle0 = ontarioHintExpanderCss;
 
 const OntarioHintExpander = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioHintExpander extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -152,10 +153,11 @@ const OntarioHintExpander = /*@__PURE__*/ proxyCustomElement(
 		render() {
 			return h(
 				'div',
-				{ class: 'ontario-hint-expander__container' },
+				{ key: 'de5d2b0a0639a3e14fdf9cd34b6781123ebf13a9', class: 'ontario-hint-expander__container' },
 				h(
 					'button',
 					{
+						'key': 'c586376903b31fb1b538404ae5b4259102df500a',
 						'class': 'ontario-hint-expander__button',
 						'onClick': this.onClick,
 						'id': `hint-expander-button-${this.getId()}`,
@@ -165,15 +167,23 @@ const OntarioHintExpander = /*@__PURE__*/ proxyCustomElement(
 					},
 					h(
 						'span',
-						{ class: 'ontario-hint-expander__button-icon--close ontario-icon' },
-						h('ontario-icon-chevron-up', null),
+						{
+							key: 'b689528264cebabec3c09e2df78d4d9a9e75146c',
+							class: 'ontario-hint-expander__button-icon--close ontario-icon',
+						},
+						h('ontario-icon-chevron-up', { key: 'bf7c9b5056e86ca9c1c9dc212b4f9442db826981', colour: 'inherit' }),
 					),
-					h('span', { class: 'ontario-hint-expander__button-icon--open' }, h('ontario-icon-chevron-down', null)),
+					h(
+						'span',
+						{ key: 'f67fca9ae4a6de2df5410d1294cf2735dcb8f594', class: 'ontario-hint-expander__button-icon--open' },
+						h('ontario-icon-chevron-down', { key: '8b9e57741ce0a0e93128a0f2d850b3f3eca0cb49', colour: 'inherit' }),
+					),
 					this.hint,
 				),
 				h(
 					'div',
 					{
+						'key': 'bd9dda3470cf492efdf50601262da71b28d35201',
 						'class': 'ontario-hint-expander__content',
 						'id': `hint-expander-content-${this.getId()}`,
 						'aria-labelledby': `hint-expander-button-${this.getId()}`,
@@ -195,7 +205,7 @@ const OntarioHintExpander = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioHintExpanderCss;
+			return OntarioHintExpanderStyle0;
 		}
 	},
 	[
@@ -207,6 +217,12 @@ const OntarioHintExpander = /*@__PURE__*/ proxyCustomElement(
 			content: [1025],
 			elementId: [1025, 'element-id'],
 			hintState: [32],
+		},
+		undefined,
+		{
+			hintContentType: ['checkHintContentType'],
+			hint: ['updateHintContent'],
+			content: ['validateContent'],
 		},
 	],
 );
@@ -237,3 +253,5 @@ function defineCustomElement() {
 }
 
 export { OntarioHintExpander as O, defineCustomElement as d };
+
+//# sourceMappingURL=ontario-hint-expander2.js.map

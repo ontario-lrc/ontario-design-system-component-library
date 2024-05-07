@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Event, Listen, Watch, Element } from '@stencil/core';
+import { Component, h, Prop, State, Event, Listen, Watch, Element, EventEmitter, AttachInternals } from '@stencil/core';
 import { RadioButtons } from './radio-buttons.interface';
 import { RadioOption } from './radio-option.interface';
 
@@ -28,9 +28,11 @@ import { default as translations } from '../../translations/global.i18n.json';
 	tag: 'ontario-radio-buttons',
 	styleUrl: 'ontario-radio-buttons.scss',
 	shadow: true,
+	formAssociated: true,
 })
 export class OntarioRadioButtons implements RadioButtons {
 	@Element() element: HTMLElement;
+	@AttachInternals() internals: ElementInternals;
 
 	hintTextRef: HTMLOntarioHintTextElement | undefined;
 
@@ -53,7 +55,7 @@ export class OntarioRadioButtons implements RadioButtons {
 	 * The language of the component.
 	 * This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.
 	 */
-	@Prop({ mutable: true }) language?: Language = 'en';
+	@Prop({ mutable: true }) language?: Language;
 
 	/**
 	 * The name assigned to the radio button. The name value is used to reference form data after a form is submitted.
@@ -149,17 +151,17 @@ export class OntarioRadioButtons implements RadioButtons {
 	/**
 	 * Used to add a custom function to the radio input onChange event.
 	 */
-	@Prop() customOnChange?: Function;
+	@Prop() customOnChange?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the radio input onBlur event.
 	 */
-	@Prop() customOnBlur?: Function;
+	@Prop() customOnBlur?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the radio input onFocus event.
 	 */
-	@Prop() customOnFocus?: Function;
+	@Prop() customOnFocus?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used for the `aria-describedby` value of the radio button group. This will match with the id of the hint text.
@@ -189,24 +191,26 @@ export class OntarioRadioButtons implements RadioButtons {
 	/**
 	 * Emitted when a keyboard input or mouse event occurs when a radio option has been changed.
 	 */
-	@Event({ eventName: 'radioOnChange' }) radioOnChange: RadioAndCheckboxChangeEvent;
+	@Event({ eventName: 'radioOnChange' }) radioOnChange: EventEmitter<RadioAndCheckboxChangeEvent>;
 
 	/**
 	 * Emitted when a keyboard input event occurs when a radio option has lost focus.
 	 */
-	@Event({ eventName: 'radioOnBlur' }) radioOnBlur: InputFocusBlurEvent;
+	@Event({ eventName: 'radioOnBlur' }) radioOnBlur: EventEmitter<InputFocusBlurEvent>;
 
 	/**
 	 * Emitted when a keyboard input event occurs when a radio option has gained focus.
 	 */
-	@Event({ eventName: 'radioOnFocus' }) radioOnFocus: InputFocusBlurEvent;
+	@Event({ eventName: 'radioOnFocus' }) radioOnFocus: EventEmitter<InputFocusBlurEvent>;
 
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	@Listen('setAppLanguage', { target: 'window' })
 	handleSetAppLanguage(event: CustomEvent<Language>) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 
 	@Listen('headerLanguageToggled', { target: 'window' })
@@ -326,26 +330,45 @@ export class OntarioRadioButtons implements RadioButtons {
 	/**
 	 * Function to handle radio buttons events and the information pertaining to the radio buttons to emit.
 	 */
-	handleEvent = (ev: Event, eventType: EventType) => {
-		const input = ev.target as HTMLInputElement | null;
+	private handleEvent(event: Event, eventType: EventType) {
+		const input = event.target as HTMLInputElement | null;
 
-		if (input) {
-			input.checked = input.checked ?? '';
-		}
+		// Reset all internalOptions checked states
+		const changedOption = this.internalOptions
+			.map((x) => {
+				x.checked = false;
+				return x;
+			})
+			.find((x) => x.value === input?.value);
+		// Set the new checked state for the selected value
+		if (changedOption) changedOption.checked = !changedOption?.checked;
+
+		// Set the value within the form
+		this.internals?.setFormValue?.(
+			this.internalOptions
+				.filter((x) => !!x.checked)
+				.reduce((formData, currentValue) => {
+					formData.append(this.name, currentValue.value);
+					return formData;
+				}, new FormData()),
+		);
 
 		handleInputEvent(
-			ev,
+			event,
 			eventType,
 			input,
 			this.radioOnChange,
 			this.radioOnFocus,
 			this.radioOnBlur,
+			undefined,
 			'radio',
 			this.customOnChange,
 			this.customOnFocus,
 			this.customOnBlur,
+			undefined,
+			this.element,
 		);
-	};
+	}
 
 	/**
 	 * If a `hintText` prop is passed, the id generated from it will be set to the internal `hintTextId` state to match with the fieldset `aria-describedBy` attribute.
@@ -386,6 +409,7 @@ export class OntarioRadioButtons implements RadioButtons {
 									type="radio"
 									value={radioOption.value}
 									required={!!this.required}
+									checked={!!radioOption.checked}
 									onChange={(e) => this.handleEvent(e, EventType.Change)}
 									onBlur={(e) => this.handleEvent(e, EventType.Blur)}
 									onFocus={(e) => this.handleEvent(e, EventType.Focus)}
@@ -396,26 +420,28 @@ export class OntarioRadioButtons implements RadioButtons {
 										this.captionState.getHintExpanderAccessibilityText(radioOption.label, true)}
 								</label>
 
-								<div class="ontario-radios__hint-expander">
-									{radioOption.hintExpander && (
+								{radioOption.hintExpander && (
+									<div class="ontario-radios__hint-expander">
 										<ontario-hint-expander
 											hint={radioOption.hintExpander.hint}
 											content={radioOption.hintExpander.content}
 											hintContentType={radioOption.hintExpander.hintContentType}
 											input-exists
 										></ontario-hint-expander>
-									)}
-								</div>
+									</div>
+								)}
 							</div>
 						))}
 
 						{this.internalHintExpander && (
-							<ontario-hint-expander
-								hint={this.internalHintExpander.hint}
-								content={this.internalHintExpander.content}
-								hintContentType={this.internalHintExpander.hintContentType}
-								input-exists
-							></ontario-hint-expander>
+							<div class="ontario-radios__hint-expander">
+								<ontario-hint-expander
+									hint={this.internalHintExpander.hint}
+									content={this.internalHintExpander.content}
+									hintContentType={this.internalHintExpander.hintContentType}
+									input-exists
+								></ontario-hint-expander>
+							</div>
 						)}
 					</div>
 				</fieldset>

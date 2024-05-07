@@ -4,9 +4,10 @@ import { C as ConsoleMessageClass } from './console-message.js';
 
 const ontarioBlockquoteCss =
 	'@charset "UTF-8";.ontario-blockquote{border-left:4px solid #4d4d4d;font-family:"Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:1.1875rem;font-weight:400;letter-spacing:0.025rem;line-height:1.56;max-width:48rem;margin:2rem;padding:1.5rem 0 1.5rem 1.5rem;quotes:"“" "”"}@media screen and (max-width: 40em){.ontario-blockquote{font-size:1.125rem;letter-spacing:0.03rem;line-height:1.5;margin:1.5rem 0 2rem 0}}.ontario-blockquote p{margin:0 0 1.5rem 0}.ontario-blockquote p::before{content:open-quote}.ontario-blockquote p::after{content:close-quote}.ontario-blockquote--short{font-size:1.75rem;letter-spacing:0.02rem;line-height:1.5}@media screen and (max-width: 40em){.ontario-blockquote--short{font-size:1.4375rem;line-height:1.43}}.ontario-blockquote__attribution,.ontario-blockquote__byline{display:block;font-size:1rem;letter-spacing:0.025rem;line-height:1.56;text-align:right}@media screen and (max-width: 40em){.ontario-blockquote__attribution,.ontario-blockquote__byline{letter-spacing:0.03rem;line-height:1.5}}.ontario-blockquote__attribution{font-style:normal;font-weight:700}.ontario-blockquote__attribution::before{content:"— "}html[lang=fr] blockquote{quotes:"« " " »"}';
+const OntarioBlockquoteStyle0 = ontarioBlockquoteCss;
 
 const OntarioBlockquote$1 = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioBlockquote extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -72,8 +73,11 @@ const OntarioBlockquote$1 = /*@__PURE__*/ proxyCustomElement(
 		render() {
 			return h(
 				'blockquote',
-				{ class: this.shortQuote ? `ontario-blockquote ontario-blockquote--short` : `ontario-blockquote` },
-				h('p', null, this.quoteState),
+				{
+					key: '10d7b83d6b3984b8b321c9757fb6fb5ffca89ee3',
+					class: this.shortQuote ? `ontario-blockquote ontario-blockquote--short` : `ontario-blockquote`,
+				},
+				h('p', { key: '6b557c47534fb2c50f0f7eb31967bc21f4969043' }, this.quoteState),
 				this.attribution && h('cite', { class: 'ontario-blockquote__attribution' }, this.attribution),
 				this.byline && h('cite', { class: 'ontario-blockquote__byline' }, this.byline),
 			);
@@ -87,7 +91,7 @@ const OntarioBlockquote$1 = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioBlockquoteCss;
+			return OntarioBlockquoteStyle0;
 		}
 	},
 	[
@@ -100,6 +104,10 @@ const OntarioBlockquote$1 = /*@__PURE__*/ proxyCustomElement(
 			shortQuoteLength: [32],
 			shortQuote: [32],
 			quoteState: [32],
+		},
+		undefined,
+		{
+			quote: ['validateQuote'],
 		},
 	],
 );
@@ -123,3 +131,5 @@ const OntarioBlockquote = OntarioBlockquote$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioBlockquote, defineCustomElement };
+
+//# sourceMappingURL=ontario-blockquote.js.map

@@ -13,3 +13,4 @@ export const constructHintTextObject = (hintText) => {
 	}
 	return hintTextObject;
 };
+//# sourceMappingURL=hints.js.map

@@ -33,13 +33,13 @@ export class OntarioLanguageToggle {
 		this.setAppLanguage.emit(lang);
 		this.updateHTMLLang(lang);
 	}
-	handleHeaderLanguageToggled(language, e) {
+	handleHeaderLanguageToggled(language, event) {
 		const toggledLanguage = language === 'en' ? 'fr' : 'en';
 		this.language = toggledLanguage;
-		this.headerLanguageToggled.emit(toggledLanguage);
+		this.headerLanguageToggled.emit({ oldLanguage: language, newLanguage: toggledLanguage });
 		this.updateHTMLLang(toggledLanguage);
-		if (this.customLanguageToggle) {
-			this.customLanguageToggle(e);
+		if (this.customLanguageToggle && event) {
+			this.customLanguageToggle(event);
 		}
 	}
 	updateLanguage() {
@@ -55,6 +55,7 @@ export class OntarioLanguageToggle {
 		return h(
 			'a',
 			{
+				'key': '8f86da95ae38c7dccea2f86898a14aa81fa45d86',
 				'class':
 					this.size === 'default'
 						? 'ontario-language-toggler ontario-language-toggler--default'
@@ -101,6 +102,7 @@ export class OntarioLanguageToggle {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -152,11 +154,12 @@ export class OntarioLanguageToggle {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -203,9 +206,15 @@ export class OntarioLanguageToggle {
 					text: 'An event that emits to other components that the language toggle button has been toggled.',
 				},
 				complexType: {
-					original: 'string',
-					resolved: 'string',
-					references: {},
+					original: 'HeaderLanguageToggleEventDetails',
+					resolved: 'HeaderLanguageToggleEventDetails',
+					references: {
+						HeaderLanguageToggleEventDetails: {
+							location: 'import',
+							path: '../../utils/events/common-events.interface',
+							id: 'src/utils/events/common-events.interface.ts::HeaderLanguageToggleEventDetails',
+						},
+					},
 				},
 			},
 		];
@@ -219,3 +228,4 @@ export class OntarioLanguageToggle {
 		];
 	}
 }
+//# sourceMappingURL=ontario-language-toggle.js.map

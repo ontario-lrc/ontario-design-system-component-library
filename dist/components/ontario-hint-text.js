@@ -4,3 +4,5 @@ const OntarioHintText = OntarioHintText$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioHintText, defineCustomElement };
+
+//# sourceMappingURL=ontario-hint-text.js.map

@@ -19,7 +19,7 @@ export declare class OntarioIconClose implements IconWithColour {
 	/**
 	 * Set the icon's colour.
 	 */
-	colour: IconColour | string;
+	colour: IconColour;
 	/**
 	 * Mutable variable, for internal use only.
 	 * Set the icon's colour based on validation result.

@@ -4,10 +4,11 @@ import { C as ConsoleMessageClass } from './console-message.js';
 import { v as v4 } from './v4.js';
 
 const ontarioHintTextCss =
-	'.ontario-hint{color:#4d4d4d;display:inline-block;margin:0 0 1rem 0;width:100%;max-width:48rem}.ontario-hint p{margin-bottom:1rem}.ontario-hint p:first-of-type{margin-top:0}.ontario-hint p:last-of-type{margin-bottom:0}';
+	'.ontario-hint{color:#4d4d4d;display:inline-block;margin:0 0 1rem 0;width:100%;max-width:48rem}.ontario-hint p{margin-bottom:1rem}.ontario-hint p:first-of-type{margin-top:0}.ontario-hint p:last-of-type{margin-bottom:0}.ontario-hint a[x-apple-data-detectors]{color:inherit;cursor:none;text-decoration:none}';
+const OntarioHintTextStyle0 = ontarioHintTextCss;
 
 const OntarioHintText = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioHintText extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -116,7 +117,7 @@ const OntarioHintText = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioHintTextCss;
+			return OntarioHintTextStyle0;
 		}
 	},
 	[
@@ -128,6 +129,11 @@ const OntarioHintText = /*@__PURE__*/ proxyCustomElement(
 			elementId: [1025, 'element-id'],
 			hintState: [32],
 			getHintTextId: [64],
+		},
+		undefined,
+		{
+			hintContentType: ['checkHintContentType'],
+			hint: ['updateHintContent'],
 		},
 	],
 );
@@ -148,3 +154,5 @@ function defineCustomElement() {
 }
 
 export { OntarioHintText as O, defineCustomElement as d };
+
+//# sourceMappingURL=ontario-hint-text2.js.map

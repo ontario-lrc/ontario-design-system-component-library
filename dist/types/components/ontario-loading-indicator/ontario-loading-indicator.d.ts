@@ -38,6 +38,10 @@ export declare class OntarioLoadingIndicator {
 	handleSetAppLanguage(event: CustomEvent<Language>): void;
 	handleHeaderLanguageToggled(event: CustomEvent<Language>): void;
 	/**
+	 * Watch for changes in the `isLoading` prop.
+	 */
+	isLoadingChanged(newIsLoading: boolean): void;
+	/**
 	 * Watch for changes in the `type` variable for validation purposes.
 	 *
 	 * If the user input doesn't match one of the array values then `type` will be set to its default (`large`).

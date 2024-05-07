@@ -1,13 +1,14 @@
 import { proxyCustomElement, HTMLElement, h } from '@stencil/core/internal/client';
-import { I as IconColours, v as validateColor } from './index2.js';
+import { I as IconColours, l as lib } from './index2.js';
 import { C as ConsoleMessageClass } from './console-message.js';
-import { v as validateValueAgainstArray } from './validation-functions.js';
+import { a as validateValueAgainstArray } from './validation-functions.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconCriticalAlertWarningStyle0 = ontarioIconCss;
 
 const OntarioIconCriticalAlertWarning$1 = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioIconCriticalAlertWarning extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -53,7 +54,7 @@ const OntarioIconCriticalAlertWarning$1 = /*@__PURE__*/ proxyCustomElement(
 			if (isValid) {
 				this.iconColourState = this.colour;
 			} else {
-				if (validateColor(this.colour)) {
+				if (lib(this.colour)) {
 					this.iconCustomColourState = this.colour;
 				} else {
 					this.iconColourState = this.warnDefaultColour();
@@ -93,12 +94,14 @@ const OntarioIconCriticalAlertWarning$1 = /*@__PURE__*/ proxyCustomElement(
 			return h(
 				'div',
 				{
+					key: '6fc163a343878deee886d47ba551b4c232b5f48b',
 					class: `ontario-icon ontario-icon--${this.iconColourState} ontario-icon--width-${this.iconWidthState}`,
 					style: { width: `${this.iconWidthState}px` },
 				},
 				h(
 					'svg',
 					{
+						key: '80bc08c786f52a5d01e578859773c6d00cac76e4',
 						class: 'svg-icon',
 						style: { fill: `${this.iconCustomColourState}`, stroke: `${this.iconCustomColourState}` },
 						role: 'img',
@@ -107,9 +110,27 @@ const OntarioIconCriticalAlertWarning$1 = /*@__PURE__*/ proxyCustomElement(
 						xmlns: 'http://www.w3.org/2000/svg',
 						id: 'critical-alert-warning',
 					},
-					h('path', { d: 'M1 21H23L12 2L1 21ZM13 18H11V16H13V18ZM13 14H11V10H13V14Z', fill: 'white' }),
-					h('rect', { x: '11', y: '10', width: '2', height: '4', fill: 'black' }),
-					h('rect', { x: '11', y: '16', width: '2', height: '2', fill: 'black' }),
+					h('path', {
+						key: '4b8ca38e2973ceec15e5ab032d61f2707faa7486',
+						d: 'M1 21H23L12 2L1 21ZM13 18H11V16H13V18ZM13 14H11V10H13V14Z',
+						fill: 'white',
+					}),
+					h('rect', {
+						key: 'ba1752e3e663c54f65a018f8d3e19b5e7c71c424',
+						x: '11',
+						y: '10',
+						width: '2',
+						height: '4',
+						fill: 'black',
+					}),
+					h('rect', {
+						key: 'a528958341c31fe683b729e0714d6fd9df302041',
+						x: '11',
+						y: '16',
+						width: '2',
+						height: '2',
+						fill: 'black',
+					}),
 				),
 			);
 		}
@@ -120,7 +141,7 @@ const OntarioIconCriticalAlertWarning$1 = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioIconCss;
+			return OntarioIconCriticalAlertWarningStyle0;
 		}
 	},
 	[
@@ -132,6 +153,11 @@ const OntarioIconCriticalAlertWarning$1 = /*@__PURE__*/ proxyCustomElement(
 			iconWidthState: [32],
 			iconColourState: [32],
 			iconCustomColourState: [32],
+		},
+		undefined,
+		{
+			iconWidth: ['validateWidth'],
+			colour: ['validateColour'],
 		},
 	],
 );
@@ -155,3 +181,5 @@ const OntarioIconCriticalAlertWarning = OntarioIconCriticalAlertWarning$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioIconCriticalAlertWarning, defineCustomElement };
+
+//# sourceMappingURL=ontario-icon-critical-alert-warning.js.map

@@ -1,4 +1,4 @@
-import { Component, Event, h, Prop, State, Listen, Watch, Element } from '@stencil/core';
+import { Component, Event, h, Prop, State, Listen, Watch, Element, EventEmitter, AttachInternals } from '@stencil/core';
 import { v4 as uuid } from 'uuid';
 
 import { HintExpander } from '../ontario-hint-expander/hint-expander.interface';
@@ -10,7 +10,12 @@ import { validatePropExists, validateLanguage } from '../../utils/validation/val
 import { ConsoleMessageClass } from '../../utils/console-message/console-message';
 import { Language } from '../../utils/common/language-types';
 import { constructHintTextObject } from '../../utils/components/hints/hints';
-import { InputFocusBlurEvent, EventType, InputChangeEvent } from '../../utils/events/event-handler.interface';
+import {
+	InputFocusBlurEvent,
+	EventType,
+	InputInteractionEvent,
+	InputInputEvent,
+} from '../../utils/events/event-handler.interface';
 import { handleInputEvent } from '../../utils/events/event-handler';
 
 import { default as translations } from '../../translations/global.i18n.json';
@@ -19,9 +24,11 @@ import { default as translations } from '../../translations/global.i18n.json';
 	tag: 'ontario-textarea',
 	styleUrl: 'ontario-textarea.scss',
 	shadow: true,
+	formAssociated: true,
 })
 export class OntarioTextarea implements Input {
 	@Element() element: HTMLElement;
+	@AttachInternals() internals: ElementInternals;
 
 	hintTextRef: HTMLOntarioHintTextElement | undefined;
 
@@ -96,22 +103,27 @@ export class OntarioTextarea implements Input {
 	 * The language of the component.
 	 * This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.
 	 */
-	@Prop({ mutable: true }) language?: Language = 'en';
+	@Prop({ mutable: true }) language?: Language;
+
+	/**
+	 * Used to add a custom function to the textarea onInput event.
+	 */
+	@Prop() customOnInput?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the textarea onChange event.
 	 */
-	@Prop() customOnChange?: Function;
+	@Prop() customOnChange?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the textarea onBlur event.
 	 */
-	@Prop() customOnBlur?: Function;
+	@Prop() customOnBlur?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used to add a custom function to the textarea onFocus event.
 	 */
-	@Prop() customOnFocus?: Function;
+	@Prop() customOnFocus?: (event: globalThis.Event) => void;
 
 	/**
 	 * Used for the `aria-describedby` value of the textarea. This will match with the id of the hint text.
@@ -134,26 +146,33 @@ export class OntarioTextarea implements Input {
 	@State() private captionState: InputCaption;
 
 	/**
+	 * Emitted when a input event occurs when an input has been changed.
+	 */
+	@Event() inputOnInput: EventEmitter<InputInputEvent>;
+
+	/**
 	 * Emitted when a keyboard input or mouse event occurs when an input has been changed.
 	 */
-	@Event({ eventName: 'inputOnChange' }) inputOnChange: InputChangeEvent;
+	@Event() inputOnChange: EventEmitter<InputInteractionEvent>;
 
 	/**
 	 * Emitted when a keyboard input event occurs when an input has lost focus.
 	 */
-	@Event({ eventName: 'inputOnBlur' }) inputOnBlur: InputFocusBlurEvent;
+	@Event() inputOnBlur: EventEmitter<InputFocusBlurEvent>;
 
 	/**
 	 * Emitted when a keyboard input event occurs when an input has gained focus.
 	 */
-	@Event({ eventName: 'inputOnFocus' }) inputOnFocus: InputFocusBlurEvent;
+	@Event() inputOnFocus: EventEmitter<InputFocusBlurEvent>;
 
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the textarea component loads.
 	 */
 	@Listen('setAppLanguage', { target: 'window' })
 	handleSetAppLanguage(event: CustomEvent<Language>) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 
 	@Listen('headerLanguageToggled', { target: 'window' })
@@ -237,22 +256,27 @@ export class OntarioTextarea implements Input {
 	/**
 	 * Function to handle textarea events and the information pertaining to the textarea to emit.
 	 */
-	handleEvent = (ev: Event, eventType: EventType) => {
-		const input = ev.target as HTMLTextAreaElement | null;
+	private handleEvent(event: Event, eventType: EventType) {
+		const input = event.target as HTMLTextAreaElement | null;
+
+		this.internals?.setFormValue?.(input?.value ?? '');
 
 		handleInputEvent(
-			ev,
+			event,
 			eventType,
 			input,
 			this.inputOnChange,
 			this.inputOnFocus,
 			this.inputOnBlur,
+			this.inputOnInput,
 			'input',
 			this.customOnChange,
 			this.customOnFocus,
 			this.customOnBlur,
+			this.customOnInput,
+			this.element,
 		);
-	};
+	}
 
 	public getId(): string {
 		return this.elementId ?? '';
@@ -299,7 +323,8 @@ export class OntarioTextarea implements Input {
 					id={this.getId()}
 					name={this.name}
 					value={this.getValue()}
-					onInput={(e) => this.handleEvent(e, EventType.Change)}
+					onInput={(e) => this.handleEvent(e, EventType.Input)}
+					onChange={(e) => this.handleEvent(e, EventType.Change)}
 					onBlur={(e) => this.handleEvent(e, EventType.Blur)}
 					onFocus={(e) => this.handleEvent(e, EventType.Focus)}
 					required={!!this.required}

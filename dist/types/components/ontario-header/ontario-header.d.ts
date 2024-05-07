@@ -1,33 +1,33 @@
-import { menuItems, applicationHeaderInfo, languageToggleOptions } from './ontario-header.interface';
+import { MenuItem, ApplicationHeaderInfo, LanguageToggleOptions, OntarioHeaderType } from './ontario-header.interface';
 import { Language } from '../../utils/common/language-types';
 export declare class OntarioHeader {
 	el: HTMLElement;
 	/**
 	 * The type of header.
 	 */
-	type?: 'application' | 'ontario';
+	type?: OntarioHeaderType;
 	/**
 	 * Information pertaining to the application header. This is only necessary for the 'application' header type.
 	 *
 	 * This includes the application name, URL and optional props for the number of links in the subheader for desktop, tablet, and mobile views.
 	 *
 	 * @example
-	 * 	<ontario-header
-	 *		type="application"
-	 *      application-header-info='{
-	 * 			"name": "Application name",
-	 * 			"href": "/application-homepage"
-	 * 			"maxSubheaderDesktopLinks": "3",
-	 * 			"maxSubheaderTabletLinks": "2",
-	 * 			"maxSubheaderMobileLinks": "1"
-	 *    }'
-	 *	</ontario-header>
+	 *  <ontario-header
+	 *    type="application"
+	 *    application-header-info='{
+	 *      "title": "Application name",
+	 *      "href": "/application-homepage",
+	 *      "maxSubheaderDesktopLinks": "3",
+	 *      "maxSubheaderTabletLinks": "2",
+	 *      "maxSubheaderMobileLinks": "1"
+	 *    }'>
+	 *  </ontario-header>
 	 */
-	applicationHeaderInfo: applicationHeaderInfo | string;
+	applicationHeaderInfo: ApplicationHeaderInfo | string;
 	/**
 	 * The items that will go inside the menu.
 	 */
-	menuItems: menuItems[] | string;
+	menuItems: MenuItem[] | string;
 	/**
 	 * Option to disable fetching of the dynamic menu from the Ontario Header API
 	 *
@@ -68,16 +68,20 @@ export declare class OntarioHeader {
 	 * >
 	 * </ontario-header>
 	 */
-	languageToggleOptions?: languageToggleOptions | string;
+	languageToggleOptions?: LanguageToggleOptions | string;
 	/**
 	 * A custom function to pass to the language toggle button.
 	 */
-	customLanguageToggle?: Function;
+	customLanguageToggle?: (event: globalThis.Event) => void;
 	/**
 	 * The language of the component.
 	 * This is used for translations, and is by default set through event listeners checking for a language property from the header. If none is passed, it will default to English.
 	 */
 	language?: Language;
+	/**
+	 * The base path to an assets folder containing the Design System assets
+	 */
+	assetBasePath: string;
 	/**
 	 * The application header information is reassigned to applicationHeaderInfoState for parsing
 	 */
@@ -140,6 +144,7 @@ export declare class OntarioHeader {
 	menuButtonMobile: HTMLElement;
 	searchBar: HTMLInputElement;
 	searchButton: HTMLInputElement;
+	translations: any;
 	private parseApplicationHeaderInfo;
 	parseMenuItems(): void;
 	private parseLanguage;
@@ -173,6 +178,12 @@ export declare class OntarioHeader {
 	 */
 	fetchOntarioMenu(): Promise<void>;
 	/**
+	 * Generate a link to the given image based on the base asset path.
+	 * @param imageName Name of the image to build the path to
+	 * @returns Path to image with asset path
+	 */
+	private getImageAssetSrcPath;
+	/**
 	 * This function generates the menu items in a <li>, accordingly, to the given parameters.
 	 *
 	 * href and title are necessary, but rest are not.
@@ -181,7 +192,7 @@ export declare class OntarioHeader {
 	 * @param title - the title of the menu item
 	 * @param linkIsActive - when set to true, this will add the classes necessary to style the link in a way that indicates to the user what the active page/link is
 	 * @param liClass - if there is a class that is related to the <a> portion of the menu item, put it here
-	 * @param onClick - for any custon onClick event a user might want to add to their menu links
+	 * @param onClick - for any custom onClick event a user might want to add to their menu links
 	 * @param onBlur - when set to true, it will call the function trapMenuFocus(), otherwise nothing is done (used in lastLink)
 	 */
 	private generateMenuItem;
@@ -205,6 +216,7 @@ export declare class OntarioHeader {
 	 * The onEscapePressed function clears the searchbar form when Escape is pressed
 	 */
 	private onEscapePressed;
+	private isMenuVisible;
 	componentWillLoad(): void;
 	componentDidRender(): void;
 	/**

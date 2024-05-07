@@ -19,3 +19,4 @@ export const FooterColumn = ({ data, socialLinks, isThreeColLayout = false, isFu
 		socialLinks && h(FooterSocialLinks, Object.assign({}, socialLinks)),
 	);
 };
+//# sourceMappingURL=footer-column.js.map

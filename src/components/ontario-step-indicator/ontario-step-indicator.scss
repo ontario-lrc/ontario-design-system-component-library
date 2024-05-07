@@ -1,28 +1,34 @@
 @use 'sass:math';
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
-	globalVariables;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
-	as breakpoints;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as globalVariables;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables' as breakpoints;
 @use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
 @use '../ontario-button/ontario-button.scss';
 
 $ontario-icon-size: 24px;
 
+.ontario-step-indicator {
+	margin-bottom: spacing.$spacing-7;
+}
+
 .ontario-step-indicator .ontario-step-indicator--with-back-button--false,
-.ontario-step-indicator .ontario-step-indicator--with-back-button--true {
+.ontario-step-indicator .ontario-step-indicator--with-back-button--true,
+// Fractal component style coverage ↓
+.ontario-step-indicator .ontario-step-indicator--without-back-button,
+.ontario-step-indicator .ontario-step-indicator--with-back-button {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.ontario-step-indicator .ontario-step-indicator--with-back-button--false {
+.ontario-step-indicator .ontario-step-indicator--with-back-button--false,
+// Fractal component style coverage ↓
+.ontario-step-indicator .ontario-step-indicator--without-back-button {
 	justify-content: flex-end;
 }
 
 .ontario-step-indicator .ontario-h4 {
-	margin: (spacing.$spacing-4 + math.div(spacing.$spacing-1, 2)) 0;
+	margin: (spacing.$spacing-4 + spacing.$spacing-1) 0;
 
 	@media screen and (max-width: breakpoints.$small-breakpoint) {
 		margin: spacing.$spacing-4 0;

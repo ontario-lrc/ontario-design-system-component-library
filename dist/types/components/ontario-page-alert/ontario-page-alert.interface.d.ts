@@ -1,4 +1,4 @@
-export declare type PageAlertType = 'informational' | 'warning' | 'success' | 'error';
+export type PageAlertType = 'informational' | 'warning' | 'success' | 'error';
 export interface PageAlert {
 	/**
 	 * The type of page alert to render. If no value is provided, the `informational` type alert would be rendered.

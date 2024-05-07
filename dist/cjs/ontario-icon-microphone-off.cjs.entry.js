@@ -2,12 +2,13 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-f1f89225.js');
-const index$1 = require('./index-f4617e04.js');
-const consoleMessage = require('./console-message-b252d5f7.js');
+const index = require('./index-88d5cf20.js');
+const index$1 = require('./index-55e3f513.js');
+const consoleMessage = require('./console-message-27a94faa.js');
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconMicrophoneOffStyle0 = ontarioIconCss;
 
 const OntarioIconMicrophoneOff = class {
 	constructor(hostRef) {
@@ -53,7 +54,7 @@ const OntarioIconMicrophoneOff = class {
 		if (isValid) {
 			this.iconColourState = this.colour;
 		} else {
-			if (index$1.validateColor(this.colour)) {
+			if (index$1.lib(this.colour)) {
 				this.iconCustomColourState = this.colour;
 			} else {
 				this.iconColourState = this.warnDefaultColour();
@@ -93,12 +94,14 @@ const OntarioIconMicrophoneOff = class {
 		return index.h(
 			'div',
 			{
+				key: '4e09ca6c4ce7c4b7cbc0d1622c7f06779d46c553',
 				class: `ontario-icon ontario-icon--${this.iconColourState} ontario-icon--width-${this.iconWidthState}`,
 				style: { width: `${this.iconWidthState}px` },
 			},
 			index.h(
 				'svg',
 				{
+					key: '9f650530a3101635554331cbe2ca3bc798a357eb',
 					class: 'svg-icon',
 					style: { fill: `${this.iconCustomColourState}`, stroke: `${this.iconCustomColourState}` },
 					role: 'img',
@@ -107,6 +110,7 @@ const OntarioIconMicrophoneOff = class {
 					id: 'microphone-off',
 				},
 				index.h('path', {
+					key: '1c1c85c528235ad46fedd9496d2294b4f1b6567c',
 					d: 'M19 11c0 1.2-.34 2.3-.9 3.28l-1.23-1.23c.27-.62.43-1.3.43-2.05H19zm-4 .16L9 5.18V5a3 3 0 0 1 3-3 3 3 0 0 1 3 3v6.16zM4.27 3L21 19.73 19.73 21l-4.2-4.2a7.03 7.03 0 0 1-2.54.91V21h-2v-3.28c-3.28-.5-6-3.3-6-6.72h1.7c0 3 2.54 5.1 5.3 5.1.8 0 1.6-.2 2.3-.52l-1.66-1.66L12 14a3 3 0 0 1-3-3v-.72l-6-6L4.27 3z',
 				}),
 			),
@@ -119,6 +123,8 @@ const OntarioIconMicrophoneOff = class {
 		};
 	}
 };
-OntarioIconMicrophoneOff.style = ontarioIconCss;
+OntarioIconMicrophoneOff.style = OntarioIconMicrophoneOffStyle0;
 
 exports.ontario_icon_microphone_off = OntarioIconMicrophoneOff;
+
+//# sourceMappingURL=ontario-icon-microphone-off.cjs.entry.js.map

@@ -20,3 +20,4 @@ export const isInvalidThreeColumnOptions = (options) => {
 		!((_f = options.column3) === null || _f === void 0 ? void 0 : _f.content)
 	);
 };
+//# sourceMappingURL=ontario-footer-options-validation.js.map

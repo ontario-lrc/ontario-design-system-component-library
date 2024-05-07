@@ -2,10 +2,11 @@ import { proxyCustomElement, HTMLElement, h } from '@stencil/core/internal/clien
 import { C as ConsoleMessageClass } from './console-message.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconDropdownArrowStyle0 = ontarioIconCss;
 
 const OntarioIconDropdownArrow$1 = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioIconDropdownArrow extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -68,12 +69,14 @@ const OntarioIconDropdownArrow$1 = /*@__PURE__*/ proxyCustomElement(
 			return h(
 				'div',
 				{
+					key: '86fbfa9837b226c4e3e99d0a339c2834f07e78d1',
 					class: `ontario-icon ontario-icon--width-${this.iconWidthState}`,
 					style: { width: `${this.iconWidthState}px` },
 				},
 				h(
 					'svg',
 					{
+						key: 'd4476f244ff37643f6e6ebeaef6b687ec1ebd02e',
 						class: 'svg-icon',
 						role: 'img',
 						xmlns: 'http://www.w3.org/2000/svg',
@@ -82,6 +85,7 @@ const OntarioIconDropdownArrow$1 = /*@__PURE__*/ proxyCustomElement(
 						id: 'dropdown-arrow',
 					},
 					h('path', {
+						key: '25c809e190f59835488573c5fec70fe9f096ab36',
 						d: 'M7.965 10a.4.4 0 0 0-.37.247.4.4 0 0 0 .087.436l4.035 4.035a.4.4 0 0 0 .566 0l4.035-4.035a.4.4 0 0 0 .087-.436.4.4 0 0 0-.37-.247h-8.07z',
 					}),
 				),
@@ -96,7 +100,7 @@ const OntarioIconDropdownArrow$1 = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioIconCss;
+			return OntarioIconDropdownArrowStyle0;
 		}
 	},
 	[
@@ -105,6 +109,10 @@ const OntarioIconDropdownArrow$1 = /*@__PURE__*/ proxyCustomElement(
 		{
 			iconWidth: [2, 'icon-width'],
 			iconWidthState: [32],
+		},
+		undefined,
+		{
+			iconWidth: ['validateWidth'],
 		},
 	],
 );
@@ -128,3 +136,5 @@ const OntarioIconDropdownArrow = OntarioIconDropdownArrow$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioIconDropdownArrow, defineCustomElement };
+
+//# sourceMappingURL=ontario-icon-dropdown-arrow.js.map

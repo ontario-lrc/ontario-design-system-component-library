@@ -16,3 +16,4 @@ export const ColumnContent = ({ content }) => {
 			),
 	);
 };
+//# sourceMappingURL=footer-column-content.js.map

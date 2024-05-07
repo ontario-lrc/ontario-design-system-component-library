@@ -1,0 +1,37 @@
+/* -------------------------------
+    Global spacing variables
+--------------------------------- */
+/*** 1 - Breakpoint sizes for media queries ***/
+.ontario-card-collection__container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.ontario-card-collecton--cards-per-row-4 ::slotted(ontario-card) {
+	width: calc(25% - 2rem);
+}
+.ontario-card-collecton--cards-per-row-4 ::slotted(ontario-card):nth-child(4n) {
+	margin-right: 0;
+}
+@media screen and (max-width: 73em) {
+	.ontario-card-collecton--cards-per-row-4 ::slotted(ontario-card) {
+		width: calc(50% - 1.25rem);
+	}
+	.ontario-card-collecton--cards-per-row-4 ::slotted(ontario-card):nth-child(2n) {
+		margin-right: 0;
+	}
+}
+
+.ontario-card-collecton--cards-per-row-3 ::slotted(ontario-card) {
+	width: calc(33.3% - 1.75rem);
+}
+.ontario-card-collecton--cards-per-row-3 ::slotted(ontario-card):nth-child(3n) {
+	margin-right: 0;
+}
+
+.ontario-card-collecton--cards-per-row-2 ::slotted(ontario-card) {
+	width: calc(50% - 1.25rem);
+}
+.ontario-card-collecton--cards-per-row-2 ::slotted(ontario-card):nth-child(2n) {
+	margin-right: 0;
+}

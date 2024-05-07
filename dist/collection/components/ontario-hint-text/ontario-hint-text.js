@@ -126,6 +126,7 @@ export class OntarioHintText {
 						HintContentType: {
 							location: 'import',
 							path: '../../utils/common/common.interface',
+							id: 'src/utils/common/common.interface.ts::HintContentType',
 						},
 					},
 				},
@@ -194,6 +195,7 @@ export class OntarioHintText {
 					references: {
 						Promise: {
 							location: 'global',
+							id: 'global::Promise',
 						},
 					},
 					return: 'Promise<string | undefined>',
@@ -226,3 +228,4 @@ export class OntarioHintText {
 		];
 	}
 }
+//# sourceMappingURL=ontario-hint-text.js.map

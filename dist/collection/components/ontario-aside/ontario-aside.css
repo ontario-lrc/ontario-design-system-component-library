@@ -27,8 +27,7 @@
 *
 *  Used across multiple components
 */
-/*** 1 - Breakpoint sizes for media queries ***/
-/* -------------------------------
+/*** 1 - Breakpoint sizes for media queries ***/ /* -------------------------------
     Global font-weight variables
 --------------------------------- */
 /* -------------------------------
@@ -38,6 +37,7 @@
     Global letter-spacing variables
 --------------------------------- */
 /* Rem calc function */
+/* Pixel to REM Conversion */
 /* -------------------------------
     Global line-height variables
 --------------------------------- */
@@ -374,6 +374,11 @@ ol li:last-child {
 	padding-bottom: 0;
 }
 
+ul[class*='columns-'] li:last-child,
+ol[class*='columns-'] li:last-child {
+	padding-bottom: 0.75rem;
+}
+
 ul ul,
 ol ul {
 	margin: 0.5rem 0 0.5rem 2rem;
@@ -393,16 +398,13 @@ p + ol {
 	ul {
 		margin: 0.5rem 0 1.5rem 3rem;
 	}
-
 	ol {
 		margin: 0.5rem 0 1.5rem 2.75rem;
 	}
-
 	ul ul,
 	ol ul {
 		margin: 0.5rem 0 0.5rem 3rem;
 	}
-
 	ul ol,
 	ol ol {
 		margin: 0.5rem 0 0.5rem 2.75rem;

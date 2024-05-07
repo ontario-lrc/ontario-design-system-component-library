@@ -4,3 +4,5 @@ const OntarioIconChevronDown = OntarioIconChevronDown$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioIconChevronDown, defineCustomElement };
+
+//# sourceMappingURL=ontario-icon-chevron-down.js.map

@@ -127,3 +127,4 @@ export class ConsoleMessageClass {
 		}
 	}
 }
+//# sourceMappingURL=console-message.js.map

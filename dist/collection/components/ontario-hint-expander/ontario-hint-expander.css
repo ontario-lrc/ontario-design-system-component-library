@@ -26,14 +26,14 @@
 /* callout backgrounds */
 /* icon colours */
 /* service ontario header colours */
-/*** 1 - Breakpoint sizes for media queries ***/
-/* -------------------------------
+/*** 1 - Breakpoint sizes for media queries ***/ /* -------------------------------
     Global font-weight variables
 --------------------------------- */
 /* -------------------------------
     Global letter-spacing variables
 --------------------------------- */
 /* Rem calc function */
+/* Pixel to REM Conversion */
 /* -------------------------------
     Global line-height variables
 --------------------------------- */
@@ -131,6 +131,26 @@
 }
 @media screen and (max-width: 40em) {
 	.ontario-hint-expander__checkbox-exists-true {
+		margin-top: 1rem;
+	}
+}
+
+.ontario-input + .ontario-hint-expander__container {
+	margin-top: -1.5rem !important;
+}
+
+.ontario-checkboxes__item .ontario-hint-expander__container,
+.ontario-radios__item .ontario-hint-expander__container {
+	margin-left: 0.5rem;
+}
+
+.ontario-checkboxes__label + .ontario-hint-expander__container,
+.ontario-radios__label + .ontario-hint-expander__container {
+	margin-top: 0.75rem;
+}
+@media screen and (max-width: 40em) {
+	.ontario-checkboxes__label + .ontario-hint-expander__container,
+	.ontario-radios__label + .ontario-hint-expander__container {
 		margin-top: 1rem;
 	}
 }

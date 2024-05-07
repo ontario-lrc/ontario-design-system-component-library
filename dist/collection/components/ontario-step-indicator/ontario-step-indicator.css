@@ -38,6 +38,7 @@
     Global letter-spacing variables
 --------------------------------- */
 /* Rem calc function */
+/* Pixel to REM Conversion */
 /* -------------------------------
     Global line-height variables
 --------------------------------- */
@@ -374,6 +375,11 @@ ol li:last-child {
 	padding-bottom: 0;
 }
 
+ul[class*='columns-'] li:last-child,
+ol[class*='columns-'] li:last-child {
+	padding-bottom: 0.75rem;
+}
+
 ul ul,
 ol ul {
 	margin: 0.5rem 0 0.5rem 2rem;
@@ -393,16 +399,13 @@ p + ol {
 	ul {
 		margin: 0.5rem 0 1.5rem 3rem;
 	}
-
 	ol {
 		margin: 0.5rem 0 1.5rem 2.75rem;
 	}
-
 	ul ul,
 	ol ul {
 		margin: 0.5rem 0 0.5rem 3rem;
 	}
-
 	ul ol,
 	ol ol {
 		margin: 0.5rem 0 0.5rem 2.75rem;
@@ -545,19 +548,26 @@ p + ol {
 	color: #0066cc;
 }
 
+.ontario-step-indicator {
+	margin-bottom: 2.5rem;
+}
+
 .ontario-step-indicator .ontario-step-indicator--with-back-button--false,
-.ontario-step-indicator .ontario-step-indicator--with-back-button--true {
+.ontario-step-indicator .ontario-step-indicator--with-back-button--true,
+.ontario-step-indicator .ontario-step-indicator--without-back-button,
+.ontario-step-indicator .ontario-step-indicator--with-back-button {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.ontario-step-indicator .ontario-step-indicator--with-back-button--false {
+.ontario-step-indicator .ontario-step-indicator--with-back-button--false,
+.ontario-step-indicator .ontario-step-indicator--without-back-button {
 	justify-content: flex-end;
 }
 
 .ontario-step-indicator .ontario-h4 {
-	margin: 1.125rem 0;
+	margin: 1.25rem 0;
 }
 @media screen and (max-width: 40em) {
 	.ontario-step-indicator .ontario-h4 {

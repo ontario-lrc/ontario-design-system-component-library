@@ -1,0 +1,1 @@
+{"file":"input-caption.types.js","mappings":"MAAa,YAAY,GAAG,CAAC,SAAS,EAAE,OAAO,EAAE,SAAS;;;;","names":[],"sources":["src/utils/common/input-caption/input-caption.types.ts"],"sourcesContent":["export const CaptionTypes = ['default', 'large', 'heading'] as const;\nexport type CaptionType = (typeof CaptionTypes)[number];\n"],"version":3}

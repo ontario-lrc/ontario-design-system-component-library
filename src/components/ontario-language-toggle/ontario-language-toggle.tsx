@@ -4,6 +4,7 @@ import { Language } from '../../utils/common/language-types';
 import { validateLanguage } from '../../utils/validation/validation-functions';
 
 import { default as translations } from '../../translations/global.i18n.json';
+import { HeaderLanguageToggleEventDetails } from '../../utils/events/common-events.interface';
 
 @Component({
 	tag: 'ontario-language-toggle',
@@ -32,7 +33,7 @@ export class OntarioLanguageToggle {
 	 *
 	 * This is optional.
 	 */
-	@Prop() customLanguageToggle?: Function;
+	@Prop() customLanguageToggle?: (event: globalThis.Event) => void;
 
 	@State() translations: any = translations;
 
@@ -59,16 +60,17 @@ export class OntarioLanguageToggle {
 	/**
 	 * An event that emits to other components that the language toggle button has been toggled.
 	 */
-	@Event() headerLanguageToggled: EventEmitter<string>;
-	handleHeaderLanguageToggled(language: string, e?: Event) {
+	@Event() headerLanguageToggled: EventEmitter<HeaderLanguageToggleEventDetails>;
+	handleHeaderLanguageToggled(language: string, event?: globalThis.Event) {
 		const toggledLanguage = language === 'en' ? 'fr' : 'en';
 		this.language = toggledLanguage;
-		this.headerLanguageToggled.emit(toggledLanguage);
+
+		this.headerLanguageToggled.emit({ oldLanguage: language, newLanguage: toggledLanguage });
 
 		this.updateHTMLLang(toggledLanguage);
 
-		if (this.customLanguageToggle) {
-			this.customLanguageToggle(e);
+		if (this.customLanguageToggle && event) {
+			this.customLanguageToggle(event);
 		}
 	}
 

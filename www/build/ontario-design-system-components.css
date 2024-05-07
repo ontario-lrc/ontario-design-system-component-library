@@ -10,17 +10,20 @@ h3,
 h2,
 .ontario-h2,
 h1 > .ontario-label--heading,
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1,
 h1,
 .ontario-h1 {
 	font-style: normal;
 	font-weight: 700;
 	text-rendering: optimizeLegibility;
 	margin-bottom: 1rem;
-	-webkit-font-feature-settings: normal;
 	font-feature-settings: normal;
 	font-family: 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 h1 > .ontario-label--heading,
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1,
 h1,
 .ontario-h1 {
 	font-size: 2rem;
@@ -31,6 +34,8 @@ h1,
 }
 @media screen and (min-width: 40em) {
 	h1 > .ontario-label--heading,
+	.ontario-fieldset__legend--large h1,
+	.ontario-fieldset__legend--heading h1,
 	h1,
 	.ontario-h1 {
 		font-size: 2.5rem;
@@ -634,13 +639,9 @@ h6,
 }
 .ontario-input:focus,
 .ontario-input:active {
-	-webkit-box-shadow: 0 0 0 4px #009adb;
 	box-shadow: 0 0 0 4px #009adb;
 	outline: 4px solid transparent;
-	-webkit-transition: -webkit-box-shadow 0.1s ease-in-out;
-	transition: -webkit-box-shadow 0.1s ease-in-out;
 	transition: box-shadow 0.1s ease-in-out;
-	transition: box-shadow 0.1s ease-in-out, -webkit-box-shadow 0.1s ease-in-out;
 }
 .ontario-bg-white {
 	background-color: #ffffff;
@@ -903,7 +904,6 @@ strong {
 *,
 *::before,
 *::after {
-	-webkit-box-sizing: inherit;
 	box-sizing: inherit;
 }
 main p,
@@ -939,7 +939,6 @@ a:focus {
 	-webkit-box-shadow: 0 0 0 4px #009adb;
 	box-shadow: 0 0 0 4px #009adb;
 	outline: 4px solid transparent;
-	-webkit-transition: all 0.1s ease-in-out;
 	transition: all 0.1s ease-in-out;
 }
 ​p {
@@ -1033,6 +1032,10 @@ ul li:last-child,
 ol li:last-child {
 	padding-bottom: 0;
 }
+ul[class*='columns-'] li:last-child,
+ol[class*='columns-'] li:last-child {
+	padding-bottom: 0.75rem;
+}
 ul ul,
 ol ul {
 	margin: 0.5rem 0 0.5rem 2rem;
@@ -1113,7 +1116,6 @@ p + ol {
 .ontario-columns {
 	padding-left: 1rem;
 	padding-right: 1rem;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 100%;
 	float: left;
@@ -1256,7 +1258,6 @@ p + ol {
 		position: relative;
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -1376,7 +1377,6 @@ p + ol {
 	.ontario-row.ontario-small-uncollapse > .ontario-columns {
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -1507,7 +1507,6 @@ p + ol {
 		position: relative;
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -1627,7 +1626,6 @@ p + ol {
 	.ontario-row.ontario-medium-uncollapse > .ontario-columns {
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -1758,7 +1756,6 @@ p + ol {
 		position: relative;
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -1878,7 +1875,6 @@ p + ol {
 	.ontario-row.ontario-large-uncollapse > .ontario-columns {
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -2129,7 +2125,6 @@ p + ol {
 		position: relative;
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -2249,7 +2244,6 @@ p + ol {
 	.ontario-row.ontario-xlarge-uncollapse > .ontario-columns {
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -2380,7 +2374,6 @@ p + ol {
 		position: relative;
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -2500,7 +2493,6 @@ p + ol {
 	.ontario-row.ontario-xxlarge-uncollapse > .ontario-columns {
 		padding-left: 1rem;
 		padding-right: 1rem;
-		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		float: left;
 	}
@@ -2527,14 +2519,12 @@ p + ol {
 }
 .ontario-fieldset__legend--large,
 .ontario-fieldset__legend--heading {
-	font-size: 1.75rem;
 	letter-spacing: 0.02rem;
 	line-height: 1.2;
 }
 .ontario-fieldset__legend--large h1,
 .ontario-fieldset__legend--heading h1 {
 	display: inline-block;
-	font-size: inherit;
 	margin: 0;
 }
 @media screen and (max-width: 40em) {
@@ -2543,6 +2533,9 @@ p + ol {
 		font-size: 1.4375rem;
 		line-height: 1.39;
 	}
+}
+.ontario-fieldset__legend--large {
+	font-size: 1.75rem;
 }
 .ontario-fieldset__legend-required-flag,
 .ontario-fieldset__legend-optional-flag {
@@ -2607,7 +2600,6 @@ h1 > .ontario-label--heading {
 .ontario-input {
 	border: 2px solid #1a1a1a;
 	border-radius: 4px;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	color: #1a1a1a;
 	display: block;
@@ -2618,10 +2610,7 @@ h1 > .ontario-label--heading {
 	max-width: 48rem;
 	width: 100%;
 	padding: 0.625rem 1rem;
-	-webkit-transition: -webkit-box-shadow 0.1s ease-in-out;
-	transition: -webkit-box-shadow 0.1s ease-in-out;
 	transition: box-shadow 0.1s ease-in-out;
-	transition: box-shadow 0.1s ease-in-out, -webkit-box-shadow 0.1s ease-in-out;
 }
 .ontario-input--2-char-width {
 	max-width: 8ex;
@@ -2645,7 +2634,7 @@ h1 > .ontario-label--heading {
 	max-width: 41ex;
 }
 .ontario-form-group:last-of-type {
-	margin-bottom: 3rem;
+	margin-bottom: 2.5rem;
 }
 .ontario-aside *:last-of-type,
 .ontario-callout *:last-of-type {

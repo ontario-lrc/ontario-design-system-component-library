@@ -2,10 +2,11 @@ import { proxyCustomElement, HTMLElement, h } from '@stencil/core/internal/clien
 import { C as ConsoleMessageClass } from './console-message.js';
 
 const ontarioIconCss =
-	'.ontario-icon svg{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+	'.ontario-icon svg,.ontario-icon{display:inline-block;stroke-width:0;stroke:currentColor;fill:currentColor;vertical-align:middle;overflow:hidden}.ontario-icon--blue svg{stroke:#0066CC;fill:#0066CC}.ontario-icon--grey svg{stroke:#666666;fill:#666666}.ontario-icon--black svg{stroke:#1A1A1A;fill:#1A1A1A}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}.ontario-icon--white svg{stroke:#FFFFFF;fill:#FFFFFF}';
+const OntarioIconAlertErrorStyle0 = ontarioIconCss;
 
 const OntarioIconAlertError = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioIconAlertError extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -68,12 +69,14 @@ const OntarioIconAlertError = /*@__PURE__*/ proxyCustomElement(
 			return h(
 				'div',
 				{
+					key: '1f567714a30e715741dde95549be1dd474ff5ade',
 					class: `ontario-icon ontario-icon--width-${this.iconWidthState}`,
 					style: { width: `${this.iconWidthState}px` },
 				},
 				h(
 					'svg',
 					{
+						key: '61cae731a47f779100df108a453c0e9d6f47cc72',
 						class: 'svg-icon',
 						role: 'img',
 						xmlns: 'http://www.w3.org/2000/svg',
@@ -82,10 +85,15 @@ const OntarioIconAlertError = /*@__PURE__*/ proxyCustomElement(
 						id: 'alert-error',
 					},
 					h('path', {
+						key: 'a6aa67a4c3b00e67e0f363c5b811d6bb7c1606be',
 						d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z',
 						fill: '#cd0000',
 					}),
-					h('path', { d: 'M11 17h2v-2h-2v2zm0-4h2V7h-2v6z', fill: '#fff' }),
+					h('path', {
+						key: '8cc25d5d3ad68d8bdc5686b7b5436f93472adc90',
+						d: 'M11 17h2v-2h-2v2zm0-4h2V7h-2v6z',
+						fill: '#fff',
+					}),
 				),
 			);
 		}
@@ -98,7 +106,7 @@ const OntarioIconAlertError = /*@__PURE__*/ proxyCustomElement(
 			};
 		}
 		static get style() {
-			return ontarioIconCss;
+			return OntarioIconAlertErrorStyle0;
 		}
 	},
 	[
@@ -107,6 +115,10 @@ const OntarioIconAlertError = /*@__PURE__*/ proxyCustomElement(
 		{
 			iconWidth: [2, 'icon-width'],
 			iconWidthState: [32],
+		},
+		undefined,
+		{
+			iconWidth: ['validateWidth'],
 		},
 	],
 );
@@ -127,3 +139,5 @@ function defineCustomElement() {
 }
 
 export { OntarioIconAlertError as O, defineCustomElement as d };
+
+//# sourceMappingURL=ontario-icon-alert-error2.js.map

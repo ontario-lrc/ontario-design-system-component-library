@@ -101,3 +101,5 @@ function v4(options, buf, offset) {
 }
 
 export { v4 as v };
+
+//# sourceMappingURL=v4.js.map

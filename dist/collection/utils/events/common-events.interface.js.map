@@ -1,0 +1,1 @@
+{"version":3,"file":"common-events.interface.js","sourceRoot":"","sources":["../../../src/utils/events/common-events.interface.ts"],"names":[],"mappings":"","sourcesContent":["export interface HeaderLanguageToggleEventDetails {\n\toldLanguage: string;\n\tnewLanguage: string;\n}\n"]}

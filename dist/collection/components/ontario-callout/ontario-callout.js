@@ -147,6 +147,7 @@ export class OntarioCallout {
 						HeadingLevelOptions: {
 							location: 'import',
 							path: '../../utils/components/callout-aside/callout-aside.interface',
+							id: 'src/utils/components/callout-aside/callout-aside.interface.ts::HeadingLevelOptions',
 						},
 					},
 				},
@@ -169,6 +170,7 @@ export class OntarioCallout {
 						HeadingContentType: {
 							location: 'import',
 							path: '../../utils/components/callout-aside/callout-aside.interface',
+							id: 'src/utils/components/callout-aside/callout-aside.interface.ts::HeadingContentType',
 						},
 					},
 				},
@@ -231,6 +233,7 @@ export class OntarioCallout {
 						HighlightColourOptions: {
 							location: 'import',
 							path: '../../utils/components/callout-aside/callout-aside.interface',
+							id: 'src/utils/components/callout-aside/callout-aside.interface.ts::HighlightColourOptions',
 						},
 					},
 				},
@@ -267,3 +270,4 @@ export class OntarioCallout {
 		];
 	}
 }
+//# sourceMappingURL=ontario-callout.js.map

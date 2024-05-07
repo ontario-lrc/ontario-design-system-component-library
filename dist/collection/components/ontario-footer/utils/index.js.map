@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/components/ontario-footer/utils/index.ts"],"names":[],"mappings":"AAAA,cAAc,qCAAqC,CAAC","sourcesContent":["export * from './ontario-footer-options-validation';\n"]}

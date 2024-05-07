@@ -18,7 +18,8 @@
 /* callout backgrounds */
 /* icon colours */
 /* service ontario header colours */
-.ontario-icon svg {
+.ontario-icon svg,
+.ontario-icon {
 	display: inline-block;
 	stroke-width: 0;
 	stroke: currentColor;

@@ -44,3 +44,4 @@ export const SimpleFooter = ({ accessibilityLink, privacyLink, contactLink, prin
 		),
 	);
 };
+//# sourceMappingURL=simple-footer.js.map

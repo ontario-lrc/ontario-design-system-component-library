@@ -1,4 +1,6 @@
-# ontario-checkbox
+import { OntarioCheckboxes } from '@ontario-lrc/ontario-design-system-component-library-react';
+
+# ontario-checkboxes
 
 Use checkboxes when you want the user to select one or more options from a list.
 
@@ -34,13 +36,32 @@ Example of a bare-bones checkbox component, the legend for the checkbox fieldset
 </ontario-checkboxes>
 ```
 
+<div>
+  <OntarioCheckboxes
+    caption="Checkbox legend"
+    name="checkboxes"
+    options='[
+      {
+        "value": "checkbox-option-1",
+        "label": "Checkbox option 1 label",
+        "elementId": "checkbox-1"
+      },
+      {
+        "value": "checkbox-option-2",
+        "label": "Checkbox option 2 label",
+        "elementId": "checkbox-2"
+      }
+    ]'
+  ></OntarioCheckboxes>
+</div>
+
 Example of a checkbox component with multiple options, a hint text and hint expander for the entire checkbox group, and a hint expander on an individual option. It also has the `required` property set.
 
 ```html
 <ontario-checkboxes
 	caption='{
 		"captionText": "Checkbox legend",
-		"captionType": "large" 
+		"captionType": "large"
 	}'
 	name="checkboxes"
 	hint-text="Hint text for the checkbox group"
@@ -65,6 +86,67 @@ Example of a checkbox component with multiple options, a hint text and hint expa
 </ontario-checkboxes>
 ```
 
+<div>
+  <OntarioCheckboxes
+    caption='{
+      "captionText": "Checkbox legend",
+      "captionType": "large"
+    }'
+    name="checkboxes"
+    hint-text="Hint text for the checkbox group"
+    required
+    options='[
+      {
+        "value": "checkbox-option-1",
+        "label": "Checkbox option 1 label",
+        "elementId": "checkbox-1"
+      },
+      {
+        "value": "checkbox-option-2",
+        "label": "Checkbox option 2 label",
+        "elementId": "checkbox-2",
+        "hintExpander": {
+          "hint": "Hint expander for checkbox option 2",
+          "content": "Example hint expander content for checkbox option 2"
+        }
+      }
+    ]'
+  ></OntarioCheckboxes>
+</div>
+
+### Forms
+
+The `ontario-checkboxes` supports integration with native HTML `<form>` elements. This element integrates with the underlying browser form API and should work the same as a a group of `<input type="checkbox">` elements.
+
+```html
+<form>
+	<!-- Add ontario-checkboxes -->
+	<ontario-checkboxes
+		caption="Checkboxes"
+		name="checkboxes-1"
+		required
+		options='[
+      {
+        "value": "checkbox-option-1",
+        "label": "Checkbox option 1 label",
+        "elementId": "checkbox-1"
+      },
+      {
+        "value": "checkbox-option-2",
+        "label": "Checkbox option 2 label",
+        "elementId": "checkbox-2"
+      }
+    ]'
+	>
+	</ontario-checkboxes>
+
+	<!-- Submit the form with a submit button -->
+	<ontario-button type="primary" html-type="submit">Submit</ontario-button>
+</form>
+```
+
+Remember to set the `name` attribute as this is used to identify the field when submitting the form.
+
 ## Custom property types
 
 ### caption
@@ -75,10 +157,10 @@ The `caption` property is used to render the legend for the ontario-checkbox. It
 caption='{ "captionText": "Checkbox legend", "captionType": "large" }'
 ```
 
-| **Property name** | **Type**                           | **Description**                                                                                                                                      |
-| ----------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `captionText`     | `string`                           | Text to display as the checkbox question                                                                                                             |
-| `captionType`     | `"default" \| "large"\| "heading"` | The type of legend to display for the checkbox question. This is optional, and if no information is provided, it will default to the `default` type. |
+| Property name | Type                               | Description                                                                                                                                          |
+| ------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `captionText` | `string`                           | Text to display as the checkbox question                                                                                                             |
+| `captionType` | `"default" \| "large"\| "heading"` | The type of legend to display for the checkbox question. This is optional, and if no information is provided, it will default to the `default` type. |
 
 ### hintExpander
 
@@ -89,10 +171,10 @@ hintExpander='{ "hint": "This is the hint expander title", "content": "This is t
 visible when the hint expander title (hint) is toggled" }'
 ```
 
-| **Property name** | **Type** | **Description**                                                                                                 |
-| ----------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| `hint`            | `string` | Text to display as the hint expander label/title. When toggled, it will display/hide the `hintExpander` content |
-| `content`         | `string` | Text to display as the content of the hint expander                                                             |
+| Property name | Type     | Description                                                                                                     |
+| ------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| `hint`        | `string` | Text to display as the hint expander label/title. When toggled, it will display/hide the `hintExpander` content |
+| `content`     | `string` | Text to display as the content of the hint expander                                                             |
 
 ### options
 
@@ -104,12 +186,12 @@ options='[ { "value": "checkbox-option-1", "label": "Checkbox option 1 label", "
 expander for checkbox option 2", "content": "Example hint expander content for checkbox option 2" } }, ]'
 ```
 
-| **Property name** | **Type**       | **Description**                                                                                                                                             |
-| ----------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`           | `string`       | Text to defines the value associated with the input (this is also the value that is sent on submit)                                                         |
-| `label`           | `string`       | Text to display as the label of the individual checkbox option                                                                                              |
-| `elementId`       | `string`       | Text used to establish a relationship between checkbox option label and the checkbox option input. This ID must be unique to the checkbox option.           |
-| `hintExpander`    | `hintExpander` | An optional hint expander to display for the individual checkbox option. Information on `hintExpander` properties can be found in the custom property above |
+| Property name  | Type           | Description                                                                                                                                                 |
+| -------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`        | `string`       | Text to defines the value associated with the input (this is also the value that is sent on submit)                                                         |
+| `label`        | `string`       | Text to display as the label of the individual checkbox option                                                                                              |
+| `elementId`    | `string`       | Text used to establish a relationship between checkbox option label and the checkbox option input. This ID must be unique to the checkbox option.           |
+| `hintExpander` | `hintExpander` | An optional hint expander to display for the individual checkbox option. Information on `hintExpander` properties can be found in the custom property above |
 
 ## Accessibility
 
@@ -120,26 +202,26 @@ expander for checkbox option 2", "content": "Example hint expander content for c
 
 ## Properties
 
-| Property         | Attribute       | Description                                                                                                                                                                                                                                                                                                                                                                                                                            | Type                                  | Default     |
-| ---------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `caption`        | `caption`       | The text to display for the checkbox legend.                                                                                                                                                                                                                                                                                                                                                                                           | `Caption \| string`                   | `undefined` |
-| `customOnBlur`   | --              | Used to add a custom function to the checkbox onBlur event.                                                                                                                                                                                                                                                                                                                                                                            | `Function \| undefined`               | `undefined` |
-| `customOnChange` | --              | Used to add a custom function to the checkbox onChange event.                                                                                                                                                                                                                                                                                                                                                                          | `Function \| undefined`               | `undefined` |
-| `customOnFocus`  | --              | Used to add a custom function to the checkbox onFocus event.                                                                                                                                                                                                                                                                                                                                                                           | `Function \| undefined`               | `undefined` |
-| `hintExpander`   | `hint-expander` | Used to include the ontario-hint-expander component for the checkbox group. This is passed in as an object with key-value pairs. This is optional.                                                                                                                                                                                                                                                                                     | `HintExpander \| string \| undefined` | `undefined` |
-| `hintText`       | `hint-text`     | Used to include the ontario-hint-text component for the checkbox group. This is optional.                                                                                                                                                                                                                                                                                                                                              | `Hint \| string \| undefined`         | `undefined` |
-| `language`       | `language`      | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.                                                                                                                                                                                                                    | `"en" \| "fr" \| undefined`           | `'en'`      |
-| `name`           | `name`          | The name for the checkboxes. The name value is used to reference form data after a form is submitted.                                                                                                                                                                                                                                                                                                                                  | `string`                              | `undefined` |
-| `options`        | `options`       | The options for the checkbox group. Each property will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. If there are multiple checkboxes in a fieldset, each checkbox will be displayed as an option. In the example below, the options are being passed in as a string and there are two checkboxes to be displayed in the fieldset. | `CheckboxOption[] \| string`          | `undefined` |
-| `required`       | `required`      | This is used to determine whether the checkbox is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).                                                                                                                                                                                         | `boolean \| undefined`                | `false`     |
+| Property         | Attribute       | Description                                                                                                                                                                                                                                                                                                                                                                                                                            | Type                                    | Default     |
+| ---------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
+| `caption`        | `caption`       | The text to display for the checkbox legend.                                                                                                                                                                                                                                                                                                                                                                                           | `Caption \| string`                     | `undefined` |
+| `customOnBlur`   | --              | Used to add a custom function to the checkbox onBlur event.                                                                                                                                                                                                                                                                                                                                                                            | `((event: Event) => void) \| undefined` | `undefined` |
+| `customOnChange` | --              | Used to add a custom function to the checkbox onChange event.                                                                                                                                                                                                                                                                                                                                                                          | `((event: Event) => void) \| undefined` | `undefined` |
+| `customOnFocus`  | --              | Used to add a custom function to the checkbox onFocus event.                                                                                                                                                                                                                                                                                                                                                                           | `((event: Event) => void) \| undefined` | `undefined` |
+| `hintExpander`   | `hint-expander` | Used to include the ontario-hint-expander component for the checkbox group. This is passed in as an object with key-value pairs. This is optional.                                                                                                                                                                                                                                                                                     | `HintExpander \| string \| undefined`   | `undefined` |
+| `hintText`       | `hint-text`     | Used to include the ontario-hint-text component for the checkbox group. This is optional.                                                                                                                                                                                                                                                                                                                                              | `Hint \| string \| undefined`           | `undefined` |
+| `language`       | `language`      | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.                                                                                                                                                                                                                    | `"en" \| "fr" \| undefined`             | `undefined` |
+| `name`           | `name`          | The name for the checkboxes. The name value is used to reference form data after a form is submitted.                                                                                                                                                                                                                                                                                                                                  | `string`                                | `undefined` |
+| `options`        | `options`       | The options for the checkbox group. Each property will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. If there are multiple checkboxes in a fieldset, each checkbox will be displayed as an option. In the example below, the options are being passed in as a string and there are two checkboxes to be displayed in the fieldset. | `CheckboxOption[] \| string`            | `undefined` |
+| `required`       | `required`      | This is used to determine whether the checkbox is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).                                                                                                                                                                                         | `boolean \| undefined`                  | `false`     |
 
 ## Events
 
-| Event              | Description                                                                                  | Type               |
-| ------------------ | -------------------------------------------------------------------------------------------- | ------------------ |
-| `checkboxOnBlur`   | Emitted when a keyboard input event occurs when a checkbox option has lost focus.            | `CustomEvent<any>` |
-| `checkboxOnChange` | Emitted when a keyboard input or mouse event occurs when a checkbox option has been changed. | `CustomEvent<any>` |
-| `checkboxOnFocus`  | Emitted when a keyboard input event occurs when a checkbox option has gained focus.          | `CustomEvent<any>` |
+| Event              | Description                                                                                  | Type                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `checkboxOnBlur`   | Emitted when a keyboard input event occurs when a checkbox option has lost focus.            | `CustomEvent<InputInteractionEvent & { focused: boolean; }>` |
+| `checkboxOnChange` | Emitted when a keyboard input or mouse event occurs when a checkbox option has been changed. | `CustomEvent<InputInteractionEvent & { checked: boolean; }>` |
+| `checkboxOnFocus`  | Emitted when a keyboard input event occurs when a checkbox option has gained focus.          | `CustomEvent<InputInteractionEvent & { focused: boolean; }>` |
 
 ## Dependencies
 

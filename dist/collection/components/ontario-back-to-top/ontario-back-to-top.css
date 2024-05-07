@@ -26,14 +26,14 @@
 /* callout backgrounds */
 /* icon colours */
 /* service ontario header colours */
-/*** 1 - Breakpoint sizes for media queries ***/
-/* -------------------------------
+/*** 1 - Breakpoint sizes for media queries ***/ /* -------------------------------
     Global font-weight variables
 --------------------------------- */
 /* -------------------------------
     Global letter-spacing variables
 --------------------------------- */
 /* Rem calc function */
+/* Pixel to REM Conversion */
 /* -------------------------------
     Global line-height variables
 --------------------------------- */
@@ -49,7 +49,8 @@
 /* -------------------------------
     Focus placeholder
 --------------------------------- */
-.ontario-back-to-top {
+.ontario-back-to-top,
+.ontario-back-to-top--default {
 	position: fixed;
 	bottom: 5%;
 	right: 2%;
@@ -74,56 +75,66 @@
 	z-index: 10000;
 	cursor: pointer;
 }
-.ontario-back-to-top .ontario-icon {
+.ontario-back-to-top .ontario-icon,
+.ontario-back-to-top--default .ontario-icon {
 	margin: 0.125rem 0.5rem 0 0;
 	width: 2rem;
 	height: 2rem;
 }
-.ontario-back-to-top:hover {
+.ontario-back-to-top:hover,
+.ontario-back-to-top--default:hover {
 	background-color: #cccccc;
 }
-.ontario-back-to-top:focus {
+.ontario-back-to-top:focus,
+.ontario-back-to-top--default:focus {
 	background-color: #e6e6e6;
 	box-shadow: 0 0 0 0.25rem #009adb, 0 0.1875rem 0.3125rem 0.1875rem rgba(0, 0, 0, 0.6);
 	outline: 0.25rem solid transparent;
 	transition: 0.1s ease-in-out;
 }
-.ontario-back-to-top:active {
+.ontario-back-to-top:active,
+.ontario-back-to-top--default:active {
 	background-color: #b2b2b2;
 	box-shadow: 0 0 0 0.25rem #009adb, 0 0.3125rem 0.4375rem 0.1875rem rgba(0, 0, 0, 0.6);
 	outline: 0.25rem solid transparent;
 	transition: background-color 0s, box-shadow 0.1s ease-in-out;
 }
 @media screen and (max-width: 73em) {
-	.ontario-back-to-top {
+	.ontario-back-to-top,
+	.ontario-back-to-top--default {
 		flex-direction: column;
 		height: 4.75rem;
 		padding: 0.375rem 0.75rem 0.5625rem 0.75rem;
 	}
-	.ontario-back-to-top .ontario-icon {
+	.ontario-back-to-top .ontario-icon,
+	.ontario-back-to-top--default .ontario-icon {
 		margin: 0.0625rem 0 0.25rem 0;
 		width: 2rem;
 		height: 2rem;
 	}
 }
 @media screen and (max-width: 40em) {
-	.ontario-back-to-top {
+	.ontario-back-to-top,
+	.ontario-back-to-top--default {
 		display: block;
 		padding: 0.25rem;
 		font-size: 0;
 		width: 3rem;
 		height: 3rem;
 	}
-	.ontario-back-to-top .ontario-icon {
+	.ontario-back-to-top .ontario-icon,
+	.ontario-back-to-top--default .ontario-icon {
 		margin: 0.5rem 0 0 0;
 	}
 	@-moz-document url-prefix() {
-		.ontario-back-to-top .ontario-icon {
+		.ontario-back-to-top .ontario-icon,
+		.ontario-back-to-top--default .ontario-icon {
 			margin-top: 0.125rem;
 		}
 	}
 }
-.ontario-back-to-top.active {
+.ontario-back-to-top.active,
+.ontario-back-to-top--default.active {
 	visibility: visible;
 	opacity: 1;
 }

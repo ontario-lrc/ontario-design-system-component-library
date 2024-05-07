@@ -2,22 +2,19 @@ export declare enum EventType {
 	Change = 'change',
 	Blur = 'blur',
 	Focus = 'focus',
+	Input = 'input',
 }
-export declare type RadioAndCheckboxChangeEvent = {
+export type InputInteractionEvent = {
+	id?: string;
+	value?: string;
+};
+export type InputInputEvent = InputInteractionEvent & {
+	inputType?: string;
+};
+export type RadioAndCheckboxChangeEvent = InputInteractionEvent & {
 	checked: boolean;
-	id: string;
-	value: string;
-	emit: any;
 };
-export declare type InputChangeEvent = {
-	id: string;
-	value: string;
-	emit: any;
-};
-export declare type InputFocusBlurEvent = {
+export type InputFocusBlurEvent = InputInteractionEvent & {
 	focused: boolean;
-	id: string;
-	value: string;
-	emit: any;
 };
-export declare type InputType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
+export type InputType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;

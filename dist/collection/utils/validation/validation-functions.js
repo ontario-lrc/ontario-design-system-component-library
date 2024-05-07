@@ -37,3 +37,4 @@ export function validateLanguage(language) {
 	}
 	return 'en';
 }
+//# sourceMappingURL=validation-functions.js.map

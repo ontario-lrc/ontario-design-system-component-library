@@ -1,3 +1,7 @@
+import { OntarioIconAccessibility } from '@ontario-lrc/ontario-design-system-component-library-react';
+import { OntarioIconBookmarkOff } from '@ontario-lrc/ontario-design-system-component-library-react';
+import { OntarioIconBookmarkOn } from '@ontario-lrc/ontario-design-system-component-library-react';
+
 # ontario-icon
 
 Use simple, easy-to-understand icons from Material Design to help guide users.
@@ -20,20 +24,26 @@ Example of a bare-bones icon component, the user is referencing the Ontario Desi
 <ontario-icon-accessibility></ontario-icon-accessibility>
 ```
 
+<OntarioIconAccessibility></OntarioIconAccessibility>
+
 Example of a bookmark icon, where the user is is passing a colour property of 'Grey'.
 
 ```html
-<ontario-icon-bookmark colour="grey"></ontario-icon-bookmark>
+<ontario-icon-bookmark-off colour="grey" icon-width="32"></ontario-icon-bookmark-off>
+<ontario-icon-bookmark-on colour="grey" icon-width="32"></ontario-icon-bookmark-on>
 ```
+
+<OntarioIconBookmarkOff colour="grey" icon-width="32"></OntarioIconBookmarkOff>
+<OntarioIconBookmarkOn colour="grey" icon-width="32"></OntarioIconBookmarkOn>
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Property    | Attribute    | Description                                                                                                         | Type       | Default   |
-| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------- | ---------- | --------- |
-| `colour`    | `colour`     | Set the icon's colour.                                                                                              | `string`   | `'black'` |
-| `iconWidth` | `icon-width` | The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio. | `24 \| 32` | `24`      |
+| Property    | Attribute    | Description                                                                                                         | Type                                                  | Default   |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------- |
+| `colour`    | `colour`     | Set the icon's colour.                                                                                              | `"black" \| "blue" \| "grey" \| "inherit" \| "white"` | `'black'` |
+| `iconWidth` | `icon-width` | The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio. | `16 \| 24 \| 32 \| 48`                                | `24`      |
 
 ---
 

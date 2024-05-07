@@ -6,3 +6,4 @@ export var MessageContentType;
 	MessageContentType['UndefinedCaptionType'] = 'undefinedCaptionType';
 	MessageContentType['IncorrectCaptionType'] = 'incorrectCaptionType';
 })(MessageContentType || (MessageContentType = {}));
+//# sourceMappingURL=input-caption.enum.js.map

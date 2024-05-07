@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/translations/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,IAAI,YAAY,EAAE,MAAM,oBAAoB,CAAC;AAC7D,cAAc,sBAAsB,CAAC","sourcesContent":["export { default as translations } from './global.i18n.json';\nexport * from './translations-types';\n"]}

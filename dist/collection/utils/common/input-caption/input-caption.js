@@ -231,3 +231,4 @@ export class InputCaption {
 		message.printMessage();
 	}
 }
+//# sourceMappingURL=input-caption.js.map

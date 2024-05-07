@@ -1,8 +1,8 @@
-import { h, getAssetPath } from '@stencil/core';
+import { h } from '@stencil/core';
 import { SimpleFooter } from './simple-footer';
 export const ExpandedFooterWrapper = (props, children) => {
-	const { topMargin, footerLinks } = props;
-	const style = { '--imagePath': `url(${getAssetPath('./assets/footer-expanded-supergraphic-logo.svg')})` };
+	const { topMargin, footerLinks, backgroundImagePath } = props;
+	const style = { '--imagePath': backgroundImagePath };
 	const marginClass = !topMargin ? 'ontario-margin-top-0-!' : '';
 	return h(
 		'footer',
@@ -11,3 +11,4 @@ export const ExpandedFooterWrapper = (props, children) => {
 		h(SimpleFooter, Object.assign({}, footerLinks, { className: 'ontario-footer__expanded-bottom-section' })),
 	);
 };
+//# sourceMappingURL=expanded-footer-wrapper.js.map

@@ -44,7 +44,7 @@ export interface RadioOption {
 	 * The resulting value will be `"radio-option-1"`.
 	 */
 
-	value: string | number;
+	value: string;
 
 	/**
 	 * Used to establish a relationship between radio option label and the radio option input.
@@ -95,4 +95,10 @@ export interface RadioOption {
 	 * </ontario-radio-buttons>
 	 */
 	hintExpander?: HintExpander;
+
+	/**
+	 * Used to maintain the state of whether or not the option is checked.
+	 * This is for internal use only.
+	 */
+	checked?: boolean;
 }

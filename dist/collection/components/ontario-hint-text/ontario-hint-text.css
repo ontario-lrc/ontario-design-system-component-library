@@ -42,3 +42,8 @@
 .ontario-hint p:last-of-type {
 	margin-bottom: 0;
 }
+.ontario-hint a[x-apple-data-detectors] {
+	color: inherit;
+	cursor: none;
+	text-decoration: none;
+}

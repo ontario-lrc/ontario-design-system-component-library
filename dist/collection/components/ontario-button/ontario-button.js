@@ -127,10 +127,8 @@ export class OntarioButton {
 		this.validateType();
 		this.ariaLabelText = (_a = this.ariaLabelText) !== null && _a !== void 0 ? _a : this.labelState;
 	}
-	/**
-	 * This helper is used to help load translations for any slots + text content passed in by the user.
-	 */
 	componentDidLoad() {
+		// Used to help load translations for any slots + text content passed in by the user.
 		const observer = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
 				if (mutation.type === 'attributes') {
@@ -140,11 +138,26 @@ export class OntarioButton {
 		});
 		const options = { attributes: true };
 		observer.observe(this.host, options);
+		// Add a click event listener to handle submitting a form
+		if (this.htmlTypeState === 'submit') {
+			const { form } = this.internals;
+			// Based off a comment within this bug about preventDefault(): https://bugzilla.mozilla.org/show_bug.cgi?id=1370630
+			this.buttonRef.addEventListener('click', () =>
+				form === null || form === void 0 ? void 0 : form.dispatchEvent(new Event('submit', { cancelable: true })),
+			);
+		}
 	}
 	render() {
 		return h(
 			'button',
-			{ 'type': this.htmlTypeState, 'class': this.getClass(), 'aria-label': this.ariaLabelText, 'id': this.getId() },
+			{
+				'key': 'ceb1e505af5185139f76215012d1217ee6102356',
+				'ref': (el) => (this.buttonRef = el),
+				'type': this.htmlTypeState,
+				'class': this.getClass(),
+				'aria-label': this.ariaLabelText,
+				'id': this.getId(),
+			},
 			this.labelState,
 		);
 	}
@@ -153,6 +166,9 @@ export class OntarioButton {
 	}
 	static get encapsulation() {
 		return 'shadow';
+	}
+	static get formAssociated() {
+		return true;
 	}
 	static get originalStyleUrls() {
 		return {
@@ -176,6 +192,7 @@ export class OntarioButton {
 						ButtonType: {
 							location: 'import',
 							path: './ontario-button.types',
+							id: 'src/components/ontario-button/ontario-button.types.ts::ButtonType',
 						},
 					},
 				},
@@ -199,6 +216,7 @@ export class OntarioButton {
 						HtmlType: {
 							location: 'import',
 							path: './ontario-button.types',
+							id: 'src/components/ontario-button/ontario-button.types.ts::HtmlType',
 						},
 					},
 				},
@@ -301,4 +319,8 @@ export class OntarioButton {
 			},
 		];
 	}
+	static get attachInternalsMemberName() {
+		return 'internals';
+	}
 }
+//# sourceMappingURL=ontario-button.js.map

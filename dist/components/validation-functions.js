@@ -28,4 +28,6 @@ function validateLanguage(language) {
 	return 'en';
 }
 
-export { validateLanguage as a, validatePropExists as b, validateObjectExists as c, validateValueAgainstArray as v };
+export { validateValueAgainstArray as a, validatePropExists as b, validateObjectExists as c, validateLanguage as v };
+
+//# sourceMappingURL=validation-functions.js.map

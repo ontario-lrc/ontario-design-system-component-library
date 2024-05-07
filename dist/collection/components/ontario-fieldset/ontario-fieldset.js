@@ -66,16 +66,16 @@ export class OntarioFieldset {
 	render() {
 		return h(
 			'div',
-			{ class: 'ontario-form-group' },
+			{ key: '630e96f72b61db1d5c36c7af29969d5e9128dc9f', class: 'ontario-form-group' },
 			h(
 				'fieldset',
-				{ class: 'ontario-fieldset' },
+				{ key: 'c2ae48560e067ef9c197da8032ba848962baec7b', class: 'ontario-fieldset' },
 				h(
 					'legend',
-					{ class: this.getClass() },
+					{ key: 'f7d514246a171fd752863c314fe5849a8276bd11', class: this.getClass() },
 					this.legendSize === 'heading' ? h('h1', null, this.legend) : this.legend,
 				),
-				h('slot', null),
+				h('slot', { key: 'f6d4de75ed7b718dcd624da6d5303f474a28b77a' }),
 			),
 		);
 	}
@@ -124,6 +124,7 @@ export class OntarioFieldset {
 						CaptionType: {
 							location: 'import',
 							path: '../../utils/common/input-caption/input-caption.types',
+							id: 'src/utils/common/input-caption/input-caption.types.ts::CaptionType',
 						},
 					},
 				},
@@ -152,3 +153,4 @@ export class OntarioFieldset {
 		];
 	}
 }
+//# sourceMappingURL=ontario-fieldset.js.map

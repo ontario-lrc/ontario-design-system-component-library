@@ -1,5 +1,6 @@
 import { EventEmitter } from '../../stencil-public-runtime';
 import { Language } from '../../utils/common/language-types';
+import { HeaderLanguageToggleEventDetails } from '../../utils/events/common-events.interface';
 export declare class OntarioLanguageToggle {
 	language: Language | string;
 	/**
@@ -19,7 +20,7 @@ export declare class OntarioLanguageToggle {
 	 *
 	 * This is optional.
 	 */
-	customLanguageToggle?: Function;
+	customLanguageToggle?: (event: globalThis.Event) => void;
 	translations: any;
 	/**
 	 * An event to set the Document's HTML lang property, and emit the toggled language to other components.
@@ -29,8 +30,8 @@ export declare class OntarioLanguageToggle {
 	/**
 	 * An event that emits to other components that the language toggle button has been toggled.
 	 */
-	headerLanguageToggled: EventEmitter<string>;
-	handleHeaderLanguageToggled(language: string, e?: Event): void;
+	headerLanguageToggled: EventEmitter<HeaderLanguageToggleEventDetails>;
+	handleHeaderLanguageToggled(language: string, event?: globalThis.Event): void;
 	updateLanguage(): void;
 	updateHTMLLang: (lang: string) => void;
 	connectedCallback(): void;

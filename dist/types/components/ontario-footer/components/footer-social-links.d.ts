@@ -1,5 +1,5 @@
 import { FunctionalComponent } from '../../../stencil-public-runtime';
-export declare type FooterSocialLinksProps = {
+export type FooterSocialLinksProps = {
 	facebook?: string;
 	twitter?: string;
 	instagram?: string;

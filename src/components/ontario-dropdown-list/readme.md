@@ -1,3 +1,5 @@
+import { OntarioDropdownList } from '@ontario-lrc/ontario-design-system-component-library-react';
+
 # ontario-dropdown-list
 
 Only use a dropdown (select) list if you cannot use other form components to capture the user’s information.
@@ -42,6 +44,33 @@ Example of a dropdown list component with no `elementId` or `isEmptyStartOption`
 </ontario-dropdown-list>
 ```
 
+<div>
+	<OntarioDropdownList
+		name="streaming-service"
+		caption='{
+			"captionText": "Select a streaming service",
+			"captionType": "default"
+		}'
+		required
+		options='[{
+			"value": "netflix",
+			"label": "Netflix"
+		},
+		{
+			"value": "disney-plus",
+			"label": "Disney Plus"
+		},
+		{
+			"value": "crave",
+			"label": "Crave"
+		},
+		{
+			"value": "prime",
+			"label": "Prime Video"
+		}]'
+	></OntarioDropdownList>
+</div>
+
 In the following example, all available props are passed through.
 
 ```html
@@ -82,7 +111,7 @@ In the following example, all available props are passed through.
 		},
 		{
 			"value": "ontario",
-			"label": "Ontario"
+			"label": "Ontario",
 			"selected": true
 		},
 		{
@@ -113,6 +142,114 @@ In the following example, all available props are passed through.
 </ontario-dropdown-list>
 ```
 
+<div>
+	<OntarioDropdownList
+		name="provinces-territories"
+		is-empty-start-option="Select"
+		element-id="provinces-territories"
+		language="en"
+		hint-text="Select the province or territory you currently live in."
+		caption='{
+			"captionText": "Province/territory",
+			"captionType": "heading"
+		}'
+		required
+		options='[{
+			"value": "alberta",
+			"label": "Alberta"
+		},
+		{
+			"value": "british-columbia",
+			"label": "British Columbia"
+		},
+		{
+			"value": "manitoba",
+			"label": "Manitoba"
+		},
+		{
+			"value": "new-brunswick",
+			"label": "New Brunswick"
+		},
+		{
+			"value": "newfoundland-and-labrador",
+			"label": "Newfoundland and Labrador"
+		},
+		{
+			"value": "nova-scotia",
+			"label": "Nova Scotia"
+		},
+		{
+			"value": "ontario",
+			"label": "Ontario",
+			"selected": true
+		},
+		{
+			"value": "prince-edward-island",
+			"label": "Prince Edward Island"
+		},
+		{
+			"value": "quebec",
+			"label": "Quebec"
+		},
+		{
+			"value": "saskatchewan",
+			"label": "Saskatchewan"
+		},
+		{
+			"value": "northwest-territories",
+			"label": "Northwest Territories"
+		},
+		{
+			"value": "nunavut",
+			"label": "Nunavut"
+		},
+		{
+			"value": "yukon",
+			"label": "Yukon"
+		}]'
+	></OntarioDropdownList>
+</div>
+
+### Forms
+
+The `ontario-dropdown-list` supports integration with native HTML `<form>` elements. This element integrates with the underlying browser form API and should work the same as an `<select>`.
+
+```html
+<form>
+	<!-- Add an ontario-dropdown-list -->
+	<ontario-dropdown-list
+		name="dropdown-1"
+		is-empty-start-option="Select"
+		element-id="dropdown-1"
+		caption="Dropdown"
+		required
+		options='[{
+			"value": "alberta",
+			"label": "Alberta"
+		},
+		{
+			"value": "ontario",
+			"label": "Ontario"
+			"selected": true
+		},
+		{
+			"value": "quebec",
+			"label": "Quebec"
+		},
+		{
+			"value": "nunavut",
+			"label": "Nunavut"
+		}]'
+	>
+	</ontario-dropdown-list>
+
+	<!-- Submit the form with a submit button -->
+	<ontario-button type="primary" html-type="submit">Submit</ontario-button>
+</form>
+```
+
+Remember to set the `name` attribute as this is used to identify the field when submitting the form.
+
 ## Custom property types
 
 ### Caption
@@ -121,10 +258,10 @@ In the following example, all available props are passed through.
 caption='{ "captionText": "Province/territory", "captionType": "heading" }'
 ```
 
-| **Property name** | **Type**                           | **Description**                                                                                         |
-| ----------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `captionText`     | `string`                           | The text to display as the caption (label) for the dropdown-list. This must be implemented.             |
-| `captionType`     | `"default" \| "large"\| "heading"` | The type of caption to render. This is optional - if no type is passed, the "default" type will render. |
+| Property name | Type                               | Description                                                                                             |
+| ------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `captionText` | `string`                           | The text to display as the caption (label) for the dropdown-list. This must be implemented.             |
+| `captionType` | `"default" \| "large"\| "heading"` | The type of caption to render. This is optional - if no type is passed, the "default" type will render. |
 
 ### Options
 
@@ -133,11 +270,11 @@ options='[ { "value": "netflix", "label": "Netflix" }, { "value": "disney-plus",
 "crave", "label": "Crave" }, { "value": "prime", "label": "Prime Video" } ]'
 ```
 
-| **Property name** | **Type**  | **Description**                                                                                                                             |
-| ----------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`           | `string`  | The dropdown option content value. Each value must be unique to the option.                                                                 |
-| `label`           | `string`  | The text to display as the dropdown option label.                                                                                           |
-| `selected`        | `boolean` | A boolean value to determine whether or not the dropdown list option is pre-selected. If no selected value is set, it will be set to false. |
+| Property name | Type      | Description                                                                                                                                 |
+| ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`       | `string`  | The dropdown option content value. Each value must be unique to the option.                                                                 |
+| `label`       | `string`  | The text to display as the dropdown option label.                                                                                           |
+| `selected`    | `boolean` | A boolean value to determine whether or not the dropdown list option is pre-selected. If no selected value is set, it will be set to false. |
 
 ## Accessibility
 
@@ -149,28 +286,28 @@ options='[ { "value": "netflix", "label": "Netflix" }, { "value": "disney-plus",
 
 ## Properties
 
-| Property             | Attribute               | Description                                                                                                                                                                                                                                                                                                         | Type                                  | Default     |
-| -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `caption`            | `caption`               | The text to display for the dropdown list label.                                                                                                                                                                                                                                                                    | `Caption \| string`                   | `undefined` |
-| `customOnBlur`       | --                      | Used to add a custom function to the dropdown onBlur event.                                                                                                                                                                                                                                                         | `Function \| undefined`               | `undefined` |
-| `customOnChange`     | --                      | Used to add a custom function to the dropdown onChange event.                                                                                                                                                                                                                                                       | `Function \| undefined`               | `undefined` |
-| `customOnFocus`      | --                      | Used to add a custom function to the dropdown onFocus event.                                                                                                                                                                                                                                                        | `Function \| undefined`               | `undefined` |
-| `elementId`          | `element-id`            | The ID for the dropdown list. If no ID is provided, one will be generated.                                                                                                                                                                                                                                          | `string \| undefined`                 | `undefined` |
-| `hintExpander`       | `hint-expander`         | Used to include the ontario-hint-expander component for the dropdown list component. This is passed in as an object with key-value pairs. This is optional.                                                                                                                                                         | `HintExpander \| string \| undefined` | `undefined` |
-| `hintText`           | `hint-text`             | Used to include the ontario-hint-text component for the dropdown list. This is optional.                                                                                                                                                                                                                            | `Hint \| string \| undefined`         | `undefined` |
-| `isEmptyStartOption` | `is-empty-start-option` | This prop is used to determine whether or not the initial option displayed is empty. If set to `true`, it will render the default “select” text. If set to a string, it will render the string value.                                                                                                               | `boolean \| string \| undefined`      | `false`     |
-| `language`           | `language`              | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.                                                                                                 | `"en" \| "fr" \| undefined`           | `'en'`      |
-| `name`               | `name`                  | The name for the dropdown list. The name value is used to reference form data after a form is submitted.                                                                                                                                                                                                            | `string`                              | `undefined` |
-| `options`            | `options`               | The options for dropdown list. Each option will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. In the example below, the options are being passed in as a string and there are three dropdown options displayed. | `DropdownOption[] \| string`          | `undefined` |
-| `required`           | `required`              | This is used to determine whether the dropdown list is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).                                                                 | `boolean \| undefined`                | `false`     |
+| Property             | Attribute               | Description                                                                                                                                                                                                                                                                                                         | Type                                    | Default     |
+| -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
+| `caption`            | `caption`               | The text to display for the dropdown list label.                                                                                                                                                                                                                                                                    | `Caption \| string`                     | `undefined` |
+| `customOnBlur`       | --                      | Used to add a custom function to the dropdown onBlur event.                                                                                                                                                                                                                                                         | `((event: Event) => void) \| undefined` | `undefined` |
+| `customOnChange`     | --                      | Used to add a custom function to the dropdown onChange event.                                                                                                                                                                                                                                                       | `((event: Event) => void) \| undefined` | `undefined` |
+| `customOnFocus`      | --                      | Used to add a custom function to the dropdown onFocus event.                                                                                                                                                                                                                                                        | `((event: Event) => void) \| undefined` | `undefined` |
+| `elementId`          | `element-id`            | The ID for the dropdown list. If no ID is provided, one will be generated.                                                                                                                                                                                                                                          | `string \| undefined`                   | `undefined` |
+| `hintExpander`       | `hint-expander`         | Used to include the ontario-hint-expander component for the dropdown list component. This is passed in as an object with key-value pairs. This is optional.                                                                                                                                                         | `HintExpander \| string \| undefined`   | `undefined` |
+| `hintText`           | `hint-text`             | Used to include the ontario-hint-text component for the dropdown list. This is optional.                                                                                                                                                                                                                            | `Hint \| string \| undefined`           | `undefined` |
+| `isEmptyStartOption` | `is-empty-start-option` | This prop is used to determine whether or not the initial option displayed is empty. If set to `true`, it will render the default “select” text. If set to a string, it will render the string value.                                                                                                               | `boolean \| string \| undefined`        | `false`     |
+| `language`           | `language`              | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If no language is passed, it will default to English.                                                                                                 | `"en" \| "fr" \| undefined`             | `undefined` |
+| `name`               | `name`                  | The name for the dropdown list. The name value is used to reference form data after a form is submitted.                                                                                                                                                                                                            | `string`                                | `undefined` |
+| `options`            | `options`               | The options for dropdown list. Each option will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. In the example below, the options are being passed in as a string and there are three dropdown options displayed. | `DropdownOption[] \| string`            | `undefined` |
+| `required`           | `required`              | This is used to determine whether the dropdown list is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).                                                                 | `boolean \| undefined`                  | `false`     |
 
 ## Events
 
-| Event              | Description                                                                                | Type               |
-| ------------------ | ------------------------------------------------------------------------------------------ | ------------------ |
-| `dropdownOnBlur`   | Emitted when a keyboard input event occurs when a dropdown list has lost focus.            | `CustomEvent<any>` |
-| `dropdownOnChange` | Emitted when a keyboard input or mouse event occurs when a dropdown list has been changed. | `CustomEvent<any>` |
-| `dropdownOnFocus`  | Emitted when a keyboard input event occurs when a dropdown list has gained focus.          | `CustomEvent<any>` |
+| Event              | Description                                                                                | Type                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| `dropdownOnBlur`   | Emitted when a keyboard input event occurs when a dropdown list has lost focus.            | `CustomEvent<InputInteractionEvent & { focused: boolean; }>`              |
+| `dropdownOnChange` | Emitted when a keyboard input or mouse event occurs when a dropdown list has been changed. | `CustomEvent<{ id?: string \| undefined; value?: string \| undefined; }>` |
+| `dropdownOnFocus`  | Emitted when a keyboard input event occurs when a dropdown list has gained focus.          | `CustomEvent<InputInteractionEvent & { focused: boolean; }>`              |
 
 ## Dependencies
 

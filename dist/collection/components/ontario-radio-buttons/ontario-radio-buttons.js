@@ -13,30 +13,8 @@ import { handleInputEvent } from '../../utils/events/event-handler';
 import { default as translations } from '../../translations/global.i18n.json';
 export class OntarioRadioButtons {
 	constructor() {
-		/**
-		 * Function to handle radio buttons events and the information pertaining to the radio buttons to emit.
-		 */
-		this.handleEvent = (ev, eventType) => {
-			var _a;
-			const input = ev.target;
-			if (input) {
-				input.checked = (_a = input.checked) !== null && _a !== void 0 ? _a : '';
-			}
-			handleInputEvent(
-				ev,
-				eventType,
-				input,
-				this.radioOnChange,
-				this.radioOnFocus,
-				this.radioOnBlur,
-				'radio',
-				this.customOnChange,
-				this.customOnFocus,
-				this.customOnBlur,
-			);
-		};
 		this.caption = undefined;
-		this.language = 'en';
+		this.language = undefined;
 		this.name = undefined;
 		this.hintText = undefined;
 		this.hintExpander = undefined;
@@ -55,7 +33,9 @@ export class OntarioRadioButtons {
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
@@ -116,11 +96,11 @@ export class OntarioRadioButtons {
 		}
 	}
 	/*
-   * Watch for changes in the `options` prop for validation purposes.
+     * Watch for changes in the `options` prop for validation purposes.
 
-   * Validate the `options` and make sure the `options` prop has a value.
-   * Log a warning if user doesn't input a value for the `options`.
-   */
+     * Validate the `options` and make sure the `options` prop has a value.
+     * Log a warning if user doesn't input a value for the `options`.
+     */
 	validateOptions(newValue) {
 		if (validateObjectExists(newValue)) {
 			const message = new ConsoleMessageClass();
@@ -156,6 +136,50 @@ export class OntarioRadioButtons {
 		this.updateCaptionState(this.caption);
 	}
 	/**
+	 * Function to handle radio buttons events and the information pertaining to the radio buttons to emit.
+	 */
+	handleEvent(event, eventType) {
+		var _a, _b;
+		const input = event.target;
+		// Reset all internalOptions checked states
+		const changedOption = this.internalOptions
+			.map((x) => {
+				x.checked = false;
+				return x;
+			})
+			.find((x) => x.value === (input === null || input === void 0 ? void 0 : input.value));
+		// Set the new checked state for the selected value
+		if (changedOption)
+			changedOption.checked = !(changedOption === null || changedOption === void 0 ? void 0 : changedOption.checked);
+		// Set the value within the form
+		(_b = (_a = this.internals) === null || _a === void 0 ? void 0 : _a.setFormValue) === null || _b === void 0
+			? void 0
+			: _b.call(
+					_a,
+					this.internalOptions
+						.filter((x) => !!x.checked)
+						.reduce((formData, currentValue) => {
+							formData.append(this.name, currentValue.value);
+							return formData;
+						}, new FormData()),
+			  );
+		handleInputEvent(
+			event,
+			eventType,
+			input,
+			this.radioOnChange,
+			this.radioOnFocus,
+			this.radioOnBlur,
+			undefined,
+			'radio',
+			this.customOnChange,
+			this.customOnFocus,
+			this.customOnBlur,
+			undefined,
+			this.element,
+		);
+	}
+	/**
 	 * If a `hintText` prop is passed, the id generated from it will be set to the internal `hintTextId` state to match with the fieldset `aria-describedBy` attribute.
 	 */
 	async componentDidLoad() {
@@ -175,10 +199,14 @@ export class OntarioRadioButtons {
 		var _a;
 		return h(
 			'div',
-			{ class: 'ontario-form-group' },
+			{ key: '9fd6c87b909d245e3882608e88643b67f1a41e73', class: 'ontario-form-group' },
 			h(
 				'fieldset',
-				{ 'class': 'ontario-fieldset', 'aria-describedby': this.hintTextId },
+				{
+					'key': '27803aa186170a926e5708daa44b9e316a308099',
+					'class': 'ontario-fieldset',
+					'aria-describedby': this.hintTextId,
+				},
 				this.captionState.getCaption(undefined, !!this.internalHintExpander),
 				this.internalHintText &&
 					h('ontario-hint-text', {
@@ -188,7 +216,7 @@ export class OntarioRadioButtons {
 					}),
 				h(
 					'div',
-					{ class: 'ontario-radios' },
+					{ key: '34e4053d111ea70f6b5f841ba9cbbaab240334a3', class: 'ontario-radios' },
 					(_a = this.internalOptions) === null || _a === void 0
 						? void 0
 						: _a.map((radioOption) =>
@@ -202,6 +230,7 @@ export class OntarioRadioButtons {
 										type: 'radio',
 										value: radioOption.value,
 										required: !!this.required,
+										checked: !!radioOption.checked,
 										onChange: (e) => this.handleEvent(e, EventType.Change),
 										onBlur: (e) => this.handleEvent(e, EventType.Blur),
 										onFocus: (e) => this.handleEvent(e, EventType.Focus),
@@ -213,26 +242,30 @@ export class OntarioRadioButtons {
 										radioOption.hintExpander &&
 											this.captionState.getHintExpanderAccessibilityText(radioOption.label, true),
 									),
-									h(
-										'div',
-										{ class: 'ontario-radios__hint-expander' },
-										radioOption.hintExpander &&
+									radioOption.hintExpander &&
+										h(
+											'div',
+											{ class: 'ontario-radios__hint-expander' },
 											h('ontario-hint-expander', {
 												'hint': radioOption.hintExpander.hint,
 												'content': radioOption.hintExpander.content,
 												'hintContentType': radioOption.hintExpander.hintContentType,
 												'input-exists': true,
 											}),
-									),
+										),
 								),
 						  ),
 					this.internalHintExpander &&
-						h('ontario-hint-expander', {
-							'hint': this.internalHintExpander.hint,
-							'content': this.internalHintExpander.content,
-							'hintContentType': this.internalHintExpander.hintContentType,
-							'input-exists': true,
-						}),
+						h(
+							'div',
+							{ class: 'ontario-radios__hint-expander' },
+							h('ontario-hint-expander', {
+								'hint': this.internalHintExpander.hint,
+								'content': this.internalHintExpander.content,
+								'hintContentType': this.internalHintExpander.hintContentType,
+								'input-exists': true,
+							}),
+						),
 				),
 			),
 		);
@@ -242,6 +275,9 @@ export class OntarioRadioButtons {
 	}
 	static get encapsulation() {
 		return 'shadow';
+	}
+	static get formAssociated() {
+		return true;
 	}
 	static get originalStyleUrls() {
 		return {
@@ -265,6 +301,7 @@ export class OntarioRadioButtons {
 						Caption: {
 							location: 'import',
 							path: '../../utils/common/input-caption/caption.interface',
+							id: 'src/utils/common/input-caption/caption.interface.ts::Caption',
 						},
 					},
 				},
@@ -292,6 +329,7 @@ export class OntarioRadioButtons {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -303,7 +341,6 @@ export class OntarioRadioButtons {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
 			},
 			name: {
 				type: 'string',
@@ -332,6 +369,7 @@ export class OntarioRadioButtons {
 						Hint: {
 							location: 'import',
 							path: '../../utils/common/common.interface',
+							id: 'src/utils/common/common.interface.ts::Hint',
 						},
 					},
 				},
@@ -354,6 +392,7 @@ export class OntarioRadioButtons {
 						HintExpander: {
 							location: 'import',
 							path: '../ontario-hint-expander/hint-expander.interface',
+							id: 'src/components/ontario-hint-expander/hint-expander.interface.ts::HintExpander',
 						},
 					},
 				},
@@ -399,6 +438,7 @@ export class OntarioRadioButtons {
 						RadioOption: {
 							location: 'import',
 							path: './radio-option.interface',
+							id: 'src/components/ontario-radio-buttons/radio-option.interface.ts::RadioOption',
 						},
 					},
 				},
@@ -420,11 +460,12 @@ export class OntarioRadioButtons {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -439,11 +480,12 @@ export class OntarioRadioButtons {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -458,11 +500,12 @@ export class OntarioRadioButtons {
 				type: 'unknown',
 				mutable: false,
 				complexType: {
-					original: 'Function',
-					resolved: 'Function | undefined',
+					original: '(event: globalThis.Event) => void',
+					resolved: '((event: Event) => void) | undefined',
 					references: {
-						Function: {
+						globalThis: {
 							location: 'global',
+							id: 'global::globalThis',
 						},
 					},
 				},
@@ -497,9 +540,15 @@ export class OntarioRadioButtons {
 					text: 'Emitted when a keyboard input or mouse event occurs when a radio option has been changed.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'RadioAndCheckboxChangeEvent',
+					resolved: 'InputInteractionEvent & { checked: boolean; }',
+					references: {
+						RadioAndCheckboxChangeEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::RadioAndCheckboxChangeEvent',
+						},
+					},
 				},
 			},
 			{
@@ -513,9 +562,15 @@ export class OntarioRadioButtons {
 					text: 'Emitted when a keyboard input event occurs when a radio option has lost focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 			{
@@ -529,9 +584,15 @@ export class OntarioRadioButtons {
 					text: 'Emitted when a keyboard input event occurs when a radio option has gained focus.',
 				},
 				complexType: {
-					original: 'any',
-					resolved: 'any',
-					references: {},
+					original: 'InputFocusBlurEvent',
+					resolved: 'InputInteractionEvent & { focused: boolean; }',
+					references: {
+						InputFocusBlurEvent: {
+							location: 'import',
+							path: '../../utils/events/event-handler.interface',
+							id: 'src/utils/events/event-handler.interface.ts::InputFocusBlurEvent',
+						},
+					},
 				},
 			},
 		];
@@ -589,4 +650,8 @@ export class OntarioRadioButtons {
 			},
 		];
 	}
+	static get attachInternalsMemberName() {
+		return 'internals';
+	}
 }
+//# sourceMappingURL=ontario-radio-buttons.js.map

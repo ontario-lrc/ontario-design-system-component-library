@@ -9,13 +9,15 @@ export class OntarioFooter {
 	constructor() {
 		this.isTwoColumnLayout = () => this.type === 'twoColumn';
 		this.isThreeColumnLayout = () => this.type === 'threeColumn';
-		this.language = 'en';
+		this.isExpandedLayout = () => this.isTwoColumnLayout() || this.isThreeColumnLayout();
+		this.language = undefined;
 		this.type = 'default';
 		this.footerLinks = undefined;
 		this.socialLinks = undefined;
 		this.twoColumnOptions = undefined;
 		this.threeColumnOptions = undefined;
 		this.topMargin = true;
+		this.assetBasePath = undefined;
 		this.translations = translations;
 		this.footerLinksState = undefined;
 		this.socialLinksState = undefined;
@@ -27,7 +29,9 @@ export class OntarioFooter {
 	 * connected to the DOM. It is used for the initial language when the input component loads.
 	 */
 	handleSetAppLanguage(event) {
-		this.language = validateLanguage(event);
+		if (!this.language) {
+			this.language = validateLanguage(event);
+		}
 	}
 	handleHeaderLanguageToggled(event) {
 		this.language = validateLanguage(event);
@@ -99,8 +103,23 @@ export class OntarioFooter {
 				.printMessage(ConsoleType.Error);
 		}
 	}
-	getBackgroundImage() {
-		return { '--imagePath': `url(${getAssetPath('./assets/footer-default-supergraphic-logo.svg')})` };
+	/**
+	 * Generate a link to the given image based on the base asset path.
+	 * @param imageName Name of the image to build the path to
+	 * @returns Path to image with asset path
+	 */
+	getImageAssetSrcPath(imageName) {
+		return `${this.assetBasePath ? this.assetBasePath : getAssetPath('./assets')}/${imageName}`;
+	}
+	/**
+	 * Generate CSS url to the background image
+	 * @returns path to the background image
+	 */
+	getBackgroundImagePath() {
+		const supergraphicLogoFile = this.isExpandedLayout()
+			? 'footer-expanded-supergraphic-logo.svg'
+			: 'footer-default-supergraphic-logo.svg';
+		return `url(${this.getImageAssetSrcPath(supergraphicLogoFile)})`;
 	}
 	getFooterClasses() {
 		let classes = 'ontario-footer ontario-footer--default';
@@ -169,7 +188,7 @@ export class OntarioFooter {
 		if (this.isTwoColumnLayout()) {
 			return h(
 				ExpandedFooterWrapper,
-				{ footerLinks: footerLinks, topMargin: topMargin },
+				{ footerLinks: footerLinks, topMargin: topMargin, backgroundImagePath: this.getBackgroundImagePath() },
 				h(FooterColumn, { data: twoColumnState.column1 }),
 				h(FooterColumn, { data: twoColumnState.column2, socialLinks: socialLinksState }),
 			);
@@ -177,7 +196,7 @@ export class OntarioFooter {
 		if (this.isThreeColumnLayout()) {
 			return h(
 				ExpandedFooterWrapper,
-				{ footerLinks: footerLinks, topMargin: topMargin },
+				{ footerLinks: footerLinks, topMargin: topMargin, backgroundImagePath: this.getBackgroundImagePath() },
 				h(FooterColumn, { data: threeColumnState.column1, isThreeColLayout: true, isFullWidthInMediumLayout: true }),
 				h(FooterColumn, { data: threeColumnState.column2, isThreeColLayout: true }),
 				h(FooterColumn, { data: threeColumnState.column3, socialLinks: socialLinksState, isThreeColLayout: true }),
@@ -185,7 +204,7 @@ export class OntarioFooter {
 		}
 		return h(
 			'footer',
-			{ class: this.getFooterClasses(), style: this.getBackgroundImage() },
+			{ class: this.getFooterClasses(), style: { '--imagePath': this.getBackgroundImagePath() } },
 			h(SimpleFooter, Object.assign({}, footerLinks)),
 		);
 	}
@@ -220,6 +239,7 @@ export class OntarioFooter {
 						Language: {
 							location: 'import',
 							path: '../../utils/common/language-types',
+							id: 'src/utils/common/language-types.ts::Language',
 						},
 					},
 				},
@@ -231,7 +251,6 @@ export class OntarioFooter {
 				},
 				attribute: 'language',
 				reflect: false,
-				defaultValue: "'en'",
 			},
 			type: {
 				type: 'string',
@@ -243,6 +262,7 @@ export class OntarioFooter {
 						OntarioFooterType: {
 							location: 'import',
 							path: './ontario-footer-interface',
+							id: 'src/components/ontario-footer/ontario-footer-interface.tsx::OntarioFooterType',
 						},
 					},
 				},
@@ -266,6 +286,7 @@ export class OntarioFooter {
 						FooterLinks: {
 							location: 'import',
 							path: './ontario-footer-interface',
+							id: 'src/components/ontario-footer/ontario-footer-interface.tsx::FooterLinks',
 						},
 					},
 				},
@@ -289,6 +310,7 @@ export class OntarioFooter {
 						FooterSocialLinksProps: {
 							location: 'import',
 							path: './components',
+							id: 'src/components/ontario-footer/components/index.ts::FooterSocialLinksProps',
 						},
 					},
 				},
@@ -311,6 +333,7 @@ export class OntarioFooter {
 						TwoColumnOptions: {
 							location: 'import',
 							path: './ontario-footer-interface',
+							id: 'src/components/ontario-footer/ontario-footer-interface.tsx::TwoColumnOptions',
 						},
 					},
 				},
@@ -333,6 +356,7 @@ export class OntarioFooter {
 						ThreeColumnOptions: {
 							location: 'import',
 							path: './ontario-footer-interface',
+							id: 'src/components/ontario-footer/ontario-footer-interface.tsx::ThreeColumnOptions',
 						},
 					},
 				},
@@ -362,6 +386,23 @@ export class OntarioFooter {
 				attribute: 'top-margin',
 				reflect: false,
 				defaultValue: 'true',
+			},
+			assetBasePath: {
+				type: 'string',
+				mutable: false,
+				complexType: {
+					original: 'string',
+					resolved: 'string',
+					references: {},
+				},
+				required: false,
+				optional: false,
+				docs: {
+					tags: [],
+					text: 'The base path to an assets folder containing the Design System assets',
+				},
+				attribute: 'asset-base-path',
+				reflect: false,
 			},
 		};
 	}
@@ -413,3 +454,4 @@ export class OntarioFooter {
 		];
 	}
 }
+//# sourceMappingURL=ontario-footer.js.map

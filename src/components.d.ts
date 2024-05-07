@@ -5,17 +5,37 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
+import { ExpandCollapseButtonDetails } from './components/ontario-accordion/expandCollapseButtonDetails.interface';
+import { Accordion } from './components/ontario-accordion/accordion.interface';
+import { Language } from './utils/common/language-types';
 import {
 	HeadingContentType,
 	HeadingLevelOptions,
 	HighlightColourOptions,
 } from './utils/components/callout-aside/callout-aside.interface';
-import { Language } from './utils/common/language-types';
 import { ButtonType, HtmlType } from './components/ontario-button/ontario-button.types';
+import {
+	CardType,
+	HeaderType,
+	HorizontalImagePositionType,
+	HorizontalImageSizeType,
+} from './components/ontario-card/ontario-card-types';
+import { CardsPerRow } from './components/ontario-card-collection/ontario-collection-card-types';
 import { Caption } from './utils/common/input-caption/caption.interface';
 import { Hint, HintContentType } from './utils/common/common.interface';
 import { HintExpander } from './components/ontario-hint-expander/hint-expander.interface';
 import { CheckboxOption } from './components/ontario-checkbox/checkbox-option.interface';
+import {
+	InputFocusBlurEvent,
+	InputInputEvent,
+	InputInteractionEvent,
+	RadioAndCheckboxChangeEvent,
+} from './utils/events/event-handler.interface';
+import {
+	DateInputFieldType,
+	DateInputPlaceholder,
+	DateValidatorReturnType,
+} from './components/ontario-date-input/ontario-date-input-interface';
 import { DropdownOption } from './components/ontario-dropdown-list/dropdown-option.interface';
 import { CaptionType } from './utils/common/input-caption/input-caption.types';
 import {
@@ -26,14 +46,92 @@ import {
 } from './components/ontario-footer/ontario-footer-interface';
 import { FooterSocialLinksProps } from './components/ontario-footer/components';
 import {
-	applicationHeaderInfo,
-	languageToggleOptions,
-	menuItems,
+	ApplicationHeaderInfo,
+	LanguageToggleOptions,
+	MenuItem,
+	OntarioHeaderType,
 } from './components/ontario-header/ontario-header.interface';
 import { IconColour, IconSize } from './components/ontario-icon/icon.types';
+import { HeaderLanguageToggleEventDetails } from './utils/events/common-events.interface';
 import { PageAlertType } from './components/ontario-page-alert/ontario-page-alert.interface';
 import { RadioOption } from './components/ontario-radio-buttons/radio-option.interface';
+import { TableColumnOptions, TableRowOptions } from './components/ontario-table/table.interface';
+export { ExpandCollapseButtonDetails } from './components/ontario-accordion/expandCollapseButtonDetails.interface';
+export { Accordion } from './components/ontario-accordion/accordion.interface';
+export { Language } from './utils/common/language-types';
+export {
+	HeadingContentType,
+	HeadingLevelOptions,
+	HighlightColourOptions,
+} from './utils/components/callout-aside/callout-aside.interface';
+export { ButtonType, HtmlType } from './components/ontario-button/ontario-button.types';
+export {
+	CardType,
+	HeaderType,
+	HorizontalImagePositionType,
+	HorizontalImageSizeType,
+} from './components/ontario-card/ontario-card-types';
+export { CardsPerRow } from './components/ontario-card-collection/ontario-collection-card-types';
+export { Caption } from './utils/common/input-caption/caption.interface';
+export { Hint, HintContentType } from './utils/common/common.interface';
+export { HintExpander } from './components/ontario-hint-expander/hint-expander.interface';
+export { CheckboxOption } from './components/ontario-checkbox/checkbox-option.interface';
+export {
+	InputFocusBlurEvent,
+	InputInputEvent,
+	InputInteractionEvent,
+	RadioAndCheckboxChangeEvent,
+} from './utils/events/event-handler.interface';
+export {
+	DateInputFieldType,
+	DateInputPlaceholder,
+	DateValidatorReturnType,
+} from './components/ontario-date-input/ontario-date-input-interface';
+export { DropdownOption } from './components/ontario-dropdown-list/dropdown-option.interface';
+export { CaptionType } from './utils/common/input-caption/input-caption.types';
+export {
+	FooterLinks,
+	OntarioFooterType,
+	ThreeColumnOptions,
+	TwoColumnOptions,
+} from './components/ontario-footer/ontario-footer-interface';
+export { FooterSocialLinksProps } from './components/ontario-footer/components';
+export {
+	ApplicationHeaderInfo,
+	LanguageToggleOptions,
+	MenuItem,
+	OntarioHeaderType,
+} from './components/ontario-header/ontario-header.interface';
+export { IconColour, IconSize } from './components/ontario-icon/icon.types';
+export { HeaderLanguageToggleEventDetails } from './utils/events/common-events.interface';
+export { PageAlertType } from './components/ontario-page-alert/ontario-page-alert.interface';
+export { RadioOption } from './components/ontario-radio-buttons/radio-option.interface';
+export { TableColumnOptions, TableRowOptions } from './components/ontario-table/table.interface';
 export namespace Components {
+	interface OntarioAccordion {
+		/**
+		 * Used to include individual accordion data for the accordion component. This is passed in as an array of objects with key-value pairs.  The `content` is expecting a string, that can either be written as HTML or a just a plain string, depending on the accordionContentType.
+		 * @example 	<ontario-accordion 	name="My Accordion" 	accordion-data='[ 		{"label": "Accordion 1", "content": "This is a string"}, 		{"label": "Accordion 2", "accordionContentType": "html", "content": "<ul><li>List A</li><li>List B</li><li>List C</li></ul>"} 	]' ></ontario-accordion>
+		 */
+		accordionData: string | Accordion[];
+		/**
+		 * Custom Expand/Collapse button text.
+		 * @example  <ontario-accordion 	name="My Accordion" 	expand-collapse-button='{ 		"expandAllSectionsLabel": "Expand All", 		"collapseAllSectionsLabel": "Collapse All" 	}' 	accordion-data='[ 		{"label": "Accordion 1", "content": ["Item 1", "Item 2", "Item 3"]}, 		{"label": "Accordion 2", "content": ["Item A", "Item B", "Item C"]} 	]' ></ontario-accordion>
+		 */
+		expandCollapseButton?: string | ExpandCollapseButtonDetails;
+		/**
+		 * Used to show whether the accordion is opened or closed.
+		 */
+		isOpen: boolean;
+		/**
+		 * The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
+		 */
+		language?: Language;
+		/**
+		 * The name of the accordion component.  This is not optional.
+		 */
+		name: string;
+	}
 	interface OntarioAside {
 		/**
 		 * Optional text to be displayed as the content for the aside component. If a string is passed, it will automatically be nested in a paragraph tag.  HTML content can also be passed as the child/children of the aside component if additional/different elements for the content are needed.
@@ -124,6 +222,53 @@ export namespace Components {
 		 */
 		highlightColour?: HighlightColourOptions;
 	}
+	interface OntarioCard {
+		/**
+		 * Provides more context as to what the card interaction is doing. This should only be used for accessibility purposes, if the card interaction requires more * * description than what the text provides.  This is optional.
+		 */
+		ariaLabelText?: string;
+		/**
+		 * Action link for when the card is clicked.  This is optional.
+		 */
+		cardLink?: string;
+		/**
+		 * The type of card to render.  If no type is passed, it will default to 'basic'.
+		 */
+		cardType: CardType;
+		/**
+		 * Text to be displayed within the card description container.  This is optional.
+		 */
+		description?: string;
+		/**
+		 * The type of header to render.  If no type is passed, it will default to 'default'.
+		 */
+		headerType: HeaderType;
+		/**
+		 * The position of the image when the card-type is set to 'horizontal'.  This prop is only necessry when the card-type is set to 'horizontal'.
+		 * @example 	<ontario-card 	card-type="horizontal" 	label="Card Title 1" 	image="https://picsum.photos/200/300" 	horizontal-image-position-type="left" 	horizontal-image-size-type="one-fourth"   description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" > </ontario-card>
+		 */
+		horizontalImagePositionType?: HorizontalImagePositionType;
+		/**
+		 * The size of the image when the card-type is set to 'horizontal'.  This prop is only necessry when the card-type is set to 'horizontal'.
+		 * @example 	<ontario-card 	card-type="horizontal" 	label="Card Title 1" 	image="https://picsum.photos/200/300" 	horizontal-image-position-type="left" 	horizontal-image-size-type="one-fourth"   description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" > </ontario-card>
+		 */
+		horizontalImageSizeType?: HorizontalImageSizeType;
+		/**
+		 * Image to be displayed within the card image container.  This is optional.
+		 */
+		image?: string;
+		/**
+		 * Text to be displayed within the header.
+		 * @example <ontario-card 	header-type="dark" 	card-type="horizontal" 	label="Card Title 1" 	description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" >
+		 */
+		label: string;
+	}
+	interface OntarioCardCollection {
+		/**
+		 * The number of cards to display per row.  If no number is passed, it will default to 3.
+		 */
+		cardsPerRow: CardsPerRow;
+	}
 	interface OntarioCheckboxes {
 		/**
 		 * The text to display for the checkbox legend.
@@ -133,15 +278,15 @@ export namespace Components {
 		/**
 		 * Used to add a custom function to the checkbox onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the checkbox onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the checkbox onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
 		/**
 		 * Used to include the ontario-hint-expander component for the checkbox group. This is passed in as an object with key-value pairs.  This is optional.
 		 * @example <ontario-checkboxes   caption='{     "captionText": "Checkbox legend",     "captionType": "heading",   }   name='ontario-checkboxes'   options='[ 	{ 		"value": "checkbox-option-1", 		"label": "Checkbox option 1 label", 		"elementId": "checkbox-1" 	}   }]'   hint-expander='{    "hint": "Hint expander for the checkbox group",    "content": "Example hint expander content for the checkbox group"   }'   required="true" > </ontario-checkboxes>
@@ -176,6 +321,49 @@ export namespace Components {
 		 */
 		content: string | HTMLElement;
 	}
+	interface OntarioDateInput {
+		/**
+		 * The text to display as the input label
+		 * @example <ontario-date-input   caption='{     "captionText": "Exact Date",     "captionType": "heading",   }   required="true"   ...> </ontario-date-input>
+		 */
+		caption: Caption | string;
+		/**
+		 * An array value used to display date options. For example, only the day and month fields can be displayed by specifying the dateOptions as `["day", "month"]`, etc.  This is optional. If no prop for `dateOptions` is passed, it will default to `["day", "month", "year"]`.
+		 */
+		dateOptions?: string | Array<DateInputFieldType>;
+		/**
+		 * A function used to override internal date validation logic, which takes three arguments (i.e day, month and year) and returns an object of type `DateValidatorReturnType`  This is optional. If no prop for `dateValidator` is passed, it will default to internal validation function to validate the date input.
+		 */
+		dateValidator?: (day: string, month: string, year: string) => DateValidatorReturnType;
+		/**
+		 * The unique identifier of the input. This is optional - if no ID is passed, one will be generated.
+		 */
+		elementId?: string;
+		/**
+		 * Used to include the ontario-hint-text component for the date input group.  This is optional.
+		 */
+		hintText?: string;
+		/**
+		 * The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
+		 */
+		language?: Language;
+		/**
+		 * A number value indicating maximum value allowed for year input field of the date component.  This is optional. If no prop is passed, it will default to `9999`.
+		 */
+		maxYear?: number;
+		/**
+		 * A number value indicating minimum value allowed for year input field of the date component.  This is optional. If no prop is passed, it will default to `999`.
+		 */
+		minYear?: number;
+		/**
+		 * An object value used to set the placeholder text for the day, month and year input fields. Any combination of the three input fields (i.e day, month, year) of the date component can be overridden.  This is optional. If no prop is passed, it will not display any placeholder text.
+		 */
+		placeholder?: DateInputPlaceholder | string;
+		/**
+		 * A boolean value to determine whether or not the date input is required.  This is optional. If no prop is passed, it will default to `false`.
+		 */
+		required?: boolean;
+	}
 	interface OntarioDropdownList {
 		/**
 		 * The text to display for the dropdown list label.
@@ -185,15 +373,15 @@ export namespace Components {
 		/**
 		 * Used to add a custom function to the dropdown onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the dropdown onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the dropdown onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
 		/**
 		 * The ID for the dropdown list. If no ID is provided, one will be generated.
 		 */
@@ -242,6 +430,10 @@ export namespace Components {
 	}
 	interface OntarioFooter {
 		/**
+		 * The base path to an assets folder containing the Design System assets
+		 */
+		assetBasePath: string;
+		/**
 		 * A prop that stores the required links for all footers. Available options are 'accessibilityLink', 'privacyLink', 'contactLink' and 'printerLink'
 		 */
 		footerLinks: FooterLinks | string;
@@ -273,13 +465,17 @@ export namespace Components {
 	interface OntarioHeader {
 		/**
 		 * Information pertaining to the application header. This is only necessary for the 'application' header type.  This includes the application name, URL and optional props for the number of links in the subheader for desktop, tablet, and mobile views.
-		 * @example 	<ontario-header 	type="application"      application-header-info='{ 			"name": "Application name", 			"href": "/application-homepage" 			"maxSubheaderDesktopLinks": "3", 			"maxSubheaderTabletLinks": "2", 			"maxSubheaderMobileLinks": "1"    }' </ontario-header>
+		 * @example  <ontario-header    type="application"    application-header-info='{      "title": "Application name",      "href": "/application-homepage",      "maxSubheaderDesktopLinks": "3",      "maxSubheaderTabletLinks": "2",      "maxSubheaderMobileLinks": "1"    }'>  </ontario-header>
 		 */
-		applicationHeaderInfo: applicationHeaderInfo | string;
+		applicationHeaderInfo: ApplicationHeaderInfo | string;
+		/**
+		 * The base path to an assets folder containing the Design System assets
+		 */
+		assetBasePath: string;
 		/**
 		 * A custom function to pass to the language toggle button.
 		 */
-		customLanguageToggle?: Function;
+		customLanguageToggle?: (event: globalThis.Event) => void;
 		/**
 		 * Option to disable fetching of the dynamic menu from the Ontario Header API
 		 * @example 	<ontario-header 			type="ontario" 			disable-dynamic-menu="false" 		menu-items='[{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		},{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		},{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		},{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		}]'> </ontario-header>
@@ -293,15 +489,15 @@ export namespace Components {
 		 * Information pertaining to the language toggle links.
 		 * @example <ontario-header 	language-toggle-options='{    "englishLink": "/en",    "frenchLink": "/fr"  }'  ... > </ontario-header>
 		 */
-		languageToggleOptions?: languageToggleOptions | string;
+		languageToggleOptions?: LanguageToggleOptions | string;
 		/**
 		 * The items that will go inside the menu.
 		 */
-		menuItems: menuItems[] | string;
+		menuItems: MenuItem[] | string;
 		/**
 		 * The type of header.
 		 */
-		type?: 'application' | 'ontario';
+		type?: OntarioHeaderType;
 	}
 	interface OntarioHintExpander {
 		/**
@@ -346,7 +542,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -356,7 +552,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -366,7 +562,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -376,7 +572,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -410,7 +606,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -420,7 +616,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -430,7 +626,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -440,7 +636,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -450,7 +646,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -460,7 +656,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -470,7 +666,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -480,7 +676,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -490,7 +686,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -500,7 +696,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -510,7 +706,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -520,7 +716,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -530,7 +726,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -540,7 +736,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -550,7 +746,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -560,7 +756,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -570,7 +766,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -580,7 +776,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -590,7 +786,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -600,7 +796,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -616,7 +812,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -626,7 +822,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -636,7 +832,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -646,7 +842,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -656,7 +852,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -666,7 +862,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -676,7 +872,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -686,7 +882,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -696,7 +892,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -706,7 +902,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -716,7 +912,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -726,7 +922,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -736,7 +932,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -770,7 +966,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -780,7 +976,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -790,7 +986,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -800,7 +996,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -810,7 +1006,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -820,7 +1016,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -830,7 +1026,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -840,7 +1036,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -850,7 +1046,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -872,7 +1068,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -882,7 +1078,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -892,7 +1088,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -902,7 +1098,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -912,7 +1108,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -922,7 +1118,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -932,7 +1128,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -942,7 +1138,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -952,7 +1148,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -962,7 +1158,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -972,7 +1168,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -982,7 +1178,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -992,7 +1188,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1002,7 +1198,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1012,7 +1208,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1022,7 +1218,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1032,7 +1228,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1042,7 +1238,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1052,7 +1248,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1062,7 +1258,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1072,7 +1268,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1082,7 +1278,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1092,7 +1288,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1102,7 +1298,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1112,7 +1308,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1122,7 +1318,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1132,7 +1328,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1142,7 +1338,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1152,7 +1348,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1162,7 +1358,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1172,7 +1368,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1182,7 +1378,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1192,7 +1388,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1202,7 +1398,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1212,7 +1408,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1222,7 +1418,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1232,7 +1428,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1242,7 +1438,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1252,7 +1448,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1262,7 +1458,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1272,7 +1468,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1282,7 +1478,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1292,7 +1488,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1302,7 +1498,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1312,7 +1508,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1322,7 +1518,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1332,7 +1528,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1342,7 +1538,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1358,7 +1554,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1368,7 +1564,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1378,7 +1574,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1388,7 +1584,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1398,7 +1594,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1408,7 +1604,7 @@ export namespace Components {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour: IconColour | string;
+		colour: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -1421,21 +1617,33 @@ export namespace Components {
 		 */
 		caption: Caption | string;
 		/**
-		 * Used to add a custom function to the textarea onBlur event.
+		 * Used to add a custom function to the input onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
-		 * Used to add a custom function to the textarea onChange event.
+		 * Used to add a custom function to the input onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
-		 * Used to add a custom function to the textarea onFocus event.
+		 * Used to add a custom function to the input onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
+		/**
+		 * Used to add a custom function to the input onInput event.
+		 */
+		customOnInput?: (event: globalThis.Event) => void;
 		/**
 		 * The unique identifier of the input. This is optional - if no ID is passed, one will be generated.
 		 */
 		elementId?: string;
+		/**
+		 * Enable live validation on the input.  Custom live validation can be performed using an `inputValidator` validation function.  It will also validate the `required` state if no errors are returned from the `inputValidator`.  Please set a `requiredValidationMessage` to report concisely to the end user what they are required to set.
+		 */
+		enableLiveValidation: boolean;
+		/**
+		 * Set this to display an
+		 */
+		errorMessage?: string;
 		/**
 		 * Used to include the ontario-hint-expander component for the input component. This is passed in as an object with key-value pairs.  This is optional.
 		 * @example <ontario-input   caption='{     "caption": "Address",     "captionType": "heading",   }   hint-expander='{    "hint": "Hint expander",    "content": "This is the content"   }'   required="true" > </ontario-input>
@@ -1445,6 +1653,10 @@ export namespace Components {
 		 * Used to include the ontario-hint-text component for the input. This is optional.
 		 */
 		hintText?: string | Hint;
+		/**
+		 * Validate the validity of the input value `onBlur`.  This `async` function should return a result to trigger an error message.  Returning `undefined` or `null` will clear it.
+		 */
+		inputValidator?: (value?: string) => Promise<{ errorMessage?: string } | null | undefined>;
 		/**
 		 * The width of the input field. If no value is assigned, it will present as the `default` input width.
 		 */
@@ -1466,9 +1678,14 @@ export namespace Components {
 		 */
 		name: string;
 		/**
-		 * This is used to determine whether the input is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).
+		 * This is used to determine whether the input is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).  _Please add a validation messaging using `requiredValidationMessage` if setting this property._
+		 * @example <ontario-input 	id="address-line-1" 	caption="Address line 1" 	required 	required-validation-message="Please enter an address, including street number and street name" 	name="address-line-1" 	hint-text="Street and number or P.O. box." ></ontario-input>
 		 */
 		required?: boolean;
+		/**
+		 * Custom error message to display if a required field is not filled out.  _Please add a custom message when setting an input as required_.
+		 */
+		requiredValidationMessage: string;
 		/**
 		 * The input type value.  If no `type` is provided, it will default to 'text'.
 		 */
@@ -1482,7 +1699,7 @@ export namespace Components {
 		/**
 		 * A custom function to pass to the language toggle button.  This is optional.
 		 */
-		customLanguageToggle?: Function;
+		customLanguageToggle?: (event: globalThis.Event) => void;
 		language: Language | string;
 		/**
 		 * The size of the language toggle button.  If no prop is passed, it will be set to the `default` size.
@@ -1541,15 +1758,15 @@ export namespace Components {
 		/**
 		 * Used to add a custom function to the radio input onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the radio input onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the radio input onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
 		/**
 		 * Used to include the ontario-hint-expander component for the radio button group. This is passed in as an object with key-value pairs.  This is optional.
 		 * @example <ontario-radio-buttons   caption='{     "captionText": "Radio legend",     "captionType": "heading",   }' 	 name="radios"   options='[ 	   {        "value": "radio-option-1", 		  "elementId": "radio-1",        "label": "Radio option 1 label",        "hintExpander": { 		  "hint": "Hint expander for radio option 1", 		      "content": "Example hint expander content for radio option 1." 	  }     }   ]'   hint-expander='{     "hint": "Hint expander for the radio button group",     "content": "Example hint expander content for the radio button group."   }'   required="true" > </ontario-radio-buttons>
@@ -1589,7 +1806,7 @@ export namespace Components {
 		/**
 		 * Used to add a custom function to the back button onClick event.  If this function is passed in, the back element will display as a button. The back element will require either the backButtonURL prop or the customOnClick prop to be passed in order for the back element to display.
 		 */
-		customOnClick?: Function;
+		customOnClick?: (event: globalThis.Event) => void;
 		/**
 		 * The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
 		 */
@@ -1607,6 +1824,34 @@ export namespace Components {
 		 */
 		showBackButton?: boolean;
 	}
+	interface OntarioTable {
+		/**
+		 * Specifies the caption (or title) of the table.  This is optional.
+		 */
+		caption?: string | undefined;
+		/**
+		 * Used to specify whether or not table data in cells should have reduced top and bottom padding. This is useful for pages with multiple data-heavy tables such as a budget or financial data.  This is optional. By default it will be set to “false”.
+		 */
+		condensed?: boolean | undefined;
+		/**
+		 * Used to specify whether or not the table should extend the full width of its container.  This is optional. By default, it will be set to “false”
+		 */
+		fullWidth?: boolean | undefined;
+		/**
+		 * Used to define the columns of the table.
+		 * @example ; <ontario-table table-columns='[ { "title": "Type of service", "key": "service" }, { "title": "Processing and delivery", "key": "processing" }, { "title": "Cost", "key": "cost", "type": "numeric" } ]' > </ontario-table>
+		 */
+		tableColumns: string | TableColumnOptions[];
+		/**
+		 * Used to define the table body data. Note that the keys passed to the `data` object in the tableData should match the keys of the columns defined in the tableColumns prop.
+		 * @example <ontario-table  table-data='[    {      "data": {        "service": "Regular service (online)",        "processing": "15 business days plus delivery by Canada Post",        "cost": "$15"      }    },    {      "data": {        "service": "Premium service (online)",        "cost": "$45",        "processing": "5 business days including delivery by courier"      }    }  ]' > </ontario-table>
+		 */
+		tableData: string | TableRowOptions[];
+		/**
+		 * Indicates whether or not the table data should have alternate row zebra striping.  This is optional. By default, zebra striping will be added when the table rows extend 5 rows. If zebra striping is needed to table rows less than 5 rows, the prop should be set to “enabled”. If no zebra stripes are needed, it should be set to “disabled”.  The default will be set to “auto”.
+		 */
+		zebraStripes?: 'auto' | 'disabled' | 'enabled' | undefined;
+	}
 	interface OntarioTextarea {
 		/**
 		 * The text to display as the textarea label.
@@ -1616,15 +1861,19 @@ export namespace Components {
 		/**
 		 * Used to add a custom function to the textarea onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the textarea onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the textarea onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
+		/**
+		 * Used to add a custom function to the textarea onInput event.
+		 */
+		customOnInput?: (event: globalThis.Event) => void;
 		/**
 		 * The unique identifier of the textarea. This is optional - if no ID is passed, one will be generated.
 		 */
@@ -1660,6 +1909,10 @@ export interface OntarioCheckboxesCustomEvent<T> extends CustomEvent<T> {
 	detail: T;
 	target: HTMLOntarioCheckboxesElement;
 }
+export interface OntarioDateInputCustomEvent<T> extends CustomEvent<T> {
+	detail: T;
+	target: HTMLOntarioDateInputElement;
+}
 export interface OntarioDropdownListCustomEvent<T> extends CustomEvent<T> {
 	detail: T;
 	target: HTMLOntarioDropdownListElement;
@@ -1685,6 +1938,11 @@ export interface OntarioTextareaCustomEvent<T> extends CustomEvent<T> {
 	target: HTMLOntarioTextareaElement;
 }
 declare global {
+	interface HTMLOntarioAccordionElement extends Components.OntarioAccordion, HTMLStencilElement {}
+	var HTMLOntarioAccordionElement: {
+		prototype: HTMLOntarioAccordionElement;
+		new (): HTMLOntarioAccordionElement;
+	};
 	interface HTMLOntarioAsideElement extends Components.OntarioAside, HTMLStencilElement {}
 	var HTMLOntarioAsideElement: {
 		prototype: HTMLOntarioAsideElement;
@@ -1710,7 +1968,69 @@ declare global {
 		prototype: HTMLOntarioCalloutElement;
 		new (): HTMLOntarioCalloutElement;
 	};
-	interface HTMLOntarioCheckboxesElement extends Components.OntarioCheckboxes, HTMLStencilElement {}
+	interface HTMLOntarioCardElement extends Components.OntarioCard, HTMLStencilElement {}
+	var HTMLOntarioCardElement: {
+		prototype: HTMLOntarioCardElement;
+		new (): HTMLOntarioCardElement;
+	};
+	interface HTMLOntarioCardCollectionElement extends Components.OntarioCardCollection, HTMLStencilElement {}
+	var HTMLOntarioCardCollectionElement: {
+		prototype: HTMLOntarioCardCollectionElement;
+		new (): HTMLOntarioCardCollectionElement;
+	};
+	interface HTMLOntarioCheckboxesElementEventMap {
+		checkboxOnChange: RadioAndCheckboxChangeEvent;
+		checkboxOnBlur: InputFocusBlurEvent;
+		checkboxOnFocus: InputFocusBlurEvent;
+	}
+	interface HTMLOntarioCheckboxesElement extends Components.OntarioCheckboxes, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioCheckboxesElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioCheckboxesElement,
+				ev: OntarioCheckboxesCustomEvent<HTMLOntarioCheckboxesElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioCheckboxesElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioCheckboxesElement,
+				ev: OntarioCheckboxesCustomEvent<HTMLOntarioCheckboxesElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioCheckboxesElement: {
 		prototype: HTMLOntarioCheckboxesElement;
 		new (): HTMLOntarioCheckboxesElement;
@@ -1720,7 +2040,124 @@ declare global {
 		prototype: HTMLOntarioCriticalAlertElement;
 		new (): HTMLOntarioCriticalAlertElement;
 	};
-	interface HTMLOntarioDropdownListElement extends Components.OntarioDropdownList, HTMLStencilElement {}
+	interface HTMLOntarioDateInputElementEventMap {
+		inputOnInput: {
+			value: string;
+			fieldType: 'day' | 'month' | 'year';
+		};
+		inputOnChange: {
+			value: string;
+			fieldType: 'day' | 'month' | 'year';
+		};
+		inputOnBlur: 'day' | 'month' | 'year';
+		inputOnFocus: 'day' | 'month' | 'year';
+		inputErrorOccurred: { inputId: string; errorMessage: string };
+	}
+	interface HTMLOntarioDateInputElement extends Components.OntarioDateInput, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioDateInputElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioDateInputElement,
+				ev: OntarioDateInputCustomEvent<HTMLOntarioDateInputElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioDateInputElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioDateInputElement,
+				ev: OntarioDateInputCustomEvent<HTMLOntarioDateInputElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
+	var HTMLOntarioDateInputElement: {
+		prototype: HTMLOntarioDateInputElement;
+		new (): HTMLOntarioDateInputElement;
+	};
+	interface HTMLOntarioDropdownListElementEventMap {
+		dropdownOnChange: InputInteractionEvent;
+		dropdownOnBlur: InputFocusBlurEvent;
+		dropdownOnFocus: InputFocusBlurEvent;
+	}
+	interface HTMLOntarioDropdownListElement extends Components.OntarioDropdownList, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioDropdownListElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioDropdownListElement,
+				ev: OntarioDropdownListCustomEvent<HTMLOntarioDropdownListElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioDropdownListElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioDropdownListElement,
+				ev: OntarioDropdownListCustomEvent<HTMLOntarioDropdownListElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioDropdownListElement: {
 		prototype: HTMLOntarioDropdownListElement;
 		new (): HTMLOntarioDropdownListElement;
@@ -1740,7 +2177,57 @@ declare global {
 		prototype: HTMLOntarioHeaderElement;
 		new (): HTMLOntarioHeaderElement;
 	};
-	interface HTMLOntarioHintExpanderElement extends Components.OntarioHintExpander, HTMLStencilElement {}
+	interface HTMLOntarioHintExpanderElementEventMap {
+		toggleExpanderEvent: MouseEvent | KeyboardEvent;
+	}
+	interface HTMLOntarioHintExpanderElement extends Components.OntarioHintExpander, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioHintExpanderElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioHintExpanderElement,
+				ev: OntarioHintExpanderCustomEvent<HTMLOntarioHintExpanderElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioHintExpanderElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioHintExpanderElement,
+				ev: OntarioHintExpanderCustomEvent<HTMLOntarioHintExpanderElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioHintExpanderElement: {
 		prototype: HTMLOntarioHintExpanderElement;
 		new (): HTMLOntarioHintExpanderElement;
@@ -2312,12 +2799,111 @@ declare global {
 		prototype: HTMLOntarioIconYoutubeElement;
 		new (): HTMLOntarioIconYoutubeElement;
 	};
-	interface HTMLOntarioInputElement extends Components.OntarioInput, HTMLStencilElement {}
+	interface HTMLOntarioInputElementEventMap {
+		inputOnInput: InputInputEvent;
+		inputOnChange: InputInteractionEvent;
+		inputOnBlur: InputFocusBlurEvent;
+		inputOnFocus: InputFocusBlurEvent;
+		inputErrorOccurred: { inputId: string; errorMessage: string };
+	}
+	interface HTMLOntarioInputElement extends Components.OntarioInput, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioInputElementEventMap>(
+			type: K,
+			listener: (this: HTMLOntarioInputElement, ev: OntarioInputCustomEvent<HTMLOntarioInputElementEventMap[K]>) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioInputElementEventMap>(
+			type: K,
+			listener: (this: HTMLOntarioInputElement, ev: OntarioInputCustomEvent<HTMLOntarioInputElementEventMap[K]>) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioInputElement: {
 		prototype: HTMLOntarioInputElement;
 		new (): HTMLOntarioInputElement;
 	};
-	interface HTMLOntarioLanguageToggleElement extends Components.OntarioLanguageToggle, HTMLStencilElement {}
+	interface HTMLOntarioLanguageToggleElementEventMap {
+		setAppLanguage: string;
+		headerLanguageToggled: HeaderLanguageToggleEventDetails;
+	}
+	interface HTMLOntarioLanguageToggleElement extends Components.OntarioLanguageToggle, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioLanguageToggleElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioLanguageToggleElement,
+				ev: OntarioLanguageToggleCustomEvent<HTMLOntarioLanguageToggleElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioLanguageToggleElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioLanguageToggleElement,
+				ev: OntarioLanguageToggleCustomEvent<HTMLOntarioLanguageToggleElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioLanguageToggleElement: {
 		prototype: HTMLOntarioLanguageToggleElement;
 		new (): HTMLOntarioLanguageToggleElement;
@@ -2332,7 +2918,59 @@ declare global {
 		prototype: HTMLOntarioPageAlertElement;
 		new (): HTMLOntarioPageAlertElement;
 	};
-	interface HTMLOntarioRadioButtonsElement extends Components.OntarioRadioButtons, HTMLStencilElement {}
+	interface HTMLOntarioRadioButtonsElementEventMap {
+		radioOnChange: RadioAndCheckboxChangeEvent;
+		radioOnBlur: InputFocusBlurEvent;
+		radioOnFocus: InputFocusBlurEvent;
+	}
+	interface HTMLOntarioRadioButtonsElement extends Components.OntarioRadioButtons, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioRadioButtonsElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioRadioButtonsElement,
+				ev: OntarioRadioButtonsCustomEvent<HTMLOntarioRadioButtonsElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioRadioButtonsElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioRadioButtonsElement,
+				ev: OntarioRadioButtonsCustomEvent<HTMLOntarioRadioButtonsElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioRadioButtonsElement: {
 		prototype: HTMLOntarioRadioButtonsElement;
 		new (): HTMLOntarioRadioButtonsElement;
@@ -2342,19 +2980,81 @@ declare global {
 		prototype: HTMLOntarioStepIndicatorElement;
 		new (): HTMLOntarioStepIndicatorElement;
 	};
-	interface HTMLOntarioTextareaElement extends Components.OntarioTextarea, HTMLStencilElement {}
+	interface HTMLOntarioTableElement extends Components.OntarioTable, HTMLStencilElement {}
+	var HTMLOntarioTableElement: {
+		prototype: HTMLOntarioTableElement;
+		new (): HTMLOntarioTableElement;
+	};
+	interface HTMLOntarioTextareaElementEventMap {
+		inputOnInput: InputInputEvent;
+		inputOnChange: InputInteractionEvent;
+		inputOnBlur: InputFocusBlurEvent;
+		inputOnFocus: InputFocusBlurEvent;
+	}
+	interface HTMLOntarioTextareaElement extends Components.OntarioTextarea, HTMLStencilElement {
+		addEventListener<K extends keyof HTMLOntarioTextareaElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioTextareaElement,
+				ev: OntarioTextareaCustomEvent<HTMLOntarioTextareaElementEventMap[K]>,
+			) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		addEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | AddEventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLOntarioTextareaElementEventMap>(
+			type: K,
+			listener: (
+				this: HTMLOntarioTextareaElement,
+				ev: OntarioTextareaCustomEvent<HTMLOntarioTextareaElementEventMap[K]>,
+			) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof DocumentEventMap>(
+			type: K,
+			listener: (this: Document, ev: DocumentEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener<K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+			options?: boolean | EventListenerOptions,
+		): void;
+		removeEventListener(
+			type: string,
+			listener: EventListenerOrEventListenerObject,
+			options?: boolean | EventListenerOptions,
+		): void;
+	}
 	var HTMLOntarioTextareaElement: {
 		prototype: HTMLOntarioTextareaElement;
 		new (): HTMLOntarioTextareaElement;
 	};
 	interface HTMLElementTagNameMap {
+		'ontario-accordion': HTMLOntarioAccordionElement;
 		'ontario-aside': HTMLOntarioAsideElement;
 		'ontario-back-to-top': HTMLOntarioBackToTopElement;
 		'ontario-blockquote': HTMLOntarioBlockquoteElement;
 		'ontario-button': HTMLOntarioButtonElement;
 		'ontario-callout': HTMLOntarioCalloutElement;
+		'ontario-card': HTMLOntarioCardElement;
+		'ontario-card-collection': HTMLOntarioCardCollectionElement;
 		'ontario-checkboxes': HTMLOntarioCheckboxesElement;
 		'ontario-critical-alert': HTMLOntarioCriticalAlertElement;
+		'ontario-date-input': HTMLOntarioDateInputElement;
 		'ontario-dropdown-list': HTMLOntarioDropdownListElement;
 		'ontario-fieldset': HTMLOntarioFieldsetElement;
 		'ontario-footer': HTMLOntarioFooterElement;
@@ -2479,10 +3179,35 @@ declare global {
 		'ontario-page-alert': HTMLOntarioPageAlertElement;
 		'ontario-radio-buttons': HTMLOntarioRadioButtonsElement;
 		'ontario-step-indicator': HTMLOntarioStepIndicatorElement;
+		'ontario-table': HTMLOntarioTableElement;
 		'ontario-textarea': HTMLOntarioTextareaElement;
 	}
 }
 declare namespace LocalJSX {
+	interface OntarioAccordion {
+		/**
+		 * Used to include individual accordion data for the accordion component. This is passed in as an array of objects with key-value pairs.  The `content` is expecting a string, that can either be written as HTML or a just a plain string, depending on the accordionContentType.
+		 * @example 	<ontario-accordion 	name="My Accordion" 	accordion-data='[ 		{"label": "Accordion 1", "content": "This is a string"}, 		{"label": "Accordion 2", "accordionContentType": "html", "content": "<ul><li>List A</li><li>List B</li><li>List C</li></ul>"} 	]' ></ontario-accordion>
+		 */
+		accordionData?: string | Accordion[];
+		/**
+		 * Custom Expand/Collapse button text.
+		 * @example  <ontario-accordion 	name="My Accordion" 	expand-collapse-button='{ 		"expandAllSectionsLabel": "Expand All", 		"collapseAllSectionsLabel": "Collapse All" 	}' 	accordion-data='[ 		{"label": "Accordion 1", "content": ["Item 1", "Item 2", "Item 3"]}, 		{"label": "Accordion 2", "content": ["Item A", "Item B", "Item C"]} 	]' ></ontario-accordion>
+		 */
+		expandCollapseButton?: string | ExpandCollapseButtonDetails;
+		/**
+		 * Used to show whether the accordion is opened or closed.
+		 */
+		isOpen?: boolean;
+		/**
+		 * The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
+		 */
+		language?: Language;
+		/**
+		 * The name of the accordion component.  This is not optional.
+		 */
+		name?: string;
+	}
 	interface OntarioAside {
 		/**
 		 * Optional text to be displayed as the content for the aside component. If a string is passed, it will automatically be nested in a paragraph tag.  HTML content can also be passed as the child/children of the aside component if additional/different elements for the content are needed.
@@ -2573,6 +3298,53 @@ declare namespace LocalJSX {
 		 */
 		highlightColour?: HighlightColourOptions;
 	}
+	interface OntarioCard {
+		/**
+		 * Provides more context as to what the card interaction is doing. This should only be used for accessibility purposes, if the card interaction requires more * * description than what the text provides.  This is optional.
+		 */
+		ariaLabelText?: string;
+		/**
+		 * Action link for when the card is clicked.  This is optional.
+		 */
+		cardLink?: string;
+		/**
+		 * The type of card to render.  If no type is passed, it will default to 'basic'.
+		 */
+		cardType?: CardType;
+		/**
+		 * Text to be displayed within the card description container.  This is optional.
+		 */
+		description?: string;
+		/**
+		 * The type of header to render.  If no type is passed, it will default to 'default'.
+		 */
+		headerType?: HeaderType;
+		/**
+		 * The position of the image when the card-type is set to 'horizontal'.  This prop is only necessry when the card-type is set to 'horizontal'.
+		 * @example 	<ontario-card 	card-type="horizontal" 	label="Card Title 1" 	image="https://picsum.photos/200/300" 	horizontal-image-position-type="left" 	horizontal-image-size-type="one-fourth"   description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" > </ontario-card>
+		 */
+		horizontalImagePositionType?: HorizontalImagePositionType;
+		/**
+		 * The size of the image when the card-type is set to 'horizontal'.  This prop is only necessry when the card-type is set to 'horizontal'.
+		 * @example 	<ontario-card 	card-type="horizontal" 	label="Card Title 1" 	image="https://picsum.photos/200/300" 	horizontal-image-position-type="left" 	horizontal-image-size-type="one-fourth"   description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" > </ontario-card>
+		 */
+		horizontalImageSizeType?: HorizontalImageSizeType;
+		/**
+		 * Image to be displayed within the card image container.  This is optional.
+		 */
+		image?: string;
+		/**
+		 * Text to be displayed within the header.
+		 * @example <ontario-card 	header-type="dark" 	card-type="horizontal" 	label="Card Title 1" 	description="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" >
+		 */
+		label?: string;
+	}
+	interface OntarioCardCollection {
+		/**
+		 * The number of cards to display per row.  If no number is passed, it will default to 3.
+		 */
+		cardsPerRow?: CardsPerRow;
+	}
 	interface OntarioCheckboxes {
 		/**
 		 * The text to display for the checkbox legend.
@@ -2582,15 +3354,15 @@ declare namespace LocalJSX {
 		/**
 		 * Used to add a custom function to the checkbox onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the checkbox onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the checkbox onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
 		/**
 		 * Used to include the ontario-hint-expander component for the checkbox group. This is passed in as an object with key-value pairs.  This is optional.
 		 * @example <ontario-checkboxes   caption='{     "captionText": "Checkbox legend",     "captionType": "heading",   }   name='ontario-checkboxes'   options='[ 	{ 		"value": "checkbox-option-1", 		"label": "Checkbox option 1 label", 		"elementId": "checkbox-1" 	}   }]'   hint-expander='{    "hint": "Hint expander for the checkbox group",    "content": "Example hint expander content for the checkbox group"   }'   required="true" > </ontario-checkboxes>
@@ -2611,15 +3383,15 @@ declare namespace LocalJSX {
 		/**
 		 * Emitted when a keyboard input event occurs when a checkbox option has lost focus.
 		 */
-		onCheckboxOnBlur?: (event: OntarioCheckboxesCustomEvent<any>) => void;
+		onCheckboxOnBlur?: (event: OntarioCheckboxesCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * Emitted when a keyboard input or mouse event occurs when a checkbox option has been changed.
 		 */
-		onCheckboxOnChange?: (event: OntarioCheckboxesCustomEvent<any>) => void;
+		onCheckboxOnChange?: (event: OntarioCheckboxesCustomEvent<RadioAndCheckboxChangeEvent>) => void;
 		/**
 		 * Emitted when a keyboard input event occurs when a checkbox option has gained focus.
 		 */
-		onCheckboxOnFocus?: (event: OntarioCheckboxesCustomEvent<any>) => void;
+		onCheckboxOnFocus?: (event: OntarioCheckboxesCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * The options for the checkbox group.  Each property will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. If there are multiple checkboxes in a fieldset, each checkbox will be displayed as an option.  In the example below, the options are being passed in as a string and there are two checkboxes to be displayed in the fieldset.
 		 * @example <ontario-checkboxes   caption='{ 	"captionText": "Checkbox legend", 	"captionType": "heading",   }   name="ontario-checkboxes",   hint-text="Hint text for the checkbox group."   options='[ 	{ 		"value": "checkbox-option-1", 		"label": "Checkbox option 1 label" 		"elementId": "checkbox-1"     },     {        "value": "checkbox-option-2",        "label": "Checkbox option 2 label", 		  "elementId": "checkbox-2",       "hintExpander": { 			"hint": "Hint expander for checkbox option 2",              "content": "Example hint expander content for checkbox option 2"        }      }   ]'   required="true" > </ontario-checkboxes>
@@ -2637,6 +3409,79 @@ declare namespace LocalJSX {
 		 */
 		content?: string | HTMLElement;
 	}
+	interface OntarioDateInput {
+		/**
+		 * The text to display as the input label
+		 * @example <ontario-date-input   caption='{     "captionText": "Exact Date",     "captionType": "heading",   }   required="true"   ...> </ontario-date-input>
+		 */
+		caption?: Caption | string;
+		/**
+		 * An array value used to display date options. For example, only the day and month fields can be displayed by specifying the dateOptions as `["day", "month"]`, etc.  This is optional. If no prop for `dateOptions` is passed, it will default to `["day", "month", "year"]`.
+		 */
+		dateOptions?: string | Array<DateInputFieldType>;
+		/**
+		 * A function used to override internal date validation logic, which takes three arguments (i.e day, month and year) and returns an object of type `DateValidatorReturnType`  This is optional. If no prop for `dateValidator` is passed, it will default to internal validation function to validate the date input.
+		 */
+		dateValidator?: (day: string, month: string, year: string) => DateValidatorReturnType;
+		/**
+		 * The unique identifier of the input. This is optional - if no ID is passed, one will be generated.
+		 */
+		elementId?: string;
+		/**
+		 * Used to include the ontario-hint-text component for the date input group.  This is optional.
+		 */
+		hintText?: string;
+		/**
+		 * The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
+		 */
+		language?: Language;
+		/**
+		 * A number value indicating maximum value allowed for year input field of the date component.  This is optional. If no prop is passed, it will default to `9999`.
+		 */
+		maxYear?: number;
+		/**
+		 * A number value indicating minimum value allowed for year input field of the date component.  This is optional. If no prop is passed, it will default to `999`.
+		 */
+		minYear?: number;
+		/**
+		 * Emitted when an error message is reported to the component.
+		 */
+		onInputErrorOccurred?: (event: OntarioDateInputCustomEvent<{ inputId: string; errorMessage: string }>) => void;
+		/**
+		 * Emitted when a keyboard input event occurs when an input has lost focus.
+		 */
+		onInputOnBlur?: (event: OntarioDateInputCustomEvent<'day' | 'month' | 'year'>) => void;
+		/**
+		 * Emitted when a `change` event occurs within the component.
+		 */
+		onInputOnChange?: (
+			event: OntarioDateInputCustomEvent<{
+				value: string;
+				fieldType: 'day' | 'month' | 'year';
+			}>,
+		) => void;
+		/**
+		 * Emitted when a keyboard input event occurs when an input has gained focus.
+		 */
+		onInputOnFocus?: (event: OntarioDateInputCustomEvent<'day' | 'month' | 'year'>) => void;
+		/**
+		 * Emitted when an `input` event occurs within the component.
+		 */
+		onInputOnInput?: (
+			event: OntarioDateInputCustomEvent<{
+				value: string;
+				fieldType: 'day' | 'month' | 'year';
+			}>,
+		) => void;
+		/**
+		 * An object value used to set the placeholder text for the day, month and year input fields. Any combination of the three input fields (i.e day, month, year) of the date component can be overridden.  This is optional. If no prop is passed, it will not display any placeholder text.
+		 */
+		placeholder?: DateInputPlaceholder | string;
+		/**
+		 * A boolean value to determine whether or not the date input is required.  This is optional. If no prop is passed, it will default to `false`.
+		 */
+		required?: boolean;
+	}
 	interface OntarioDropdownList {
 		/**
 		 * The text to display for the dropdown list label.
@@ -2646,15 +3491,15 @@ declare namespace LocalJSX {
 		/**
 		 * Used to add a custom function to the dropdown onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the dropdown onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the dropdown onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
 		/**
 		 * The ID for the dropdown list. If no ID is provided, one will be generated.
 		 */
@@ -2684,15 +3529,15 @@ declare namespace LocalJSX {
 		/**
 		 * Emitted when a keyboard input event occurs when a dropdown list has lost focus.
 		 */
-		onDropdownOnBlur?: (event: OntarioDropdownListCustomEvent<any>) => void;
+		onDropdownOnBlur?: (event: OntarioDropdownListCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * Emitted when a keyboard input or mouse event occurs when a dropdown list has been changed.
 		 */
-		onDropdownOnChange?: (event: OntarioDropdownListCustomEvent<any>) => void;
+		onDropdownOnChange?: (event: OntarioDropdownListCustomEvent<InputInteractionEvent>) => void;
 		/**
 		 * Emitted when a keyboard input event occurs when a dropdown list has gained focus.
 		 */
-		onDropdownOnFocus?: (event: OntarioDropdownListCustomEvent<any>) => void;
+		onDropdownOnFocus?: (event: OntarioDropdownListCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * The options for dropdown list.  Each option will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML.  In the example below, the options are being passed in as a string and there are three dropdown options displayed.
 		 * @example <ontario-dropdown-list   caption='{     "captionText": "Label",     "captionType": "heading",   }'   name="ontario-dropdown-list"   options='[     {       "value": "dropdown-option-1",       "label": "Option 1",       "selected": "true"     },     {       "value": "dropdown-option-2",       "label": "Option 2"     },     {       "value": "dropdown-option-3",       "label": "Option 3"     }   ]' > </ontario-dropdown-list>
@@ -2714,6 +3559,10 @@ declare namespace LocalJSX {
 		legendSize?: CaptionType;
 	}
 	interface OntarioFooter {
+		/**
+		 * The base path to an assets folder containing the Design System assets
+		 */
+		assetBasePath?: string;
 		/**
 		 * A prop that stores the required links for all footers. Available options are 'accessibilityLink', 'privacyLink', 'contactLink' and 'printerLink'
 		 */
@@ -2746,13 +3595,17 @@ declare namespace LocalJSX {
 	interface OntarioHeader {
 		/**
 		 * Information pertaining to the application header. This is only necessary for the 'application' header type.  This includes the application name, URL and optional props for the number of links in the subheader for desktop, tablet, and mobile views.
-		 * @example 	<ontario-header 	type="application"      application-header-info='{ 			"name": "Application name", 			"href": "/application-homepage" 			"maxSubheaderDesktopLinks": "3", 			"maxSubheaderTabletLinks": "2", 			"maxSubheaderMobileLinks": "1"    }' </ontario-header>
+		 * @example  <ontario-header    type="application"    application-header-info='{      "title": "Application name",      "href": "/application-homepage",      "maxSubheaderDesktopLinks": "3",      "maxSubheaderTabletLinks": "2",      "maxSubheaderMobileLinks": "1"    }'>  </ontario-header>
 		 */
-		applicationHeaderInfo?: applicationHeaderInfo | string;
+		applicationHeaderInfo?: ApplicationHeaderInfo | string;
+		/**
+		 * The base path to an assets folder containing the Design System assets
+		 */
+		assetBasePath?: string;
 		/**
 		 * A custom function to pass to the language toggle button.
 		 */
-		customLanguageToggle?: Function;
+		customLanguageToggle?: (event: globalThis.Event) => void;
 		/**
 		 * Option to disable fetching of the dynamic menu from the Ontario Header API
 		 * @example 	<ontario-header 			type="ontario" 			disable-dynamic-menu="false" 		menu-items='[{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		},{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		},{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		},{ 			"title": "Hint", 			"href": "/ontario-hint" 			"linkIsActive": "false" 		}]'> </ontario-header>
@@ -2766,15 +3619,15 @@ declare namespace LocalJSX {
 		 * Information pertaining to the language toggle links.
 		 * @example <ontario-header 	language-toggle-options='{    "englishLink": "/en",    "frenchLink": "/fr"  }'  ... > </ontario-header>
 		 */
-		languageToggleOptions?: languageToggleOptions | string;
+		languageToggleOptions?: LanguageToggleOptions | string;
 		/**
 		 * The items that will go inside the menu.
 		 */
-		menuItems?: menuItems[] | string;
+		menuItems?: MenuItem[] | string;
 		/**
 		 * The type of header.
 		 */
-		type?: 'application' | 'ontario';
+		type?: OntarioHeaderType;
 	}
 	interface OntarioHintExpander {
 		/**
@@ -2797,7 +3650,7 @@ declare namespace LocalJSX {
 		/**
 		 * Emitted when a keyboard input or mouse event occurs.
 		 */
-		onToggleExpanderEvent?: (event: OntarioHintExpanderCustomEvent<any>) => void;
+		onToggleExpanderEvent?: (event: OntarioHintExpanderCustomEvent<MouseEvent | KeyboardEvent>) => void;
 	}
 	interface OntarioHintText {
 		/**
@@ -2818,7 +3671,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2828,7 +3681,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2838,7 +3691,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2848,7 +3701,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2882,7 +3735,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2892,7 +3745,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2902,7 +3755,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2912,7 +3765,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2922,7 +3775,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2932,7 +3785,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2942,7 +3795,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2952,7 +3805,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2962,7 +3815,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2972,7 +3825,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2982,7 +3835,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -2992,7 +3845,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3002,7 +3855,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3012,7 +3865,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3022,7 +3875,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3032,7 +3885,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3042,7 +3895,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3052,7 +3905,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3062,7 +3915,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3072,7 +3925,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3088,7 +3941,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3098,7 +3951,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3108,7 +3961,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3118,7 +3971,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3128,7 +3981,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3138,7 +3991,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3148,7 +4001,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3158,7 +4011,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3168,7 +4021,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3178,7 +4031,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3188,7 +4041,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3198,7 +4051,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3208,7 +4061,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3242,7 +4095,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3252,7 +4105,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3262,7 +4115,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3272,7 +4125,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3282,7 +4135,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3292,7 +4145,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3302,7 +4155,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3312,7 +4165,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3322,7 +4175,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3344,7 +4197,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3354,7 +4207,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3364,7 +4217,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3374,7 +4227,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3384,7 +4237,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3394,7 +4247,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3404,7 +4257,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3414,7 +4267,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3424,7 +4277,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3434,7 +4287,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3444,7 +4297,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3454,7 +4307,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3464,7 +4317,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3474,7 +4327,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3484,7 +4337,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3494,7 +4347,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3504,7 +4357,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3514,7 +4367,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3524,7 +4377,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3534,7 +4387,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3544,7 +4397,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3554,7 +4407,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3564,7 +4417,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3574,7 +4427,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3584,7 +4437,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3594,7 +4447,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3604,7 +4457,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3614,7 +4467,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3624,7 +4477,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3634,7 +4487,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3644,7 +4497,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3654,7 +4507,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3664,7 +4517,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3674,7 +4527,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3684,7 +4537,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3694,7 +4547,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3704,7 +4557,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3714,7 +4567,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3724,7 +4577,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3734,7 +4587,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3744,7 +4597,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3754,7 +4607,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3764,7 +4617,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3774,7 +4627,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3784,7 +4637,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3794,7 +4647,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3804,7 +4657,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3814,7 +4667,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3830,7 +4683,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3840,7 +4693,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3850,7 +4703,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3860,7 +4713,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3870,7 +4723,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3880,7 +4733,7 @@ declare namespace LocalJSX {
 		/**
 		 * Set the icon's colour.
 		 */
-		colour?: IconColour | string;
+		colour?: IconColour;
 		/**
 		 * The icon width will autogenerate the height since the icons are in square format, thus preserving the aspect ratio.
 		 */
@@ -3893,21 +4746,33 @@ declare namespace LocalJSX {
 		 */
 		caption?: Caption | string;
 		/**
-		 * Used to add a custom function to the textarea onBlur event.
+		 * Used to add a custom function to the input onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
-		 * Used to add a custom function to the textarea onChange event.
+		 * Used to add a custom function to the input onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
-		 * Used to add a custom function to the textarea onFocus event.
+		 * Used to add a custom function to the input onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
+		/**
+		 * Used to add a custom function to the input onInput event.
+		 */
+		customOnInput?: (event: globalThis.Event) => void;
 		/**
 		 * The unique identifier of the input. This is optional - if no ID is passed, one will be generated.
 		 */
 		elementId?: string;
+		/**
+		 * Enable live validation on the input.  Custom live validation can be performed using an `inputValidator` validation function.  It will also validate the `required` state if no errors are returned from the `inputValidator`.  Please set a `requiredValidationMessage` to report concisely to the end user what they are required to set.
+		 */
+		enableLiveValidation?: boolean;
+		/**
+		 * Set this to display an
+		 */
+		errorMessage?: string;
 		/**
 		 * Used to include the ontario-hint-expander component for the input component. This is passed in as an object with key-value pairs.  This is optional.
 		 * @example <ontario-input   caption='{     "caption": "Address",     "captionType": "heading",   }   hint-expander='{    "hint": "Hint expander",    "content": "This is the content"   }'   required="true" > </ontario-input>
@@ -3917,6 +4782,10 @@ declare namespace LocalJSX {
 		 * Used to include the ontario-hint-text component for the input. This is optional.
 		 */
 		hintText?: string | Hint;
+		/**
+		 * Validate the validity of the input value `onBlur`.  This `async` function should return a result to trigger an error message.  Returning `undefined` or `null` will clear it.
+		 */
+		inputValidator?: (value?: string) => Promise<{ errorMessage?: string } | null | undefined>;
 		/**
 		 * The width of the input field. If no value is assigned, it will present as the `default` input width.
 		 */
@@ -3938,21 +4807,34 @@ declare namespace LocalJSX {
 		 */
 		name?: string;
 		/**
+		 * Emitted when an error message is reported to the component.
+		 */
+		onInputErrorOccurred?: (event: OntarioInputCustomEvent<{ inputId: string; errorMessage: string }>) => void;
+		/**
 		 * Emitted when a keyboard input event occurs when an input has lost focus.
 		 */
-		onInputOnBlur?: (event: OntarioInputCustomEvent<any>) => void;
+		onInputOnBlur?: (event: OntarioInputCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * Emitted when a keyboard input or mouse event occurs when an input has been changed.
 		 */
-		onInputOnChange?: (event: OntarioInputCustomEvent<any>) => void;
+		onInputOnChange?: (event: OntarioInputCustomEvent<InputInteractionEvent>) => void;
 		/**
 		 * Emitted when a keyboard input event occurs when an input has gained focus.
 		 */
-		onInputOnFocus?: (event: OntarioInputCustomEvent<any>) => void;
+		onInputOnFocus?: (event: OntarioInputCustomEvent<InputFocusBlurEvent>) => void;
 		/**
-		 * This is used to determine whether the input is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).
+		 * Emitted when a input  occurs when an input has been changed.
+		 */
+		onInputOnInput?: (event: OntarioInputCustomEvent<InputInputEvent>) => void;
+		/**
+		 * This is used to determine whether the input is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).  _Please add a validation messaging using `requiredValidationMessage` if setting this property._
+		 * @example <ontario-input 	id="address-line-1" 	caption="Address line 1" 	required 	required-validation-message="Please enter an address, including street number and street name" 	name="address-line-1" 	hint-text="Street and number or P.O. box." ></ontario-input>
 		 */
 		required?: boolean;
+		/**
+		 * Custom error message to display if a required field is not filled out.  _Please add a custom message when setting an input as required_.
+		 */
+		requiredValidationMessage?: string;
 		/**
 		 * The input type value.  If no `type` is provided, it will default to 'text'.
 		 */
@@ -3966,12 +4848,12 @@ declare namespace LocalJSX {
 		/**
 		 * A custom function to pass to the language toggle button.  This is optional.
 		 */
-		customLanguageToggle?: Function;
+		customLanguageToggle?: (event: globalThis.Event) => void;
 		language?: Language | string;
 		/**
 		 * An event that emits to other components that the language toggle button has been toggled.
 		 */
-		onHeaderLanguageToggled?: (event: OntarioLanguageToggleCustomEvent<string>) => void;
+		onHeaderLanguageToggled?: (event: OntarioLanguageToggleCustomEvent<HeaderLanguageToggleEventDetails>) => void;
 		/**
 		 * An event to set the Document's HTML lang property, and emit the toggled language to other components.
 		 */
@@ -4033,15 +4915,15 @@ declare namespace LocalJSX {
 		/**
 		 * Used to add a custom function to the radio input onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the radio input onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the radio input onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
 		/**
 		 * Used to include the ontario-hint-expander component for the radio button group. This is passed in as an object with key-value pairs.  This is optional.
 		 * @example <ontario-radio-buttons   caption='{     "captionText": "Radio legend",     "captionType": "heading",   }' 	 name="radios"   options='[ 	   {        "value": "radio-option-1", 		  "elementId": "radio-1",        "label": "Radio option 1 label",        "hintExpander": { 		  "hint": "Hint expander for radio option 1", 		      "content": "Example hint expander content for radio option 1." 	  }     }   ]'   hint-expander='{     "hint": "Hint expander for the radio button group",     "content": "Example hint expander content for the radio button group."   }'   required="true" > </ontario-radio-buttons>
@@ -4062,15 +4944,15 @@ declare namespace LocalJSX {
 		/**
 		 * Emitted when a keyboard input event occurs when a radio option has lost focus.
 		 */
-		onRadioOnBlur?: (event: OntarioRadioButtonsCustomEvent<any>) => void;
+		onRadioOnBlur?: (event: OntarioRadioButtonsCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * Emitted when a keyboard input or mouse event occurs when a radio option has been changed.
 		 */
-		onRadioOnChange?: (event: OntarioRadioButtonsCustomEvent<any>) => void;
+		onRadioOnChange?: (event: OntarioRadioButtonsCustomEvent<RadioAndCheckboxChangeEvent>) => void;
 		/**
 		 * Emitted when a keyboard input event occurs when a radio option has gained focus.
 		 */
-		onRadioOnFocus?: (event: OntarioRadioButtonsCustomEvent<any>) => void;
+		onRadioOnFocus?: (event: OntarioRadioButtonsCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * The options for the radio button group.  Each property will be passed in through an object in the options array. This can either be passed in as an object directly (if using react), or as a string in HTML. If there are multiple radio buttons in a group, each radio button will be displayed as an option.  In the example below, the options are being passed in as a string and there are two radio buttons to be displayed in the group.
 		 * @example <ontario-radio-buttons   caption='{     "captionText": "Radio legend",     "captionType": "heading",   }'   name="radios"   hint-text="Hint text for the radio button group."   options='[     {        "value": "radio-option-1", 		  "elementId": "radio-1",        "label": "Radio option 1 label"     },     {        "value": "radio-option-2", 		  "elementId": "radio-2",        "label": "Radio option 2 label",        "hintExpander": { 		  "hint": "Hint expander for radio option 2", 		      "content": "Example hint expander content for radio option 2." 	  }      }   ]'   required="true" > </ontario-radio-buttons>
@@ -4093,7 +4975,7 @@ declare namespace LocalJSX {
 		/**
 		 * Used to add a custom function to the back button onClick event.  If this function is passed in, the back element will display as a button. The back element will require either the backButtonURL prop or the customOnClick prop to be passed in order for the back element to display.
 		 */
-		customOnClick?: Function;
+		customOnClick?: (event: globalThis.Event) => void;
 		/**
 		 * The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none are passed, it will default to English.
 		 */
@@ -4111,6 +4993,34 @@ declare namespace LocalJSX {
 		 */
 		showBackButton?: boolean;
 	}
+	interface OntarioTable {
+		/**
+		 * Specifies the caption (or title) of the table.  This is optional.
+		 */
+		caption?: string | undefined;
+		/**
+		 * Used to specify whether or not table data in cells should have reduced top and bottom padding. This is useful for pages with multiple data-heavy tables such as a budget or financial data.  This is optional. By default it will be set to “false”.
+		 */
+		condensed?: boolean | undefined;
+		/**
+		 * Used to specify whether or not the table should extend the full width of its container.  This is optional. By default, it will be set to “false”
+		 */
+		fullWidth?: boolean | undefined;
+		/**
+		 * Used to define the columns of the table.
+		 * @example ; <ontario-table table-columns='[ { "title": "Type of service", "key": "service" }, { "title": "Processing and delivery", "key": "processing" }, { "title": "Cost", "key": "cost", "type": "numeric" } ]' > </ontario-table>
+		 */
+		tableColumns?: string | TableColumnOptions[];
+		/**
+		 * Used to define the table body data. Note that the keys passed to the `data` object in the tableData should match the keys of the columns defined in the tableColumns prop.
+		 * @example <ontario-table  table-data='[    {      "data": {        "service": "Regular service (online)",        "processing": "15 business days plus delivery by Canada Post",        "cost": "$15"      }    },    {      "data": {        "service": "Premium service (online)",        "cost": "$45",        "processing": "5 business days including delivery by courier"      }    }  ]' > </ontario-table>
+		 */
+		tableData?: string | TableRowOptions[];
+		/**
+		 * Indicates whether or not the table data should have alternate row zebra striping.  This is optional. By default, zebra striping will be added when the table rows extend 5 rows. If zebra striping is needed to table rows less than 5 rows, the prop should be set to “enabled”. If no zebra stripes are needed, it should be set to “disabled”.  The default will be set to “auto”.
+		 */
+		zebraStripes?: 'auto' | 'disabled' | 'enabled' | undefined;
+	}
 	interface OntarioTextarea {
 		/**
 		 * The text to display as the textarea label.
@@ -4120,15 +5030,19 @@ declare namespace LocalJSX {
 		/**
 		 * Used to add a custom function to the textarea onBlur event.
 		 */
-		customOnBlur?: Function;
+		customOnBlur?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the textarea onChange event.
 		 */
-		customOnChange?: Function;
+		customOnChange?: (event: globalThis.Event) => void;
 		/**
 		 * Used to add a custom function to the textarea onFocus event.
 		 */
-		customOnFocus?: Function;
+		customOnFocus?: (event: globalThis.Event) => void;
+		/**
+		 * Used to add a custom function to the textarea onInput event.
+		 */
+		customOnInput?: (event: globalThis.Event) => void;
 		/**
 		 * The unique identifier of the textarea. This is optional - if no ID is passed, one will be generated.
 		 */
@@ -4153,15 +5067,19 @@ declare namespace LocalJSX {
 		/**
 		 * Emitted when a keyboard input event occurs when an input has lost focus.
 		 */
-		onInputOnBlur?: (event: OntarioTextareaCustomEvent<any>) => void;
+		onInputOnBlur?: (event: OntarioTextareaCustomEvent<InputFocusBlurEvent>) => void;
 		/**
 		 * Emitted when a keyboard input or mouse event occurs when an input has been changed.
 		 */
-		onInputOnChange?: (event: OntarioTextareaCustomEvent<any>) => void;
+		onInputOnChange?: (event: OntarioTextareaCustomEvent<InputInteractionEvent>) => void;
 		/**
 		 * Emitted when a keyboard input event occurs when an input has gained focus.
 		 */
-		onInputOnFocus?: (event: OntarioTextareaCustomEvent<any>) => void;
+		onInputOnFocus?: (event: OntarioTextareaCustomEvent<InputFocusBlurEvent>) => void;
+		/**
+		 * Emitted when a input event occurs when an input has been changed.
+		 */
+		onInputOnInput?: (event: OntarioTextareaCustomEvent<InputInputEvent>) => void;
 		/**
 		 * This is used to determine whether the textarea is required or not. This prop also gets passed to the InputCaption utility to display either an optional or required flag in the label. If no prop is set, it will default to false (optional).
 		 */
@@ -4172,13 +5090,17 @@ declare namespace LocalJSX {
 		value?: string;
 	}
 	interface IntrinsicElements {
+		'ontario-accordion': OntarioAccordion;
 		'ontario-aside': OntarioAside;
 		'ontario-back-to-top': OntarioBackToTop;
 		'ontario-blockquote': OntarioBlockquote;
 		'ontario-button': OntarioButton;
 		'ontario-callout': OntarioCallout;
+		'ontario-card': OntarioCard;
+		'ontario-card-collection': OntarioCardCollection;
 		'ontario-checkboxes': OntarioCheckboxes;
 		'ontario-critical-alert': OntarioCriticalAlert;
+		'ontario-date-input': OntarioDateInput;
 		'ontario-dropdown-list': OntarioDropdownList;
 		'ontario-fieldset': OntarioFieldset;
 		'ontario-footer': OntarioFooter;
@@ -4303,6 +5225,7 @@ declare namespace LocalJSX {
 		'ontario-page-alert': OntarioPageAlert;
 		'ontario-radio-buttons': OntarioRadioButtons;
 		'ontario-step-indicator': OntarioStepIndicator;
+		'ontario-table': OntarioTable;
 		'ontario-textarea': OntarioTextarea;
 	}
 }
@@ -4310,13 +5233,18 @@ export { LocalJSX as JSX };
 declare module '@stencil/core' {
 	export namespace JSX {
 		interface IntrinsicElements {
+			'ontario-accordion': LocalJSX.OntarioAccordion & JSXBase.HTMLAttributes<HTMLOntarioAccordionElement>;
 			'ontario-aside': LocalJSX.OntarioAside & JSXBase.HTMLAttributes<HTMLOntarioAsideElement>;
 			'ontario-back-to-top': LocalJSX.OntarioBackToTop & JSXBase.HTMLAttributes<HTMLOntarioBackToTopElement>;
 			'ontario-blockquote': LocalJSX.OntarioBlockquote & JSXBase.HTMLAttributes<HTMLOntarioBlockquoteElement>;
 			'ontario-button': LocalJSX.OntarioButton & JSXBase.HTMLAttributes<HTMLOntarioButtonElement>;
 			'ontario-callout': LocalJSX.OntarioCallout & JSXBase.HTMLAttributes<HTMLOntarioCalloutElement>;
+			'ontario-card': LocalJSX.OntarioCard & JSXBase.HTMLAttributes<HTMLOntarioCardElement>;
+			'ontario-card-collection': LocalJSX.OntarioCardCollection &
+				JSXBase.HTMLAttributes<HTMLOntarioCardCollectionElement>;
 			'ontario-checkboxes': LocalJSX.OntarioCheckboxes & JSXBase.HTMLAttributes<HTMLOntarioCheckboxesElement>;
 			'ontario-critical-alert': LocalJSX.OntarioCriticalAlert & JSXBase.HTMLAttributes<HTMLOntarioCriticalAlertElement>;
+			'ontario-date-input': LocalJSX.OntarioDateInput & JSXBase.HTMLAttributes<HTMLOntarioDateInputElement>;
 			'ontario-dropdown-list': LocalJSX.OntarioDropdownList & JSXBase.HTMLAttributes<HTMLOntarioDropdownListElement>;
 			'ontario-fieldset': LocalJSX.OntarioFieldset & JSXBase.HTMLAttributes<HTMLOntarioFieldsetElement>;
 			'ontario-footer': LocalJSX.OntarioFooter & JSXBase.HTMLAttributes<HTMLOntarioFooterElement>;
@@ -4500,6 +5428,7 @@ declare module '@stencil/core' {
 			'ontario-page-alert': LocalJSX.OntarioPageAlert & JSXBase.HTMLAttributes<HTMLOntarioPageAlertElement>;
 			'ontario-radio-buttons': LocalJSX.OntarioRadioButtons & JSXBase.HTMLAttributes<HTMLOntarioRadioButtonsElement>;
 			'ontario-step-indicator': LocalJSX.OntarioStepIndicator & JSXBase.HTMLAttributes<HTMLOntarioStepIndicatorElement>;
+			'ontario-table': LocalJSX.OntarioTable & JSXBase.HTMLAttributes<HTMLOntarioTableElement>;
 			'ontario-textarea': LocalJSX.OntarioTextarea & JSXBase.HTMLAttributes<HTMLOntarioTextareaElement>;
 		}
 	}

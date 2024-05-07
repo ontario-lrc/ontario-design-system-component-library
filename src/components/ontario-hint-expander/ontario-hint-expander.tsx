@@ -50,7 +50,7 @@ export class OntarioHintExpander implements HintExpander {
 	/**
 	 * Emitted when a keyboard input or mouse event occurs.
 	 */
-	@Event() toggleExpanderEvent!: EventEmitter<any>;
+	@Event() toggleExpanderEvent!: EventEmitter<MouseEvent | KeyboardEvent>;
 
 	/**
 	 * Watch for changes to the `hintContentType` prop for validation purposes.
@@ -182,10 +182,10 @@ export class OntarioHintExpander implements HintExpander {
 					data-toggle="ontario-collapse"
 				>
 					<span class="ontario-hint-expander__button-icon--close ontario-icon">
-						<ontario-icon-chevron-up></ontario-icon-chevron-up>
+						<ontario-icon-chevron-up colour="inherit"></ontario-icon-chevron-up>
 					</span>
 					<span class="ontario-hint-expander__button-icon--open">
-						<ontario-icon-chevron-down></ontario-icon-chevron-down>
+						<ontario-icon-chevron-down colour="inherit"></ontario-icon-chevron-down>
 					</span>
 					{this.hint}
 				</button>

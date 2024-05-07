@@ -1,17 +1,14 @@
-import { Event } from '../../stencil-public-runtime';
+import { EventEmitter } from '../../stencil-public-runtime';
 import { CheckboxOption } from './checkbox-option.interface';
 import { Checkboxes } from './checkboxes.interface';
 import { HintExpander } from '../ontario-hint-expander/hint-expander.interface';
 import { Hint } from '../../utils/common/common.interface';
 import { Caption } from '../../utils/common/input-caption/caption.interface';
 import { Language } from '../../utils/common/language-types';
-import {
-	InputFocusBlurEvent,
-	RadioAndCheckboxChangeEvent,
-	EventType,
-} from '../../utils/events/event-handler.interface';
+import { InputFocusBlurEvent, RadioAndCheckboxChangeEvent } from '../../utils/events/event-handler.interface';
 export declare class OntarioCheckboxes implements Checkboxes {
 	element: HTMLElement;
+	internals: ElementInternals;
 	hintTextRef: HTMLOntarioHintTextElement | undefined;
 	/**
 	 * The text to display for the checkbox legend.
@@ -116,15 +113,15 @@ export declare class OntarioCheckboxes implements Checkboxes {
 	/**
 	 * Used to add a custom function to the checkbox onChange event.
 	 */
-	customOnChange?: Function;
+	customOnChange?: (event: globalThis.Event) => void;
 	/**
 	 * Used to add a custom function to the checkbox onBlur event.
 	 */
-	customOnBlur?: Function;
+	customOnBlur?: (event: globalThis.Event) => void;
 	/**
 	 * Used to add a custom function to the checkbox onFocus event.
 	 */
-	customOnFocus?: Function;
+	customOnFocus?: (event: globalThis.Event) => void;
 	/**
 	 * Used for the `aria-describedby` value of the checkbox fieldset. This will match with the id of the hint text.
 	 */
@@ -148,15 +145,15 @@ export declare class OntarioCheckboxes implements Checkboxes {
 	/**
 	 * Emitted when a keyboard input or mouse event occurs when a checkbox option has been changed.
 	 */
-	checkboxOnChange: RadioAndCheckboxChangeEvent;
+	checkboxOnChange: EventEmitter<RadioAndCheckboxChangeEvent>;
 	/**
 	 * Emitted when a keyboard input event occurs when a checkbox option has lost focus.
 	 */
-	checkboxOnBlur: InputFocusBlurEvent;
+	checkboxOnBlur: EventEmitter<InputFocusBlurEvent>;
 	/**
 	 * Emitted when a keyboard input event occurs when a checkbox option has gained focus.
 	 */
-	checkboxOnFocus: InputFocusBlurEvent;
+	checkboxOnFocus: EventEmitter<InputFocusBlurEvent>;
 	/**
 	 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 	 */
@@ -202,7 +199,7 @@ export declare class OntarioCheckboxes implements Checkboxes {
 	/**
 	 * Function to handle checkbox events and the information pertaining to the checkbox to emit.
 	 */
-	handleEvent: (ev: Event, eventType: EventType) => void;
+	private handleEvent;
 	/**
 	 * If a `hintText` prop is passed, the id generated from it will be set to the internal `hintTextId` state to match with the fieldset `aria-describedBy` attribute.
 	 */

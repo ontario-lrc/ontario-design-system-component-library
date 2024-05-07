@@ -1,19 +1,12 @@
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
-	globalVariables;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
-	colours;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
-	as breakpoints;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as
-	typography;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders'
-	as placeholders;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-sizes.variables' as
-	fontSizes;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables'
-	as fontWeights;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as globalVariables;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as colours;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables' as breakpoints;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/typography.variables' as typography;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/2-tools/placeholder/focus.placeholders' as
+	placeholders;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-sizes.variables' as fontSizes;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/font-weights.variables' as fontWeights;
 
 .ontario-hint-expander__container {
 	max-width: globalVariables.$standard-width;
@@ -102,6 +95,25 @@
 
 .ontario-hint-expander__checkbox-exists-true {
 	margin: spacing.$spacing-3 spacing.$spacing-0 spacing.$spacing-0 spacing.$spacing-2;
+
+	@media screen and (max-width: breakpoints.$small-breakpoint) {
+		margin-top: spacing.$spacing-4;
+	}
+}
+
+// Fractal component style coverage ↓
+.ontario-input + .ontario-hint-expander__container {
+	margin-top: -1 * spacing.$spacing-5 !important;
+}
+
+.ontario-checkboxes__item .ontario-hint-expander__container,
+.ontario-radios__item .ontario-hint-expander__container {
+	margin-left: spacing.$spacing-2;
+}
+
+.ontario-checkboxes__label + .ontario-hint-expander__container,
+.ontario-radios__label + .ontario-hint-expander__container {
+	margin-top: spacing.$spacing-3;
 
 	@media screen and (max-width: breakpoints.$small-breakpoint) {
 		margin-top: spacing.$spacing-4;

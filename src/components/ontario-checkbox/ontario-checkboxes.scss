@@ -1,14 +1,9 @@
 @use 'sass:math';
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as
-	globalVariables;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as
-	spacing;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as
-	colours;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables'
-	as breakpoints;
-@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/z-index.variables' as
-	zIndex;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/global.variables' as globalVariables;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/spacing.variables' as spacing;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/colours.variables' as colours;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/breakpoints.variables' as breakpoints;
+@use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/1-variables/z-index.variables' as zIndex;
 
 @use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/4-elements/_global.elements.scss';
 @use '@ontario-lrc/ontario-design-system-global-styles/dist/styles/scss/6-components/_form.component.scss';
@@ -30,9 +25,11 @@ $ontario-checkbox-box-shadow-outline: 4px;
 	padding: 0 0 0 spacing.$spacing-6;
 	min-height: $ontario-checkboxes-size;
 	box-sizing: content-box;
+
 	&:last-of-type {
 		margin: 0;
 	}
+
 	@media screen and (max-width: breakpoints.$small-breakpoint) {
 		padding: 0 0 0 spacing.$spacing-7;
 		min-height: $ontario-checkboxes-size-mobile;
@@ -107,6 +104,7 @@ $ontario-checkbox-box-shadow-outline: 4px;
 		bottom: 0;
 		opacity: 0;
 		display: block;
+
 		@media screen and (max-width: breakpoints.$small-breakpoint) {
 			height: $ontario-checkboxes-size-mobile + $ontario-checkbox-border-size;
 			width: $ontario-checkboxes-size-mobile + $ontario-checkbox-border-size;

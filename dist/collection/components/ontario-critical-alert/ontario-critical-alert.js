@@ -44,18 +44,22 @@ export class OntarioCriticalAlert {
 	render() {
 		return h(
 			'div',
-			{ class: 'ontario-critical-alert' },
+			{ key: '841c4ff6a936664a93111409d051c833a578454c', class: 'ontario-critical-alert' },
 			h(
 				'div',
-				{ class: 'ontario-row' },
+				{ key: '1086dd05bbbd7b3a8bd0c7befbbe63e60474a03d', class: 'ontario-row' },
 				h(
 					'div',
-					{ class: 'ontario-column ontario-small-12' },
+					{ key: '75f974793fa516fe893c6843db567d93eb146fc0', class: 'ontario-column ontario-small-12' },
 					h(
 						'div',
-						{ class: 'ontario-critical-alert__body' },
-						h('div', { class: 'ontario-critical-alert__icon', innerHTML: OntarioIconCriticalAlertWarning }),
-						h('p', null, this.renderContent()),
+						{ key: '5de3756f99c4d11da66d1427b505753df872cf7a', class: 'ontario-critical-alert__body' },
+						h('div', {
+							key: '8ff2551b474a794a1134d6fc04e9bffe6072f252',
+							class: 'ontario-critical-alert__icon',
+							innerHTML: OntarioIconCriticalAlertWarning,
+						}),
+						h('p', { key: 'a63626aa08b991dbc8651b56a6aa08b6e285b1a7' }, this.renderContent()),
 					),
 				),
 			),
@@ -88,6 +92,7 @@ export class OntarioCriticalAlert {
 					references: {
 						HTMLElement: {
 							location: 'global',
+							id: 'global::HTMLElement',
 						},
 					},
 				},
@@ -119,3 +124,4 @@ export class OntarioCriticalAlert {
 		];
 	}
 }
+//# sourceMappingURL=ontario-critical-alert.js.map

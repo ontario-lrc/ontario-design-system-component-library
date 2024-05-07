@@ -1,14 +1,21 @@
+import { OntarioHeader } from '@ontario-lrc/ontario-design-system-component-library-react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 # ontario-header
 
 Use the `ontario` type header for all pages that are part of the main ontario.ca website. This header is mandatory.
 
 Use the `applicaton` type header for applications and subsites outside of the main ontario.ca website.
 
+Use the `serviceOntario` type header for ServiceOntario sites/apps. This type is for use by ServiceOntario teams only.
+
 ## Usage guidance
 
 Please refer to the [Ontario Design System Ontario.ca header](https://designsystem.ontario.ca/components/detail/ontario-header.html) for current documentation guidance for the Ontario.ca header.
 
 Please refer to the [Ontario Design System Application header](https://designsystem.ontario.ca/components/detail/application-header.html) for current documentation guidance for the Application header.
+
+Please refer to the [Ontario Design System ServiceOntario header](https://designsystem.ontario.ca/components/detail/service-ontario-header.html) for current documentation guidance for the ServiceOntario header.
 
 ## Configuration
 
@@ -27,74 +34,119 @@ Example of an Ontario.ca header component.
 	}'
 	menu-items='[
 		{
-			"name": "Arts and Culture",
+			"title": "Arts and Culture",
 			"href": "https://www.ontario.ca/page/arts-and-culture",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Business and economy",
+			"title": "Business and economy",
 			"href": "https://www.ontario.ca/page/business-and-economy",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Driving and Roads",
+			"title": "Driving and Roads",
 			"href": "https://www.ontario.ca/page/driving-and-roads",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Education and training",
+			"title": "Education and training",
 			"href": "https://www.ontario.ca/page/education-and-training",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Environment and energy",
+			"title": "Environment and energy",
 			"href": "https://www.ontario.ca/page/environment-and-energy",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Government",
+			"title": "Government",
 			"href": "https://www.ontario.ca/page/government",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Health and wellness",
+			"title": "Health and wellness",
 			"href": "https://www.ontario.ca/page/health-care-ontario",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Home and community",
+			"title": "Home and community",
 			"href": "https://www.ontario.ca/page/home-and-community",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Jobs and employment",
+			"title": "Jobs and employment",
 			"href": "https://www.ontario.ca/page/jobs-and-employment",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Law and safety",
+			"title": "Law and safety",
 			"href": "https://www.ontario.ca/page/law-and-safety",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Rural and north",
+			"title": "Rural and north",
 			"href": "https://www.ontario.ca/page/rural-and-north",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Taxes and benefits",
+			"title": "Taxes and benefits",
 			"href": "https://www.ontario.ca/page/taxes-and-benefits",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
 		{
-			"name": "Travel and recreation",
+			"title": "Travel and recreation",
 			"href": "https://www.ontario.ca/page/travel-and-recreation",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		}
 	]'
 >
 </ontario-header>
 ```
+
+<div>
+	<OntarioHeader
+		asset-base-path={useBaseUrl('/assets')}
+		type="application"
+		disable-dynamic-menu="true"
+		application-header-info='{
+		"title": "Driving and roads",
+		"href": "/driving-and-roads",
+		"maxSubheaderDesktopLinks": "3",
+		"maxSubheaderTabletLinks": "1"
+		}'
+		language-toggle-options='{
+		"englishLink": "/",
+		"frenchLink" : "/fr"
+		}'
+		menu-items='[
+		{
+		"title": "Vehicle registration",
+		"href": "/vehicle-registration",
+		"linkIsActive": "false"
+		},
+		{
+		"title": "Driver records",
+		"href": "/driver-records",
+		"linkIsActive": "false"
+		},
+		{
+		"title": "Accessible Parking Permits",
+		"href": "/accessible-parking-permits",
+		"linkIsActive": "false"
+		},
+		{
+		"title": "Highway traveler information",
+		"href": "/highway-traveler-information",
+		"linkIsActive": "true",
+		"onClickHandler": (e: Event) => {
+		e.preventDefault();
+		alert("Menu item clicked!")
+		},
+		}
+		]'
+		custom-language-toggle="{changeLanguage}">
+	 </OntarioHeader>
+</div>
 
 Example of an Application header component.
 
@@ -103,7 +155,7 @@ Example of an Application header component.
 	type="application"
 	disable-dynamic-menu="true"
 	application-header-info='{
-		"name": "Driving and roads",
+		"title": "Driving and roads",
 		"href": "/driving-and-roads",
 		"maxSubheaderDesktopLinks": "3",
 		"maxSubheaderTabletLinks": "1"
@@ -113,34 +165,41 @@ Example of an Application header component.
 		"frenchLink" : "/fr"
 	}'
 	menu-items='[
-		{ 
-			"name": "Vehicle registration", 
+		{
+			"title": "Vehicle registration",
 			"href": "/vehicle-registration",
-			"linkIsActive": "false" 
+			"linkIsActive": "false"
 		},
-		{ 
-			"name": "Driver records", 
+		{
+			"title": "Driver records",
 			"href": "/driver-records",
-			"linkIsActive": "false"  
-		}, 
-		{ 
-			"name": "Accessible Parking Permits",
-			"href": "/accessible-parking-permits",
-			"linkIsActive": "false"  
+			"linkIsActive": "false"
 		},
-		{ 
-			"name": "Highway traveler information", 
+		{
+			"title": "Accessible Parking Permits",
+			"href": "/accessible-parking-permits",
+			"linkIsActive": "false"
+		},
+		{
+			"title": "Highway traveler information",
 			"href": "/highway-traveler-information",
 			"linkIsActive": "true",
 			"onClickHandler": (e: Event) => {
 					e.preventDefault();
 					alert("Menu item clicked!")
-			},  
+			},
 		}
 	]'
-	custom-language-toggle-function="{testFunction()}"
+	custom-language-toggle="{changeLanguage}"
 >
 </ontario-header>
+
+<script>
+	const changeLanguage = (e: Event) => {
+		e.preventDefault();
+		// Logic to change language below
+	};
+</script>
 ```
 
 ## Custom property types
@@ -164,55 +223,55 @@ For Application headers, there is a default of a maximum of 5 menu links on desk
 
 ```html
 <ontario-header
-	menu-items='[ 
-		{ 
-			"name": "Vehicle registration",
+	menu-items='[
+		{
+			"title": "Vehicle registration",
 			"href": "/vehicle-registration",
-			"linkIsActive": "false" 
-		}, 
-		{ 
-			"name": "Driver records",
-			"href": "/driver-records", 
-			"linkIsActive": "false" 
-		}, 
-		{ 
-			"name": "Accessible Parking Permits", 
-			"href": "/accessible-parking-permits", 
-			"linkIsActive": "false" 
-		}, 
-		{ 
-			"name": "Highway traveler information", 
-			"href": "/highway-traveler-information", 
+			"linkIsActive": "false"
+		},
+		{
+			"title": "Driver records",
+			"href": "/driver-records",
+			"linkIsActive": "false"
+		},
+		{
+			"title": "Accessible Parking Permits",
+			"href": "/accessible-parking-permits",
+			"linkIsActive": "false"
+		},
+		{
+			"title": "Highway traveler information",
+			"href": "/highway-traveler-information",
 			"linkIsActive": "true",
 			"onClickHandler": (e: Event) => { e.preventDefault(); alert("Menu item clicked!") }
-		} 
+		}
 	]'
 ></ontario-header>
 ```
 
-| **Property name** | **Type**  | **Description**                                                                                                                                     |
-| ----------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`            | `string`  | The name of the menu item (this is what will appear as the label in the header/dropdown menu)                                                       |
-| `href`            | `string`  | The URL for the menu item                                                                                                                           |
-| `linkIsActive`    | `boolean` | A boolean flag for whether or not the current menu item link is active. If set to true, active classes and styles will be applied to the menu item. |
-| `onClickHandler`  | Function  | An optional custom function to add to the menu item. This can be used if any additional logic should happen when the menu item is clicked.          |
+| **Property name** | **Type**                 | **Description**                                                                                                                                     |
+| ----------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`           | `string`                 | The title of the menu item (this is what will appear as the label in the header/dropdown menu)                                                      |
+| `href`            | `string`                 | The URL for the menu item                                                                                                                           |
+| `linkIsActive`    | `boolean`                | A boolean flag for whether or not the current menu item link is active. If set to true, active classes and styles will be applied to the menu item. |
+| `onClickHandler`  | `(event: Event) => void` | An optional custom function to add to the menu item. This can be used if any additional logic should happen when the menu item is clicked.          |
 
 ### applicationHeaderInfo
 
-Note that this is only required for the Application header.
+Note that this is only required for the Application and ServiceOntario header types.
 
 ```html
-application-header-info='{ "name": "Application name", "href": "/", "maxSubheaderDesktopLinks": "4",
+application-header-info='{ "title": "Application name", "href": "/", "maxSubheaderDesktopLinks": "4",
 "maxSubheaderTabletLinks": "2", "maxSubheaderMobileLinks": "1" }'
 ```
 
-| **Property name**          | **Type** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| -------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| `name`                     | `string` | The name of the application (this is what will appear as the label for the application sub header title)                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `href`                     | `string` | The URL for the application name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `maxSubheaderDesktopLinks` | `number` | The number of links to appear in the Ontario application type header's subheader on desktop size. This is optional. <br /> These links will display in the order they are described in the `menuItems` prop. For example, if the `maxSubheaderDesktopLinks` number is '4', the first four `menuItems` items will appear in the application subheader on desktop, and the rest will appear in the menu dropdown. <br/> If no dropdown item is needed, the `maxSubheaderDesktopLinks` number should match the `menuItems` items length. |
-| `maxSubheaderTabletLinks`  | `number` | The number of links to appear in the Ontario application type header's subheader on tablet size. This is optional. <br /> These links will display in the order they are described in the `menuItems` prop. For example, if the `maxSubheaderTabletLinks` number is '2', the first two `menuItems` items will appear in the application subheader on tablet, and the rest will appear in the menu dropdown. <br /> If no dropdown item is needed, the `maxSubheaderTabletLinks` number should match the `menuItems` items length.     |
-| `maxSubheaderMobileLinks`  | `number` | The number of links to appear in the Ontario application type header's subheader on mobile size. This is optional. <br /> These links will display in the order they are described in the `menuItems` prop. For example, if the `maxSubheaderMobileLinks` number is '1', the first `menuItems` item will appear in the application subheader on mobile, and the rest will appear in the menu dropdown. <br /> If no dropdown item is needed, the `maxSubheaderMobileLinks` number should match the `menuItems` items length.          |     |
+| **Property name**          | **Type** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `title`                    | `string` | The title of the application (this is what will appear as the label for the application sub header title)                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `href`                     | `string` | The URL for the application name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `maxSubheaderDesktopLinks` | `number` | The number of links to appear in the Ontario application type header's subheader on desktop size. This is optional.<br /><br /> These links will display in the order they are described in the `menuItems` prop. For example, if the `maxSubheaderDesktopLinks` number is '4', the first four `menuItems` items will appear in the application subheader on desktop, and the rest will appear in the menu dropdown.<br /><br /> If no dropdown item is needed, the `maxSubheaderDesktopLinks` number should match the `menuItems` items length. |
+| `maxSubheaderTabletLinks`  | `number` | The number of links to appear in the Ontario application type header's subheader on tablet size. This is optional.<br />< br /> These links will display in the order they are described in the `menuItems` prop. For example, if the `maxSubheaderTabletLinks` number is '2', the first two `menuItems` items will appear in the application subheader on tablet, and the rest will appear in the menu dropdown.<br /><br /> If no dropdown item is needed, the `maxSubheaderTabletLinks` number should match the `menuItems` items length.     |
+| `maxSubheaderMobileLinks`  | `number` | The number of links to appear in the Ontario application type header's subheader on mobile size. This is optional.<br /><br /> These links will display in the order they are described in the `menuItems` prop. For example, if the `maxSubheaderMobileLinks` number is '1', the first `menuItems` item will appear in the application subheader on mobile, and the rest will appear in the menu dropdown.<br /><br /> If no dropdown item is needed, the `maxSubheaderMobileLinks` number should match the `menuItems` items length.           |
 
 ## Accessibility
 
@@ -224,15 +283,16 @@ To ensure best practices, it is important to limit the number of navigation link
 
 ## Properties
 
-| Property                | Attribute                 | Description                                                                                                                                                                                                                                            | Type                                           | Default         |
-| ----------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------- | --------------- |
-| `applicationHeaderInfo` | `application-header-info` | Information pertaining to the application header. This is only necessary for the 'application' header type. This includes the application name, URL and optional props for the number of links in the subheader for desktop, tablet, and mobile views. | `applicationHeaderInfo \| string`              | `undefined`     |
-| `customLanguageToggle`  | --                        | A custom function to pass to the language toggle button.                                                                                                                                                                                               | `Function \| undefined`                        | `undefined`     |
-| `disableDynamicMenu`    | `disable-dynamic-menu`    | Option to disable fetching of the dynamic menu from the Ontario Header API                                                                                                                                                                             | `boolean`                                      | `false`         |
-| `language`              | `language`                | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none is passed, it will default to English.                                           | `"en" \| "fr" \| undefined`                    | `'en'`          |
-| `languageToggleOptions` | `language-toggle-options` | Information pertaining to the language toggle links.                                                                                                                                                                                                   | `languageToggleOptions \| string \| undefined` | `undefined`     |
-| `menuItems`             | `menu-items`              | The items that will go inside the menu.                                                                                                                                                                                                                | `menuItems[] \| string`                        | `undefined`     |
-| `type`                  | `type`                    | The type of header.                                                                                                                                                                                                                                    | `"application" \| "ontario" \| undefined`      | `'application'` |
+| Property                | Attribute                 | Description                                                                                                                                                                                                                                            | Type                                                          | Default         |
+| ----------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- | --------------- |
+| `applicationHeaderInfo` | `application-header-info` | Information pertaining to the application header. This is only necessary for the 'application' header type. This includes the application name, URL and optional props for the number of links in the subheader for desktop, tablet, and mobile views. | `ApplicationHeaderInfo \| string`                             | `undefined`     |
+| `assetBasePath`         | `asset-base-path`         | The base path to an assets folder containing the Design System assets                                                                                                                                                                                  | `string`                                                      | `undefined`     |
+| `customLanguageToggle`  | --                        | A custom function to pass to the language toggle button.                                                                                                                                                                                               | `((event: Event) => void) \| undefined`                       | `undefined`     |
+| `disableDynamicMenu`    | `disable-dynamic-menu`    | Option to disable fetching of the dynamic menu from the Ontario Header API                                                                                                                                                                             | `boolean`                                                     | `false`         |
+| `language`              | `language`                | The language of the component. This is used for translations, and is by default set through event listeners checking for a language property from the header. If none is passed, it will default to English.                                           | `"en" \| "fr" \| undefined`                                   | `'en'`          |
+| `languageToggleOptions` | `language-toggle-options` | Information pertaining to the language toggle links.                                                                                                                                                                                                   | `LanguageToggleOptions \| string \| undefined`                | `undefined`     |
+| `menuItems`             | `menu-items`              | The items that will go inside the menu.                                                                                                                                                                                                                | `MenuItem[] \| string`                                        | `undefined`     |
+| `type`                  | `type`                    | The type of header.                                                                                                                                                                                                                                    | `"application" \| "ontario" \| "serviceOntario" \| undefined` | `'application'` |
 
 ## Dependencies
 

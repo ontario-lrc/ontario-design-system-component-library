@@ -34,6 +34,10 @@ export declare class OntarioFooter {
 	 * If set to `false`, the top margin value will be set to zero.
 	 */
 	topMargin: boolean;
+	/**
+	 * The base path to an assets folder containing the Design System assets
+	 */
+	assetBasePath: string;
 	translations: any;
 	private footerLinksState;
 	private socialLinksState;
@@ -51,10 +55,21 @@ export declare class OntarioFooter {
 	private processThreeColumnOptions;
 	private isTwoColumnLayout;
 	private isThreeColumnLayout;
+	private isExpandedLayout;
 	private verifyTwoColumnOptions;
 	private verifyThreeColumnOptions;
 	private parseOptions;
-	private getBackgroundImage;
+	/**
+	 * Generate a link to the given image based on the base asset path.
+	 * @param imageName Name of the image to build the path to
+	 * @returns Path to image with asset path
+	 */
+	private getImageAssetSrcPath;
+	/**
+	 * Generate CSS url to the background image
+	 * @returns path to the background image
+	 */
+	private getBackgroundImagePath;
 	private getFooterClasses;
 	private getFooterLinks;
 	componentWillLoad(): void;

@@ -1,13 +1,14 @@
 import { proxyCustomElement, HTMLElement, h } from '@stencil/core/internal/client';
-import { a as validateLanguage, v as validateValueAgainstArray } from './validation-functions.js';
+import { v as validateLanguage, a as validateValueAgainstArray } from './validation-functions.js';
 import { C as ConsoleMessageClass } from './console-message.js';
 import { t as translations } from './global.i18n.js';
 
 const ontarioLoadingIndicatorCss =
-	'.ontario-loading-indicator__overlay,.ontario-loading-indicator__overlay--within-container{position:fixed;width:100%;left:0;right:0;top:0;bottom:0;background-color:rgba(255, 255, 255, 0.7);z-index:9999}.ontario-loading-indicator__overlay[aria-hidden=false],.ontario-loading-indicator__overlay--within-container[aria-hidden=false]{display:block}.ontario-loading-indicator__overlay[aria-hidden=true],.ontario-loading-indicator__overlay--within-container[aria-hidden=true]{display:none}.ontario-loading-indicator__overlay--within-container{position:absolute}.ontario-loading-indicator{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;position:absolute;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);width:100%;height:100%}.ontario-loading-indicator p{color:#4d4d4d;font-family:"Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:1rem;line-height:1.5;font-weight:700;word-spacing:0.025rem;margin:0.75rem 0 0}.ontario-loading-indicator__spinner{-webkit-animation:rotator 1.5s linear infinite;animation:rotator 1.5s linear infinite;width:3rem;height:3rem;overflow:visible}.ontario-loading-indicator__spinner circle{stroke-dasharray:1, 200;stroke-dashoffset:0;stroke-linecap:round;stroke:#4d4d4d;-webkit-animation:dash 1.5s ease-in-out infinite;animation:dash 1.5s ease-in-out infinite}@-webkit-keyframes rotator{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotator{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@-webkit-keyframes dash{0%{stroke-dasharray:1, 200;stroke-dashoffset:0}50%{stroke-dasharray:89, 200;stroke-dashoffset:-35px}100%{stroke-dasharray:89, 200;stroke-dashoffset:-124px}}@keyframes dash{0%{stroke-dasharray:1, 200;stroke-dashoffset:0}50%{stroke-dasharray:89, 200;stroke-dashoffset:-35px}100%{stroke-dasharray:89, 200;stroke-dashoffset:-124px}}';
+	'.ontario-loading-indicator__overlay,.ontario-loading-indicator__overlay--within-container{position:fixed;width:100%;left:0;right:0;top:0;bottom:0;background-color:rgba(255, 255, 255, 0.7);z-index:9999}.ontario-loading-indicator__overlay[aria-hidden=false],.ontario-loading-indicator__overlay--within-container[aria-hidden=false]{display:block}.ontario-loading-indicator__overlay[aria-hidden=true],.ontario-loading-indicator__overlay--within-container[aria-hidden=true]{display:none}.ontario-loading-indicator__overlay--within-container{position:absolute}.ontario-loading-indicator{display:flex;flex-direction:column;align-items:center;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);width:100%;height:100%}.ontario-loading-indicator p{color:#4d4d4d;font-family:"Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:1rem;line-height:1.5;font-weight:700;word-spacing:0.025rem;margin:0.75rem 0 0}.ontario-loading-indicator__spinner{animation:rotator 1.5s linear infinite;width:3rem;height:3rem;overflow:visible}.ontario-loading-indicator__spinner circle{stroke-dasharray:1, 200;stroke-dashoffset:0;stroke-linecap:round;stroke:#4d4d4d;animation:dash 1.5s ease-in-out infinite}@keyframes rotator{100%{transform:rotate(360deg)}}@keyframes dash{0%{stroke-dasharray:1, 200;stroke-dashoffset:0}50%{stroke-dasharray:89, 200;stroke-dashoffset:-35px}100%{stroke-dasharray:89, 200;stroke-dashoffset:-124px}}';
+const OntarioLoadingIndicatorStyle0 = ontarioLoadingIndicatorCss;
 
 const OntarioLoadingIndicator$1 = /*@__PURE__*/ proxyCustomElement(
-	class extends HTMLElement {
+	class OntarioLoadingIndicator extends HTMLElement {
 		constructor() {
 			super();
 			this.__registerHost();
@@ -16,7 +17,7 @@ const OntarioLoadingIndicator$1 = /*@__PURE__*/ proxyCustomElement(
 			this.isLoading = false;
 			this.message = undefined;
 			this.fullScreenOverlay = true;
-			this.language = 'en';
+			this.language = undefined;
 			this.translations = translations;
 			this.isLoadingState = undefined;
 			this.typeState = undefined;
@@ -25,10 +26,18 @@ const OntarioLoadingIndicator$1 = /*@__PURE__*/ proxyCustomElement(
 		 * This listens for the `setAppLanguage` event sent from the test language toggler when it is is connected to the DOM. It is used for the initial language when the input component loads.
 		 */
 		handleSetAppLanguage(event) {
-			this.language = validateLanguage(event);
+			if (!this.language) {
+				this.language = validateLanguage(event);
+			}
 		}
 		handleHeaderLanguageToggled(event) {
 			this.language = validateLanguage(event);
+		}
+		/**
+		 * Watch for changes in the `isLoading` prop.
+		 */
+		isLoadingChanged(newIsLoading) {
+			this.isLoadingState = newIsLoading;
 		}
 		/**
 		 * Watch for changes in the `type` variable for validation purposes.
@@ -104,11 +113,12 @@ const OntarioLoadingIndicator$1 = /*@__PURE__*/ proxyCustomElement(
 		}
 		static get watchers() {
 			return {
+				isLoading: ['isLoadingChanged'],
 				type: ['validateType'],
 			};
 		}
 		static get style() {
-			return ontarioLoadingIndicatorCss;
+			return OntarioLoadingIndicatorStyle0;
 		}
 	},
 	[
@@ -128,6 +138,10 @@ const OntarioLoadingIndicator$1 = /*@__PURE__*/ proxyCustomElement(
 			[8, 'setAppLanguage', 'handleSetAppLanguage'],
 			[8, 'headerLanguageToggled', 'handleHeaderLanguageToggled'],
 		],
+		{
+			isLoading: ['isLoadingChanged'],
+			type: ['validateType'],
+		},
 	],
 );
 function defineCustomElement$1() {
@@ -150,3 +164,5 @@ const OntarioLoadingIndicator = OntarioLoadingIndicator$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { OntarioLoadingIndicator, defineCustomElement };
+
+//# sourceMappingURL=ontario-loading-indicator.js.map

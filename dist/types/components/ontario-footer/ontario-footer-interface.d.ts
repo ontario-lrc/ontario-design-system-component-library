@@ -1,4 +1,4 @@
-export declare type OntarioFooterType = 'default' | 'twoColumn' | 'threeColumn';
+export type OntarioFooterType = 'default' | 'twoColumn' | 'threeColumn';
 export interface FooterLink {
 	text?: string;
 	href: string;
@@ -15,8 +15,8 @@ export interface SimpleFooterLinks {
 	printerLink: Required<FooterLink>;
 	contactLink?: Required<FooterLink>;
 }
-export declare type FooterContentType = 'text' | 'list' | 'html';
-export declare type HeadingLevelType = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type FooterContentType = 'text' | 'list' | 'html';
+export type HeadingLevelType = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export interface FooterColumnContent {
 	heading?: string;
 	headingLevel?: HeadingLevelType;

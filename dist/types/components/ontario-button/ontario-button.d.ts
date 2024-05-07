@@ -2,6 +2,7 @@ import { Button } from './button.interface';
 import { ButtonType, HtmlType } from './ontario-button.types';
 export declare class OntarioButton implements Button {
 	host: HTMLElement;
+	internals: ElementInternals;
 	/**
 	 * The type of button to render.
 	 *
@@ -47,6 +48,10 @@ export declare class OntarioButton implements Button {
 	 */
 	private htmlTypeState;
 	private labelState;
+	/**
+	 * A reference to the internal button element.
+	 */
+	private buttonRef;
 	private updateLabelContent;
 	/**
 	 * Watch for changes to the `type` property for validation purposes.
@@ -85,9 +90,6 @@ export declare class OntarioButton implements Button {
 	 * Set `buttonId`, `label`, and `ariaLabel` using internal component logic.
 	 */
 	componentWillLoad(): void;
-	/**
-	 * This helper is used to help load translations for any slots + text content passed in by the user.
-	 */
 	componentDidLoad(): void;
 	render(): any;
 }
