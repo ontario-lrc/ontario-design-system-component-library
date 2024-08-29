@@ -1,6 +1,6 @@
 {
 	"name": "@ontario-lrc/ontario-design-system-component-library",
-	"version": "4.2.1",
+	"version": "4.2.2",
 	"private": false,
 	"description": "Ontario Design System Component Library. This is a carbon-copy of @ongov/ontario-design-system-component-library@4.2.0, with bug fixes discovered.",
 	"license": "Apache-2.0",
